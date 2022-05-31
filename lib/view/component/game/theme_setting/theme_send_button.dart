@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/view_model/theme_setting_view_model.dart';
 
-class SendButton extends StatelessWidget {
-  const SendButton({Key? key}) : super(key: key);
+class ThemeSendButton extends StatelessWidget {
+  const ThemeSendButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

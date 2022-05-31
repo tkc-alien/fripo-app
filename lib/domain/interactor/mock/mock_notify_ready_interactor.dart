@@ -28,13 +28,22 @@ class MockNotifyReadyInteractor implements NotifyReadyUseCase {
       Future.delayed(const Duration(milliseconds: 50), () {
         MockRoom.currentTurn = 1;
         MockRoom.turns['1'] = TurnInfo(
-          parentUserId: MockRoom.userMemberId,
+          parentUserId: MockRoom.members.values.first.userId,
           theme: null,
           targetPoint: 50,
           state: TurnState.themeSetting,
           answers: null,
         );
         MockRoom.addSink();
+        Future.delayed(const Duration(milliseconds: 3000), () {
+          final current = MockRoom.turns[MockRoom.currentTurn.toString()];
+          if (current == null) throw Exception();
+          MockRoom.turns[MockRoom.currentTurn.toString()] = current.copyWith(
+            theme: 'Test Theme',
+            state: TurnState.answering,
+          );
+          MockRoom.addSink();
+        });
       });
     }
     MockRoom.addSink();

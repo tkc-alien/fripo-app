@@ -22,12 +22,16 @@ class GameScreen extends StatelessWidget {
               title: const Text('Game'),
             ),
             body: SafeArea(
-              child: Column(
-                children: const [
-                  ExitButton(),
-                  OpenHelpModalButton(),
-                  Expanded(child: GameFragmentContainer()),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: const [
+                    ExitButton(),
+                    OpenHelpModalButton(),
+                    Expanded(child: GameFragmentContainer()),
+                  ],
+                ),
               ),
             ),
           ),

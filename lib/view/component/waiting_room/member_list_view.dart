@@ -9,7 +9,7 @@ class MemberListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final members = WaitingRoomViewModel.select(context, (vm) => vm.members);
     return ListView(
-      children: members.map((e) => _MemberTile(e)).toList(),
+      children: members.map((info) => _MemberTile(info)).toList(),
     );
   }
 }

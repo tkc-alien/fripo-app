@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fripo/view/component/game/theme_setting/generate_button.dart';
-import 'package:fripo/view/component/game/theme_setting/send_button.dart';
 import 'package:fripo/view/component/game/theme_setting/theme_input_field.dart';
+import 'package:fripo/view/component/game/theme_setting/theme_send_button.dart';
 import 'package:fripo/view_model/game_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -29,15 +29,12 @@ class ThemeSettingFragment extends StatelessWidget {
   }
 
   Widget _buildParentContent(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: const [
-          ThemeInputField(),
-          GenerateButton(),
-          SendButton(),
-        ],
-      ),
+    return Column(
+      children: const [
+        ThemeInputField(),
+        GenerateButton(),
+        ThemeSendButton(),
+      ],
     );
   }
 

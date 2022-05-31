@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fripo/data/mock/mock_room.dart';
+import 'package:fripo/domain/entity/answer_info.dart';
 import 'package:fripo/domain/entity/member_info.dart';
 import 'package:fripo/domain/entity/room_info.dart';
 import 'package:fripo/domain/entity/turn_info.dart';
@@ -28,19 +29,28 @@ class GameViewModel with ChangeNotifier {
 
   StreamSubscription<RoomInfo>? _roomInfoSubscription;
 
-  Map<String, MemberInfo>? _members;
-  int? _currentTurn;
+  Map<String, MemberInfo> _members = {};
   TurnInfo? _currentTurnInfo;
   bool _isUserParent = false;
 
   void _resolveRoomInfo(RoomInfo info) {
     print('GameVM listened RoomInfo update.');
     _members = info.members;
-    _currentTurn = info.currentTurn;
     _currentTurnInfo = info.turns?[info.currentTurn?.toString()];
     _isUserParent = _currentTurnInfo?.parentUserId ==
         MockRoom.userMemberId; // TODO 一時的にハードコーデイング　parentUserIdの仕様が曖昧なので要相談
     notifyListeners();
+  }
+
+  AnswerInfo? getAnswerByMember(MemberInfo member) {
+    final answers = _currentTurnInfo?.answers?.values;
+    if (answers == null) return null;
+    final hasAnswer = answers.any((answer) => answer.userId == member.userId);
+    return hasAnswer
+        ? _currentTurnInfo?.answers?.values.firstWhere(
+            (answer) => answer.userId == member.userId,
+          )
+        : null;
   }
 
   Future<void> exitRoom() async {
@@ -74,7 +84,7 @@ class GameViewModel with ChangeNotifier {
 }
 
 extension Getters on GameViewModel {
-  List<MemberInfo>? get members => _members?.values.toList();
+  List<MemberInfo> get members => _members.values.toList();
   TurnInfo? get currentTurnInfo => _currentTurnInfo;
   bool? get isUserParent => _isUserParent;
 }
