@@ -17,9 +17,10 @@ class RoomInfo {
       members: (map['members'] as Map<dynamic, dynamic>).map(
         (key, value) => MapEntry(key.toString(), MemberInfo.fromMap(value)),
       ),
-      turns: (map['turns'] as Map<dynamic, dynamic>?)?.map(
-        (key, value) => MapEntry(key.toString(), TurnInfo.fromMap(value)),
-      ),
+      turns: (map['turns'] as Map<dynamic, dynamic>?)
+          ?.values
+          .map((e) => TurnInfo.fromMap(e))
+          .toList(),
       currentTurn: map['currentTurn'],
       hostUserId: map['hostUserId'],
     );
@@ -27,7 +28,7 @@ class RoomInfo {
 
   final RoomState state;
   final Map<String, MemberInfo> members;
-  final Map<String, TurnInfo>? turns;
+  final List<TurnInfo>? turns;
   final int? currentTurn;
   final String hostUserId;
 }

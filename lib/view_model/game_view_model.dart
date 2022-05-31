@@ -36,7 +36,7 @@ class GameViewModel with ChangeNotifier {
   void _resolveRoomInfo(RoomInfo info) {
     print('GameVM listened RoomInfo update.');
     _members = info.members;
-    _currentTurnInfo = info.turns?[info.currentTurn?.toString()];
+    _currentTurnInfo = info.turns?[info.currentTurn ?? 0];
     _isUserParent = _currentTurnInfo?.parentUserId == AppData.userId;
     notifyListeners();
   }

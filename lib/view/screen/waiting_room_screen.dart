@@ -3,6 +3,7 @@ import 'package:fripo/view/component/waiting_room/copy_room_id_button.dart';
 import 'package:fripo/view/component/waiting_room/exit_button.dart';
 import 'package:fripo/view/component/waiting_room/member_list_view.dart';
 import 'package:fripo/view/component/waiting_room/room_id_label.dart';
+import 'package:fripo/view/component/waiting_room/start_room_button.dart';
 import 'package:fripo/view/screen/game_screen.dart';
 import 'package:fripo/view_model/waiting_room_view_model.dart';
 import 'package:provider/provider.dart';
@@ -37,11 +38,14 @@ class WaitingRoomScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
-                  children: const [
-                    RoomIdLabel(),
-                    CopyRoomIdButton(),
-                    Expanded(child: MemberListView()),
-                    ExitButton(),
+                  children: [
+                    const RoomIdLabel(),
+                    const CopyRoomIdButton(),
+                    const Expanded(child: MemberListView()),
+                    const ExitButton(),
+                    if (WaitingRoomViewModel.select(
+                        context, (vm) => vm.isUserHost))
+                      const StartRoomButton(),
                   ],
                 ),
               ),

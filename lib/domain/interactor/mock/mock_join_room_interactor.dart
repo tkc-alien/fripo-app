@@ -12,8 +12,15 @@ class MockJoinRoomInteractor implements JoinRoomUseCase {
     await Future.delayed(const Duration(milliseconds: 500));
 
     MockRoom.state = RoomState.preparing;
-    MockRoom.members[MockRoom.otherId] = MemberInfo(
-      name: '他ユーザ',
+    MockRoom.hostUserId = MockRoom.otherId1;
+    MockRoom.members[MockRoom.otherId1] = MemberInfo(
+      name: 'USER-1',
+      iconUrl: '...',
+      totalScore: 0,
+      isActive: true,
+    );
+    MockRoom.members[MockRoom.otherId2] = MemberInfo(
+      name: 'USER-2',
       iconUrl: '...',
       totalScore: 0,
       isActive: true,
@@ -22,7 +29,7 @@ class MockJoinRoomInteractor implements JoinRoomUseCase {
 
     Future.delayed(const Duration(milliseconds: 50), () {
       MockRoom.members[MockRoom.userId] = MemberInfo(
-        name: 'モックユーザ',
+        name: 'TEST-USER',
         iconUrl: '...',
         totalScore: 0,
         isActive: true,

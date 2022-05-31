@@ -1,11 +1,15 @@
 import 'package:fripo/domain/interactor/mock/mock_exit_room_interactor.dart';
 import 'package:fripo/domain/interactor/mock/mock_get_random_theme_interactor.dart';
+import 'package:fripo/domain/interactor/mock/mock_register_user_interactor.dart';
 import 'package:fripo/domain/interactor/mock/mock_send_answer_use_case.dart';
 import 'package:fripo/domain/interactor/mock/mock_send_theme_interactor.dart';
+import 'package:fripo/domain/interactor/mock/mock_start_room_interactor.dart';
 import 'package:fripo/domain/use_case/exit_room_use_case.dart';
 import 'package:fripo/domain/use_case/get_random_theme_use_case.dart';
+import 'package:fripo/domain/use_case/register_user_use_case.dart';
 import 'package:fripo/domain/use_case/send_answer_use_case.dart';
 import 'package:fripo/domain/use_case/send_theme_use_case.dart';
+import 'package:fripo/domain/use_case/start_room_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 import 'domain/interactor/mock/mock_create_room_interactor.dart';
@@ -24,6 +28,17 @@ enum Env {
 final sl = GetIt.instance;
 
 void init([Env env = Env.develop]) {
+  sl.registerLazySingleton<RegisterUserUseCase>(() {
+    switch (env) {
+      case Env.product:
+        throw Exception();
+      case Env.develop:
+        throw Exception();
+      case Env.mock:
+        return MockRegisterUserInteractor();
+    }
+  });
+
   sl.registerLazySingleton<CreateRoomUseCase>(() {
     switch (env) {
       case Env.product:
@@ -54,6 +69,17 @@ void init([Env env = Env.develop]) {
         throw Exception();
       case Env.mock:
         return MockExitRoomInteractor();
+    }
+  });
+
+  sl.registerLazySingleton<StartRoomUseCase>(() {
+    switch (env) {
+      case Env.product:
+        throw Exception();
+      case Env.develop:
+        throw Exception();
+      case Env.mock:
+        return MockStartRoomInteractor();
     }
   });
 

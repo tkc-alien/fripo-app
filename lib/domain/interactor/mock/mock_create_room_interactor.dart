@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:fripo/data/app_data.dart';
 import 'package:fripo/data/mock/mock_room.dart';
 import 'package:fripo/domain/alias/request.dart';
 import 'package:fripo/domain/entity/member_info.dart';
@@ -13,8 +14,9 @@ class MockCreateRoomInteractor implements CreateRoomUseCase {
 
     Future.delayed(const Duration(milliseconds: 100)).then((value) {
       MockRoom.state = RoomState.preparing;
+      MockRoom.hostUserId = AppData.userId;
       MockRoom.members[MockRoom.userId] = MemberInfo(
-        name: 'モックユーザ',
+        name: 'TEST-USER',
         iconUrl: '...',
         totalScore: 0,
         isActive: false,
@@ -23,8 +25,14 @@ class MockCreateRoomInteractor implements CreateRoomUseCase {
     });
 
     Future.delayed(const Duration(milliseconds: 1000)).then((_) {
-      MockRoom.members[MockRoom.otherId] = MemberInfo(
-        name: '他ユーザ',
+      MockRoom.members[MockRoom.otherId1] = MemberInfo(
+        name: 'USER-1',
+        iconUrl: '...',
+        totalScore: 0,
+        isActive: true,
+      );
+      MockRoom.members[MockRoom.otherId2] = MemberInfo(
+        name: 'USER-2',
         iconUrl: '...',
         totalScore: 0,
         isActive: true,

@@ -11,7 +11,7 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
   Response<void> call({required String answer}) async {
     await Future.delayed(const Duration(milliseconds: 1000));
 
-    final current = MockRoom.turns[MockRoom.currentTurn.toString()];
+    final current = MockRoom.turns[MockRoom.currentTurn];
     if (current == null) {
       return const Left(Failure('Specified Turn does not exist.'));
     }
@@ -19,12 +19,12 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
     final newAnswers = current.answers ?? {};
     newAnswers[MockRoom.userId] = AnswerInfo(
       answer: answer,
-      score: 0,
-      parentMarkedPoint: 0,
+      score: null,
+      parentMarkedPoint: null,
     );
     final shouldChangeState = newAnswers.length == MockRoom.members.length - 1;
 
-    MockRoom.turns[MockRoom.currentTurn.toString()] = current.copyWith(
+    MockRoom.turns[MockRoom.currentTurn] = current.copyWith(
       answers: newAnswers,
       state: shouldChangeState ? TurnState.marking : null,
     );
