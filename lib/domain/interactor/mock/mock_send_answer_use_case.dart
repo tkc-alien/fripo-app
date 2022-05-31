@@ -13,12 +13,11 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
 
     final current = MockRoom.turns[MockRoom.currentTurn.toString()];
     if (current == null) {
-      return Left(Failure('Specified Turn does not exist.'));
+      return const Left(Failure('Specified Turn does not exist.'));
     }
 
     final newAnswers = current.answers ?? {};
-    newAnswers[MockRoom.userAnswerId] = AnswerInfo(
-      userId: MockRoom.userId,
+    newAnswers[MockRoom.userId] = AnswerInfo(
       answer: answer,
       score: 0,
       parentMarkedPoint: 0,

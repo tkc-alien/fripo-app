@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:fripo/data/mock/mock_room.dart';
+import 'package:fripo/data/app_data.dart';
 import 'package:fripo/domain/entity/answer_info.dart';
 import 'package:fripo/domain/entity/member_info.dart';
 import 'package:fripo/domain/entity/room_info.dart';
@@ -37,20 +37,20 @@ class GameViewModel with ChangeNotifier {
     print('GameVM listened RoomInfo update.');
     _members = info.members;
     _currentTurnInfo = info.turns?[info.currentTurn?.toString()];
-    _isUserParent = _currentTurnInfo?.parentUserId ==
-        MockRoom.userMemberId; // TODO 一時的にハードコーデイング　parentUserIdの仕様が曖昧なので要相談
+    _isUserParent = _currentTurnInfo?.parentUserId == AppData.userId;
     notifyListeners();
   }
 
   AnswerInfo? getAnswerByMember(MemberInfo member) {
-    final answers = _currentTurnInfo?.answers?.values;
-    if (answers == null) return null;
-    final hasAnswer = answers.any((answer) => answer.userId == member.userId);
-    return hasAnswer
-        ? _currentTurnInfo?.answers?.values.firstWhere(
-            (answer) => answer.userId == member.userId,
-          )
-        : null;
+    // final answers = _currentTurnInfo?.answers?.values;
+    // if (answers == null) return null;
+    // final hasAnswer = answers.any((answer) => answer.userId == member.userId);
+    // return hasAnswer
+    //     ? _currentTurnInfo?.answers?.values.firstWhere(
+    //         (answer) => answer.userId == member.userId,
+    //       )
+    //     : null;
+    return null;
   }
 
   Future<void> exitRoom() async {

@@ -14,7 +14,7 @@ class MockSendThemeInteractor implements SendThemeUseCase {
 
     final current = MockRoom.turns[MockRoom.currentTurn.toString()];
     if (current == null) {
-      return Left(Failure('No Turn object found'));
+      return const Left(Failure('No Turn object found'));
     }
 
     MockRoom.turns[MockRoom.currentTurn.toString()] = current.copyWith(
@@ -27,8 +27,7 @@ class MockSendThemeInteractor implements SendThemeUseCase {
       final current = MockRoom.turns[MockRoom.currentTurn.toString()];
       if (current == null) return;
       final newAnswers = current.answers ?? {};
-      newAnswers[MockRoom.otherAnswerId] = AnswerInfo(
-        userId: MockRoom.otherId,
+      newAnswers[MockRoom.otherId] = AnswerInfo(
         answer: 'Mock Answer',
         score: 0,
         parentMarkedPoint: 0,

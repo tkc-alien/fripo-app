@@ -8,6 +8,7 @@ class RoomInfo {
     required this.members,
     required this.turns,
     required this.currentTurn,
+    required this.hostUserId,
   });
 
   factory RoomInfo.fromMap(Map<dynamic, dynamic> map) {
@@ -20,6 +21,7 @@ class RoomInfo {
         (key, value) => MapEntry(key.toString(), TurnInfo.fromMap(value)),
       ),
       currentTurn: map['currentTurn'],
+      hostUserId: map['hostUserId'],
     );
   }
 
@@ -27,4 +29,5 @@ class RoomInfo {
   final Map<String, MemberInfo> members;
   final Map<String, TurnInfo>? turns;
   final int? currentTurn;
+  final String hostUserId;
 }

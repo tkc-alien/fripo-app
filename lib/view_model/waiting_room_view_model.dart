@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fripo/domain/enum/room_state.dart';
 import 'package:fripo/domain/use_case/exit_room_use_case.dart';
 import 'package:fripo/domain/use_case/get_room_stream_use_case.dart';
-import 'package:fripo/domain/use_case/notify_ready_use_case.dart';
 import 'package:provider/provider.dart';
 
 import '../domain/entity/member_info.dart';
@@ -16,8 +15,7 @@ class WaitingRoomViewModel with ChangeNotifier {
   WaitingRoomViewModel({
     required this.roomId,
   })  : _getRoomStreamUseCase = sl(),
-        _exitRoomUseCase = sl(),
-        _notifyReadyUseCase = sl() {
+        _exitRoomUseCase = sl() {
     _roomInfoSubscription =
         _getRoomStreamUseCase.call(roomId: roomId).listen(_resolveRoomInfo);
   }
@@ -25,7 +23,6 @@ class WaitingRoomViewModel with ChangeNotifier {
   /// UseCases
   final GetRoomStreamUseCase _getRoomStreamUseCase;
   final ExitRoomUseCase _exitRoomUseCase;
-  final NotifyReadyUseCase _notifyReadyUseCase;
 
   /// 参加中のRoomId
   final String roomId;
@@ -44,14 +41,6 @@ class WaitingRoomViewModel with ChangeNotifier {
     _members = info.members.values.toList();
     _startFlg = info.state != RoomState.preparing;
     notifyListeners();
-  }
-
-  Future<void> notifyReady() async {
-    final res = await _notifyReadyUseCase.call();
-    res.fold(
-      (failure) => print(failure),
-      (_) => print('notifyReady succeed.'),
-    );
   }
 
   Future<void> exitRoom() async {

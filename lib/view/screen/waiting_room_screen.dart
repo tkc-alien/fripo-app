@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fripo/view/component/waiting_room/copy_room_id_button.dart';
 import 'package:fripo/view/component/waiting_room/exit_button.dart';
 import 'package:fripo/view/component/waiting_room/member_list_view.dart';
-import 'package:fripo/view/component/waiting_room/notify_ready_button.dart';
 import 'package:fripo/view/component/waiting_room/room_id_label.dart';
 import 'package:fripo/view/screen/game_screen.dart';
 import 'package:fripo/view_model/waiting_room_view_model.dart';
@@ -42,7 +41,6 @@ class WaitingRoomScreen extends StatelessWidget {
                     RoomIdLabel(),
                     CopyRoomIdButton(),
                     Expanded(child: MemberListView()),
-                    NotifyReadyButton(),
                     ExitButton(),
                   ],
                 ),

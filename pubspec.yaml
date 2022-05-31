@@ -41,6 +41,7 @@ dependencies:
   firebase_auth:
   firebase_database:
   firebase_storage:
+  cloud_functions: 
 
   # View
   flutter_native_splash:

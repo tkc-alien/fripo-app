@@ -31,7 +31,7 @@ class _MemberStatusTile extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('userId: ${info.userId}'),
+          Text('name: ${info.name}'),
           Text('isActive: ${info.isActive}'),
           Text('hasAnswered: $hasAnswer'),
         ],

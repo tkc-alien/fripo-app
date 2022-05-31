@@ -9,16 +9,13 @@ import '../../domain/enum/room_state.dart';
 class MockRoom {
   static const roomId = '00000';
   static const userId = 'mock-user';
-  static const userMemberId = 'mock-member';
-  static const userAnswerId = 'mock-answer';
   static const otherId = 'other-user';
-  static const otherMemberId = 'other-member';
-  static const otherAnswerId = 'other-answer';
 
   static RoomState state = RoomState.preparing;
   static Map<String, MemberInfo> members = {};
   static Map<String, TurnInfo> turns = {};
   static int currentTurn = 1;
+  static String hostUserId = MockRoom.userId;
 
   static var _data = StreamController<RoomInfo>();
 
@@ -36,6 +33,7 @@ class MockRoom {
         members: members,
         turns: turns,
         currentTurn: currentTurn,
+        hostUserId: hostUserId,
       ),
     );
   }

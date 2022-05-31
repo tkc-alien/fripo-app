@@ -26,11 +26,9 @@ class _MemberTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('userId: ${info.userId}'),
           Text('name: ${info.name}'),
           Text('iconUrl: ${info.iconUrl}'),
           Text('isActive: ${info.isActive}'),
-          Text('isReady: ${info.isReady}'),
         ],
       ),
     );

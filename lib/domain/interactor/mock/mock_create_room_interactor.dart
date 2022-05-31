@@ -13,36 +13,23 @@ class MockCreateRoomInteractor implements CreateRoomUseCase {
 
     Future.delayed(const Duration(milliseconds: 100)).then((value) {
       MockRoom.state = RoomState.preparing;
-      MockRoom.members[MockRoom.userMemberId] = MemberInfo(
-        userId: MockRoom.userId,
+      MockRoom.members[MockRoom.userId] = MemberInfo(
         name: 'モックユーザ',
         iconUrl: '...',
         totalScore: 0,
         isActive: false,
-        isReady: false,
       );
       MockRoom.addSink();
     });
 
     Future.delayed(const Duration(milliseconds: 1000)).then((_) {
-      MockRoom.members[MockRoom.otherMemberId] = MemberInfo(
-        userId: MockRoom.otherId,
+      MockRoom.members[MockRoom.otherId] = MemberInfo(
         name: '他ユーザ',
         iconUrl: '...',
         totalScore: 0,
         isActive: true,
-        isReady: false,
       );
       MockRoom.addSink();
-
-      Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-        final current = MockRoom.members[MockRoom.otherMemberId];
-        MockRoom.members[MockRoom.otherMemberId] = MemberInfo.copyWith(
-          current!,
-          isReady: true,
-        );
-        MockRoom.addSink();
-      });
     });
 
     return const Right(MockRoom.roomId);

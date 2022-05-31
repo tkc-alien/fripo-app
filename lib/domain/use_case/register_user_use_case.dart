@@ -1,5 +1,5 @@
 import 'package:fripo/domain/alias/request.dart';
 
-abstract class NotifyReadyUseCase {
+abstract class RegisterUserUseCase {
   Response<void> call();
 }

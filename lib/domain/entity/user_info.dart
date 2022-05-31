@@ -1,5 +1,5 @@
 class UserInfo {
-  UserInfo({
+  const UserInfo({
     required this.name,
     required this.iconUrl,
   });

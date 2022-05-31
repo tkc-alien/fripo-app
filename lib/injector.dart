@@ -11,13 +11,9 @@ import 'package:get_it/get_it.dart';
 import 'domain/interactor/mock/mock_create_room_interactor.dart';
 import 'domain/interactor/mock/mock_get_room_stream_interactor.dart';
 import 'domain/interactor/mock/mock_join_room_interactor.dart';
-import 'domain/interactor/mock/mock_notify_active_interactor.dart';
-import 'domain/interactor/mock/mock_notify_ready_interactor.dart';
 import 'domain/use_case/create_room_use_case.dart';
 import 'domain/use_case/get_room_stream_use_case.dart';
 import 'domain/use_case/join_room_use_case.dart';
-import 'domain/use_case/notify_active_use_case.dart';
-import 'domain/use_case/notify_ready_use_case.dart';
 
 enum Env {
   product,
@@ -69,28 +65,6 @@ void init([Env env = Env.develop]) {
         throw Exception();
       case Env.mock:
         return MockGetRoomStreamInteractor();
-    }
-  });
-
-  sl.registerLazySingleton<NotifyReadyUseCase>(() {
-    switch (env) {
-      case Env.product:
-        throw Exception();
-      case Env.develop:
-        throw Exception();
-      case Env.mock:
-        return MockNotifyReadyInteractor();
-    }
-  });
-
-  sl.registerLazySingleton<NotifyActiveUseCase>(() {
-    switch (env) {
-      case Env.product:
-        throw Exception();
-      case Env.develop:
-        throw Exception();
-      case Env.mock:
-        return MockNotifyActiveInteractor();
     }
   });
 

@@ -3,7 +3,7 @@ import 'package:fripo/domain/enum/turn_state.dart';
 import 'answer_info.dart';
 
 class TurnInfo {
-  TurnInfo({
+  const TurnInfo({
     required this.parentUserId,
     required this.theme,
     required this.targetPoint,

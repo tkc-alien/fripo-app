@@ -8,7 +8,7 @@ class MockExitRoomInteractor implements ExitRoomUseCase {
   Response<void> call({required String roomId}) async {
     await Future.delayed(const Duration(milliseconds: 500));
 
-    MockRoom.members.remove(MockRoom.userMemberId);
+    MockRoom.members.remove(MockRoom.userId);
     MockRoom.addSink();
 
     return const Right(null);
