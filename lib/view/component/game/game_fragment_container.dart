@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fripo/view/component/game/answering_fragment.dart';
+import 'package:fripo/view/component/game/marking_fragment.dart';
 import 'package:fripo/view/component/game/theme_setting_fragment.dart';
 import 'package:fripo/view_model/game_view_model.dart';
 
@@ -24,7 +25,7 @@ class _GameFragmentContainerState extends State<GameFragmentContainer> {
       case TurnState.answering:
         return const AnsweringFragment();
       case TurnState.marking:
-        return Container();
+        return const MarkingFragment();
       case TurnState.result:
         return Container();
       default:

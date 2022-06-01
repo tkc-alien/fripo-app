@@ -9,21 +9,28 @@ class MemberStatusList extends StatelessWidget {
   Widget build(BuildContext context) {
     final members = GameViewModel.select(context, (vm) => vm.members);
     return ListView(
-      children: members.map((info) => _MemberStatusTile(info)).toList(),
+      children: members.entries
+          .map((e) => _MemberStatusTile(e.key, e.value))
+          .toList(),
     );
   }
 }
 
 class _MemberStatusTile extends StatelessWidget {
-  const _MemberStatusTile(this.info, {Key? key}) : super(key: key);
+  const _MemberStatusTile(
+    this.userId,
+    this.info, {
+    Key? key,
+  }) : super(key: key);
 
+  final String userId;
   final MemberInfo info;
 
   @override
   Widget build(BuildContext context) {
     final hasAnswer = GameViewModel.select(
       context,
-      (vm) => vm.getAnswerByMember(info) != null,
+      (vm) => vm.currentTurnInfo?.answers?[userId] != null,
     );
 
     return Padding(

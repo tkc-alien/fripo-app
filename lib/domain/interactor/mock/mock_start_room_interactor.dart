@@ -22,7 +22,7 @@ class MockStartRoomInteractor implements StartRoomUseCase {
         MockRoom.turns.add(TurnInfo(
           parentUserId: MockRoom.hostUserId,
           theme: null,
-          targetPoint: 50,
+          targetPoint: 30,
           state: TurnState.themeSetting,
           answers: null,
         ));

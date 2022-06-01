@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fripo/data/app_data.dart';
-import 'package:fripo/domain/entity/answer_info.dart';
 import 'package:fripo/domain/entity/member_info.dart';
 import 'package:fripo/domain/entity/room_info.dart';
 import 'package:fripo/domain/entity/turn_info.dart';
@@ -41,18 +40,6 @@ class GameViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  AnswerInfo? getAnswerByMember(MemberInfo member) {
-    // final answers = _currentTurnInfo?.answers?.values;
-    // if (answers == null) return null;
-    // final hasAnswer = answers.any((answer) => answer.userId == member.userId);
-    // return hasAnswer
-    //     ? _currentTurnInfo?.answers?.values.firstWhere(
-    //         (answer) => answer.userId == member.userId,
-    //       )
-    //     : null;
-    return null;
-  }
-
   Future<void> exitRoom() async {
     final res = await _exitRoomUseCase.call(roomId: roomId);
     res.fold(
@@ -84,7 +71,7 @@ class GameViewModel with ChangeNotifier {
 }
 
 extension Getters on GameViewModel {
-  List<MemberInfo> get members => _members.values.toList();
+  Map<String, MemberInfo> get members => _members;
   TurnInfo? get currentTurnInfo => _currentTurnInfo;
   bool? get isUserParent => _isUserParent;
 }

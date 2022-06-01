@@ -22,7 +22,7 @@ class MockSendThemeInteractor implements SendThemeUseCase {
       final current = MockRoom.turns[MockRoom.currentTurn];
       final newAnswers = current.answers ?? {};
       newAnswers[MockRoom.otherId1] = AnswerInfo(
-        answer: 'Mock Answer',
+        answer: 'Mock Answer1',
         score: null,
         parentMarkedPoint: null,
       );
