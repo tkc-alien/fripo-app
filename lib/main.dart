@@ -13,23 +13,36 @@ void main() async {
 
   // 環境
   const env = injector.Env.mock;
+  bool shouldShowIntroduction;
 
   // DI注入
   injector.init(env);
 
   // Firebase
   await Firebase.initializeApp();
-  if (FirebaseAuth.instance.currentUser == null) {
-    await FirebaseAuth.instance.signInAnonymously();
+  if (env != injector.Env.mock) {
+    if (FirebaseAuth.instance.currentUser == null) {
+      await FirebaseAuth.instance.signInAnonymously();
+      shouldShowIntroduction = true;
+    } else {
+      shouldShowIntroduction = false;
+    }
+  } else {
+    await FirebaseAuth.instance.signOut();
+    shouldShowIntroduction = true;
   }
 
   // AppData
-  if (env == injector.Env.mock) {
-    AppData.userId = MockRoom.userId;
-  } else {
+  if (env != injector.Env.mock) {
     AppData.userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+  } else {
+    AppData.userId = MockRoom.userId;
   }
 
   // runApp
-  runApp(const App());
+  runApp(
+    App(
+      shouldShowIntroduction: shouldShowIntroduction,
+    ),
+  );
 }
