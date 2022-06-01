@@ -4,7 +4,7 @@ import 'package:fripo/domain/use_case/register_user_use_case.dart';
 
 class MockRegisterUserInteractor implements RegisterUserUseCase {
   @override
-  Response<void> call() async {
+  Response<void> call({required String name}) async {
     return const Right(null);
   }
 }

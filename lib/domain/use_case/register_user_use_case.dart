@@ -1,5 +1,5 @@
 import 'package:fripo/domain/alias/request.dart';
 
 abstract class RegisterUserUseCase {
-  Response<void> call();
+  Response<void> call({required String name});
 }

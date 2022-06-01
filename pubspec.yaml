@@ -36,6 +36,9 @@ dependencies:
   provider:
   freezed_annotation:
 
+  # Repository
+  shared_preferences:
+
   # Firebase
   firebase_core:
   firebase_auth:
@@ -45,6 +48,7 @@ dependencies:
 
   # View
   flutter_native_splash:
+  introduction_screen:
   cached_network_image:
 
   # The following adds the Cupertino Icons font to your application.
