@@ -13,7 +13,7 @@ class AppIntroductionViewModel with ChangeNotifier {
 
   Future<String?> register() async {
     final name = getNameText?.call();
-    if (name == null) return 'No Name';
+    if (name == null) return 'getNameText is null';
     final res = await _registerUserUseCase.call(name: name);
     return res.fold(
       (failure) => failure.toString(),

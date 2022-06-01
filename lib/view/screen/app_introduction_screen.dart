@@ -14,32 +14,30 @@ class AppIntroductionScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => AppIntroductionViewModel(),
       builder: (context, child) {
-        return Scaffold(
-          body: SafeArea(
-            child: IntroductionScreen(
-              showDoneButton: false,
-              showNextButton: false,
-              showBackButton: false,
-              showSkipButton: false,
-              pages: [
-                PageViewModel(
-                  title: 'AppIntroduction',
-                  body:
-                      'This screen is displayed when no user information is stored in the application.',
-                ),
-                PageViewModel(
-                  title: 'Title',
-                  bodyWidget: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: const [
-                      NameInputField(),
-                      RegisterButton(),
-                    ],
-                  ),
-                ),
-              ],
+        return IntroductionScreen(
+          isTopSafeArea: true,
+          isBottomSafeArea: true,
+          showDoneButton: false,
+          showNextButton: false,
+          showBackButton: false,
+          showSkipButton: false,
+          pages: [
+            PageViewModel(
+              title: 'App Introduction',
+              body:
+                  'This screen is displayed when no user information is stored in the application.',
             ),
-          ),
+            PageViewModel(
+              title: 'User Register',
+              bodyWidget: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: const [
+                  NameInputField(),
+                  RegisterButton(),
+                ],
+              ),
+            ),
+          ],
         );
       },
     );
