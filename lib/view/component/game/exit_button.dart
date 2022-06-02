@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fripo/view/screen/total_result_screen.dart';
 import 'package:fripo/view_model/game_view_model.dart';
 
 class ExitButton extends StatelessWidget {
@@ -13,7 +14,18 @@ class ExitButton extends StatelessWidget {
   }
 
   void onPressed(BuildContext context) {
-    GameViewModel.read(context).exitRoom();
-    Navigator.popUntil(context, (route) => route.isFirst);
+    final vm = GameViewModel.read(context);
+    vm.exitRoom();
+    //Navigator.popUntil(context, (route) => route.isFirst);
+    vm.cancelSubscriptions();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => TotalResultScreen(
+          members: vm.roomInfo!.members,
+          turns: vm.roomInfo!.turns!,
+        ),
+      ),
+    );
   }
 }

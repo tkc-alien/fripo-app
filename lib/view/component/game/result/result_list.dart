@@ -7,7 +7,7 @@ class ResultList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final members = GameViewModel.select(context, (vm) => vm.members);
+    final members = GameViewModel.select(context, (vm) => vm.roomInfo!.members);
 
     return ListView(
       children: members.entries

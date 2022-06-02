@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fripo/data/app_data.dart';
-import 'package:fripo/domain/entity/member_info.dart';
 import 'package:fripo/domain/entity/room_info.dart';
 import 'package:fripo/domain/entity/turn_info.dart';
 import 'package:fripo/domain/use_case/exit_room_use_case.dart';
@@ -28,16 +27,18 @@ class GameViewModel with ChangeNotifier {
 
   StreamSubscription<RoomInfo>? _roomInfoSubscription;
 
-  Map<String, MemberInfo> _members = {};
-  TurnInfo? _currentTurnInfo;
+  RoomInfo? _roomInfo;
   bool _isUserParent = false;
 
   void _resolveRoomInfo(RoomInfo info) {
     print('GameVM listened RoomInfo update.');
-    _members = info.members;
-    _currentTurnInfo = info.turns?[info.currentTurn ?? 0];
-    _isUserParent = _currentTurnInfo?.parentUserId == AppData.userId;
+    _roomInfo = info;
+    _isUserParent = currentTurnInfo?.parentUserId == AppData.userId;
     notifyListeners();
+  }
+
+  TurnInfo? get currentTurnInfo {
+    return _roomInfo?.turns?[_roomInfo!.currentTurn!];
   }
 
   Future<void> exitRoom() async {
@@ -71,7 +72,6 @@ class GameViewModel with ChangeNotifier {
 }
 
 extension Getters on GameViewModel {
-  Map<String, MemberInfo> get members => _members;
-  TurnInfo? get currentTurnInfo => _currentTurnInfo;
+  RoomInfo? get roomInfo => _roomInfo;
   bool? get isUserParent => _isUserParent;
 }
