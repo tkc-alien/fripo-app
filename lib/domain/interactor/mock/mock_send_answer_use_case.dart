@@ -3,7 +3,6 @@ import 'package:fripo/data/mock/mock_room.dart';
 import 'package:fripo/domain/alias/request.dart';
 import 'package:fripo/domain/entity/answer_info.dart';
 import 'package:fripo/domain/enum/turn_state.dart';
-import 'package:fripo/domain/error/failure.dart';
 import 'package:fripo/domain/use_case/send_answer_use_case.dart';
 
 class MockSendAnswerInteractor implements SendAnswerUseCase {
@@ -12,9 +11,6 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
     await Future.delayed(const Duration(milliseconds: 1000));
 
     final current = MockRoom.turns[MockRoom.currentTurn];
-    if (current == null) {
-      return const Left(Failure('Specified Turn does not exist.'));
-    }
 
     final newAnswers = current.answers ?? {};
     newAnswers[MockRoom.userId] = AnswerInfo(
@@ -22,13 +18,49 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
       score: null,
       parentMarkedPoint: null,
     );
-    final shouldChangeState = newAnswers.length == MockRoom.members.length - 1;
+
+    final parent = current.parentUserId;
+    if (parent == MockRoom.otherId1) {
+      newAnswers[MockRoom.otherId2] = AnswerInfo(
+        answer: 'MockAnswer',
+        score: null,
+        parentMarkedPoint: null,
+      );
+    } else if (parent == MockRoom.otherId2) {
+      newAnswers[MockRoom.otherId1] = AnswerInfo(
+        answer: 'MockAnswer',
+        score: null,
+        parentMarkedPoint: null,
+      );
+    }
 
     MockRoom.turns[MockRoom.currentTurn] = current.copyWith(
       answers: newAnswers,
-      state: shouldChangeState ? TurnState.marking : null,
+      state: TurnState.marking,
     );
     MockRoom.addSink();
+
+    Future.delayed(const Duration(milliseconds: 5000), () {
+      final current = MockRoom.turns[MockRoom.currentTurn];
+      const point = 50;
+      current.answers!.forEach((key, value) {
+        final score = 50 - (current.targetPoint - point).abs();
+        current.answers![key] = AnswerInfo(
+          answer: value.answer,
+          score: score,
+          parentMarkedPoint: point,
+        );
+
+        final currentMember = MockRoom.members[key]!;
+        MockRoom.members[key] = currentMember.copyWith(
+          totalScore: currentMember.totalScore + score,
+        );
+      });
+      MockRoom.turns[MockRoom.currentTurn] = current.copyWith(
+        state: TurnState.result,
+      );
+      MockRoom.addSink();
+    });
 
     return const Right(null);
   }

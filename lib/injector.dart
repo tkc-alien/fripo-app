@@ -1,3 +1,5 @@
+import 'package:fripo/domain/interactor/mock/mock_notify_next_interactor.dart';
+import 'package:fripo/domain/use_case/notify_next_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 import 'domain/error/interactor_not_registered_exception.dart';
@@ -124,5 +126,11 @@ void init([Env env = Env.develop]) {
     product: null,
     develop: null,
     mock: MockSendPointsInteractor(),
+  );
+
+  register<NotifyNextUseCase>(
+    product: null,
+    develop: null,
+    mock: MockNotifyNextInteractor(),
   );
 }

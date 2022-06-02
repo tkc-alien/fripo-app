@@ -20,6 +20,9 @@ class MockSendPointsInteractor implements SendPointsUseCase {
         score: score,
         parentMarkedPoint: point,
       );
+      MockRoom.members[userId] = MockRoom.members[userId]!.copyWith(
+        totalScore: MockRoom.members[userId]!.totalScore + score,
+      );
     });
     MockRoom.turns[MockRoom.currentTurn] = current.copyWith(
       state: TurnState.result,
