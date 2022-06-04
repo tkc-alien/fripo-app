@@ -38,6 +38,8 @@ dependencies:
 
   # Repository
   shared_preferences:
+  image_picker:
+  image_cropper: 
 
   # Firebase
   firebase_core:

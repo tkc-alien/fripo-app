@@ -1,5 +1,12 @@
+import 'package:fripo/domain/interactor/crop_image_interactor.dart';
 import 'package:fripo/domain/interactor/mock/mock_notify_next_interactor.dart';
+import 'package:fripo/domain/interactor/mock/mock_update_profile_interactor.dart';
+import 'package:fripo/domain/interactor/mock/mock_upload_image_interactor.dart';
+import 'package:fripo/domain/interactor/pick_image_interactor.dart';
+import 'package:fripo/domain/use_case/crop_image_use_case.dart';
 import 'package:fripo/domain/use_case/notify_next_use_case.dart';
+import 'package:fripo/domain/use_case/pick_image_use_case.dart';
+import 'package:fripo/domain/use_case/upload_image_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 import 'domain/error/interactor_not_registered_exception.dart';
@@ -23,6 +30,7 @@ import 'domain/use_case/send_answer_use_case.dart';
 import 'domain/use_case/send_points_use_case.dart';
 import 'domain/use_case/send_theme_use_case.dart';
 import 'domain/use_case/start_room_use_case.dart';
+import 'domain/use_case/update_profile_use_case.dart';
 
 /// ビルド環境
 enum Env {
@@ -132,5 +140,29 @@ void init([Env env = Env.develop]) {
     product: null,
     develop: null,
     mock: MockNotifyNextInteractor(),
+  );
+
+  register<PickImageUseCase>(
+    product: null,
+    develop: null,
+    mock: PickImageInteractor(),
+  );
+
+  register<CropImageUseCase>(
+    product: null,
+    develop: null,
+    mock: CropImageInteractor(),
+  );
+
+  register<UploadImageUseCase>(
+    product: null,
+    develop: null,
+    mock: MockUploadImageInteractor(),
+  );
+
+  register<UpdateProfileUseCase>(
+    product: null,
+    develop: null,
+    mock: MockUpdateProfileInteractor(),
   );
 }
