@@ -12,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // 環境
-  const env = injector.Env.mock;
+  const env = injector.Env.develop;
   bool shouldShowIntroduction;
 
   // DI注入
@@ -23,14 +23,9 @@ void main() async {
   // Firebase
   await Firebase.initializeApp();
   if (env != injector.Env.mock) {
-    if (FirebaseAuth.instance.currentUser == null) {
-      await FirebaseAuth.instance.signInAnonymously();
-      shouldShowIntroduction = true;
-    } else {
-      shouldShowIntroduction = false;
-    }
+    shouldShowIntroduction = FirebaseAuth.instance.currentUser == null;
+    await FirebaseAuth.instance.signInAnonymously();
   } else {
-    await FirebaseAuth.instance.signOut();
     shouldShowIntroduction = true;
   }
 
