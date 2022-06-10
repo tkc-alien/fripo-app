@@ -1,3 +1,7 @@
+import 'package:fripo/domain/interactor/exit_room_interactor.dart';
+import 'package:fripo/domain/interactor/get_room_stream_interactor.dart';
+import 'package:fripo/domain/interactor/join_room_interactor.dart';
+import 'package:fripo/domain/interactor/start_room_interactor.dart';
 import 'package:get_it/get_it.dart';
 
 import 'domain/interactor/create_room_interactor.dart';
@@ -94,25 +98,25 @@ Result init([Env env = Env.develop]) {
 
   register<JoinRoomUseCase>(
     product: null,
-    develop: null,
+    develop: JoinRoomInteractor(),
     mock: MockJoinRoomInteractor(),
   );
 
   register<ExitRoomUseCase>(
     product: null,
-    develop: null,
+    develop: ExitRoomInteractor(),
     mock: MockExitRoomInteractor(),
   );
 
   register<StartRoomUseCase>(
     product: null,
-    develop: null,
+    develop: StartRoomInteractor(),
     mock: MockStartRoomInteractor(),
   );
 
   register<GetRoomStreamUseCase>(
     product: null,
-    develop: null,
+    develop: GetRoomStreamInteractor(),
     mock: MockGetRoomStreamInteractor(),
   );
 

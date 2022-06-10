@@ -67,7 +67,9 @@ class WaitingRoomScreen extends StatelessWidget {
   }
 
   Future<bool> onWillPop(BuildContext context) async {
-    await WaitingRoomViewModel.read(context).exitRoom();
+    final vm = WaitingRoomViewModel.read(context);
+    await vm.exitRoom();
+    vm.cancelSubscriptions();
     return true;
   }
 }
