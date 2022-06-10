@@ -38,7 +38,7 @@ class GameViewModel with ChangeNotifier {
   }
 
   TurnInfo? get currentTurnInfo {
-    return _roomInfo?.turns?[_roomInfo!.currentTurn!];
+    return _roomInfo?.turns?[_roomInfo!.currentTurnId];
   }
 
   Future<void> exitRoom() async {
