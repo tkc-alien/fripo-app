@@ -7,7 +7,9 @@ class RoomInfo {
     required this.state,
     required this.members,
     required this.turns,
+    required this.maxTurn,
     required this.currentTurn,
+    required this.currentTurnId,
     required this.hostUserId,
   });
 
@@ -17,18 +19,21 @@ class RoomInfo {
       members: (map['members'] as Map<dynamic, dynamic>).map(
         (key, value) => MapEntry(key.toString(), MemberInfo.fromMap(value)),
       ),
-      turns: (map['turns'] as Map<dynamic, dynamic>?)
-          ?.values
-          .map((e) => TurnInfo.fromMap(e))
-          .toList(),
+      turns: (map['turns'] as Map<dynamic, dynamic>?)?.map(
+        (k, v) => MapEntry(k, TurnInfo.fromMap(v)),
+      ),
+      maxTurn: map['maxTurn'],
       currentTurn: map['currentTurn'],
+      currentTurnId: map['currentTurnId'],
       hostUserId: map['hostUserId'],
     );
   }
 
   final RoomState state;
   final Map<String, MemberInfo> members;
-  final List<TurnInfo>? turns;
+  final Map<String, TurnInfo>? turns;
+  final int? maxTurn;
   final int? currentTurn;
+  final String? currentTurnId;
   final String hostUserId;
 }

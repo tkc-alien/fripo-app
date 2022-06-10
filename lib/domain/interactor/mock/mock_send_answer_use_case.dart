@@ -10,7 +10,7 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
   Response<void> call({required String answer}) async {
     await Future.delayed(const Duration(milliseconds: 1000));
 
-    final current = MockRoom.turns[MockRoom.currentTurn];
+    final current = MockRoom.turns[MockRoom.currentTurnId]!;
 
     final newAnswers = current.answers ?? {};
     newAnswers[MockRoom.userId] = AnswerInfo(
@@ -34,14 +34,14 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
       );
     }
 
-    MockRoom.turns[MockRoom.currentTurn] = current.copyWith(
+    MockRoom.turns[MockRoom.currentTurnId] = current.copyWith(
       answers: newAnswers,
       state: TurnState.marking,
     );
     MockRoom.addSink();
 
     Future.delayed(const Duration(milliseconds: 5000), () {
-      final current = MockRoom.turns[MockRoom.currentTurn];
+      final current = MockRoom.turns[MockRoom.currentTurnId]!;
       const point = 50;
       current.answers!.forEach((key, value) {
         final score = 50 - (current.targetPoint - point).abs();
@@ -56,7 +56,7 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
           totalScore: currentMember.totalScore + score,
         );
       });
-      MockRoom.turns[MockRoom.currentTurn] = current.copyWith(
+      MockRoom.turns[MockRoom.currentTurnId] = current.copyWith(
         state: TurnState.result,
       );
       MockRoom.addSink();

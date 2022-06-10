@@ -14,8 +14,10 @@ class MockRoom {
 
   static RoomState state = RoomState.preparing;
   static Map<String, MemberInfo> members = {};
-  static List<TurnInfo> turns = [];
+  static Map<String, TurnInfo> turns = {};
+  static int maxTurn = 10;
   static int currentTurn = -1;
+  static String currentTurnId = 'turn-';
   static String hostUserId = MockRoom.userId;
 
   static var _data = StreamController<RoomInfo>();
@@ -27,13 +29,19 @@ class MockRoom {
     _data = StreamController<RoomInfo>();
   }
 
+  static String newTurnId() {
+    return '${currentTurnId}n';
+  }
+
   static void addSink() {
     _data.sink.add(
       RoomInfo(
         state: state,
         members: members,
         turns: turns,
+        maxTurn: maxTurn,
         currentTurn: currentTurn,
+        currentTurnId: currentTurnId,
         hostUserId: hostUserId,
       ),
     );

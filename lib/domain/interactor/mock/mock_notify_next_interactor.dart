@@ -9,7 +9,7 @@ import '../../enum/turn_state.dart';
 class MockNotifyNextInteractor implements NotifyNextUseCase {
   @override
   Response<void> call() async {
-    final currentParent = MockRoom.turns[MockRoom.currentTurn].parentUserId;
+    final currentParent = MockRoom.turns[MockRoom.currentTurnId]!.parentUserId;
     final String newParentId;
     switch (currentParent) {
       case MockRoom.userId:
@@ -28,21 +28,22 @@ class MockNotifyNextInteractor implements NotifyNextUseCase {
     }
 
     MockRoom.currentTurn++;
-    MockRoom.turns.add(TurnInfo(
+    MockRoom.currentTurnId = MockRoom.newTurnId();
+    MockRoom.turns[MockRoom.currentTurnId] = TurnInfo(
       parentUserId: newParentId,
       theme: null,
       targetPoint: 30,
       state: TurnState.themeSetting,
       answers: null,
-    ));
+    );
     MockRoom.addSink();
     return const Right(null);
   }
 
   void _setThemeAsync() async {
     Future.delayed(const Duration(milliseconds: 5000), () {
-      final current = MockRoom.turns[MockRoom.currentTurn];
-      MockRoom.turns[MockRoom.currentTurn] = current.copyWith(
+      final current = MockRoom.turns[MockRoom.currentTurnId]!;
+      MockRoom.turns[MockRoom.currentTurnId] = current.copyWith(
         state: TurnState.answering,
         theme: 'Other set Theme',
       );
