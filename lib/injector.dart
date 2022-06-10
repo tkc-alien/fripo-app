@@ -1,11 +1,11 @@
-import 'package:fripo/domain/interactor/exit_room_interactor.dart';
-import 'package:fripo/domain/interactor/get_room_stream_interactor.dart';
-import 'package:fripo/domain/interactor/join_room_interactor.dart';
-import 'package:fripo/domain/interactor/start_room_interactor.dart';
 import 'package:get_it/get_it.dart';
 
 import 'domain/interactor/create_room_interactor.dart';
 import 'domain/interactor/crop_image_interactor.dart';
+import 'domain/interactor/exit_room_interactor.dart';
+import 'domain/interactor/get_random_theme_interactor.dart';
+import 'domain/interactor/get_room_stream_interactor.dart';
+import 'domain/interactor/join_room_interactor.dart';
 import 'domain/interactor/mock/mock_create_room_interactor.dart';
 import 'domain/interactor/mock/mock_exit_room_interactor.dart';
 import 'domain/interactor/mock/mock_get_random_theme_interactor.dart';
@@ -21,6 +21,7 @@ import 'domain/interactor/mock/mock_update_profile_interactor.dart';
 import 'domain/interactor/mock/mock_upload_image_interactor.dart';
 import 'domain/interactor/pick_image_interactor.dart';
 import 'domain/interactor/register_user_interactor.dart';
+import 'domain/interactor/start_room_interactor.dart';
 import 'domain/use_case/create_room_use_case.dart';
 import 'domain/use_case/crop_image_use_case.dart';
 import 'domain/use_case/exit_room_use_case.dart';
@@ -128,7 +129,7 @@ Result init([Env env = Env.develop]) {
 
   register<GetRandomThemeUseCase>(
     product: null,
-    develop: null,
+    develop: GetRandomThemeInteractor(),
     mock: MockGetRandomThemeInteractor(),
   );
 
