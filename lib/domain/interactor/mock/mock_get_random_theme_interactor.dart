@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:fripo/domain/alias/request.dart';
+import 'package:fripo/define/alias.dart';
 import 'package:fripo/domain/use_case/get_random_theme_use_case.dart';
 
 class MockGetRandomThemeInteractor implements GetRandomThemeUseCase {

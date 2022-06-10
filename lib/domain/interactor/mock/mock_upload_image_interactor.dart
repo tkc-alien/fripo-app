@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:fripo/domain/alias/request.dart';
+import 'package:fripo/define/alias.dart';
 import 'package:fripo/domain/use_case/upload_image_use_case.dart';
 
 class MockUploadImageInteractor implements UploadImageUseCase {

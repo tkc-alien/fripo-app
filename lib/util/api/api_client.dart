@@ -2,7 +2,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fripo/domain/error/failure.dart';
 
-import '../../domain/alias/request.dart';
+import '../../define/alias.dart';
 
 class ApiClient {
   static final _instance = ApiClient._internal();

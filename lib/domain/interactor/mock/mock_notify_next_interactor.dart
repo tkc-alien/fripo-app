@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fripo/data/mock/mock_room.dart';
-import 'package:fripo/domain/alias/request.dart';
+import 'package:fripo/define/alias.dart';
 import 'package:fripo/domain/use_case/notify_next_use_case.dart';
 
 import '../../entity/turn_info.dart';

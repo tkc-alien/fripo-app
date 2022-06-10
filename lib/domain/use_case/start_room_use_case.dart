@@ -1,4 +1,4 @@
-import 'package:fripo/domain/alias/request.dart';
+import 'package:fripo/define/alias.dart';
 
 abstract class StartRoomUseCase {
   Response<void> call({required String roomId});

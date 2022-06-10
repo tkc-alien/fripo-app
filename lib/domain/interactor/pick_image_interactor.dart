@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:fripo/domain/alias/request.dart';
+import 'package:fripo/define/alias.dart';
 import 'package:fripo/domain/error/failure.dart';
 import 'package:fripo/domain/use_case/pick_image_use_case.dart';
 import 'package:image_picker/image_picker.dart';
