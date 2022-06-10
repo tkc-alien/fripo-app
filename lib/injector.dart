@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import 'domain/interactor/create_room_interactor.dart';
 import 'domain/interactor/crop_image_interactor.dart';
 import 'domain/interactor/mock/mock_create_room_interactor.dart';
 import 'domain/interactor/mock/mock_exit_room_interactor.dart';
@@ -15,6 +16,7 @@ import 'domain/interactor/mock/mock_start_room_interactor.dart';
 import 'domain/interactor/mock/mock_update_profile_interactor.dart';
 import 'domain/interactor/mock/mock_upload_image_interactor.dart';
 import 'domain/interactor/pick_image_interactor.dart';
+import 'domain/interactor/register_user_interactor.dart';
 import 'domain/use_case/create_room_use_case.dart';
 import 'domain/use_case/crop_image_use_case.dart';
 import 'domain/use_case/exit_room_use_case.dart';
@@ -80,13 +82,13 @@ Result init([Env env = Env.develop]) {
 
   register<RegisterUserUseCase>(
     product: null,
-    develop: null,
+    develop: RegisterUserInteractor(),
     mock: MockRegisterUserInteractor(),
   );
 
   register<CreateRoomUseCase>(
     product: null,
-    develop: null,
+    develop: CreateRoomInteractor(),
     mock: MockCreateRoomInteractor(),
   );
 

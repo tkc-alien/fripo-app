@@ -18,11 +18,10 @@ class ApiClient {
     Json? parameters,
   }) async {
     try {
-      final param = {'data': parameters};
-      final res = await _functions.httpsCallable(endPoint).call(param);
+      final res = await _functions.httpsCallable(endPoint).call(parameters);
       return Right(res.data);
     } on FirebaseFunctionsException catch (e) {
-      print('FirebaseFunctionsException: ${e.message}');
+      print('FirebaseFunctionsException: ${e.message}, ${e.code}');
       return Left(Failure(e.message ?? 'No Content'));
     } catch (e) {
       print('Exception(${e.runtimeType}): ${e.toString()}');

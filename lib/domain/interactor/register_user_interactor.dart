@@ -8,7 +8,9 @@ class RegisterUserInteractor implements RegisterUserUseCase {
   Response<void> call({required String name}) async {
     final res = await ApiClient().call(
       endPoint: ApiConst.registerUser,
-      parameters: {'name': name},
+      parameters: {
+        'name': name,
+      },
     );
     return res.map((r) => null);
   }
