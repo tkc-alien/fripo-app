@@ -40,6 +40,8 @@ class MockCreateRoomInteractor implements CreateRoomUseCase {
       MockRoom.addSink();
     });
 
+    AppData.roomId = MockRoom.roomId;
+
     return const Right(MockRoom.roomId);
   }
 }

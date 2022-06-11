@@ -19,7 +19,7 @@ class WaitingRoomScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => WaitingRoomViewModel(roomId: roomId),
+      create: (_) => WaitingRoomViewModel(),
       builder: (context, child) {
         // ゲーム開始フラグをSelectして画面遷移
         if (WaitingRoomViewModel.select(context, (vm) => vm.startFlg)) {

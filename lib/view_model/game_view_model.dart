@@ -11,19 +11,16 @@ import 'package:provider/provider.dart';
 import '../injector.dart';
 
 class GameViewModel with ChangeNotifier {
-  GameViewModel({
-    required this.roomId,
-  })  : _getRoomStreamUseCase = sl(),
+  GameViewModel()
+      : _getRoomStreamUseCase = sl(),
         _exitRoomUseCase = sl() {
     _roomInfoSubscription =
-        _getRoomStreamUseCase.call(roomId: roomId).listen(_resolveRoomInfo);
+        _getRoomStreamUseCase.call().listen(_resolveRoomInfo);
   }
 
   /// UseCases
   final GetRoomStreamUseCase _getRoomStreamUseCase;
   final ExitRoomUseCase _exitRoomUseCase;
-
-  final String roomId;
 
   StreamSubscription<RoomInfo>? _roomInfoSubscription;
 
@@ -42,7 +39,7 @@ class GameViewModel with ChangeNotifier {
   }
 
   Future<void> exitRoom() async {
-    final res = await _exitRoomUseCase.call(roomId: roomId);
+    final res = await _exitRoomUseCase.call();
     res.fold(
       (failure) => print(failure),
       (_) => print('Exit Room succeed.'),

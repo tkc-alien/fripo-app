@@ -10,7 +10,7 @@ import '../../error/failure.dart';
 
 class MockStartRoomInteractor implements StartRoomUseCase {
   @override
-  Response<void> call({required String roomId}) async {
+  Response<void> call() async {
     await Future.delayed(const Duration(milliseconds: 300));
 
     if (MockRoom.members.length > 2) {

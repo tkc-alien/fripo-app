@@ -5,7 +5,7 @@ import '../../entity/room_info.dart';
 
 class MockGetRoomStreamInteractor implements GetRoomStreamUseCase {
   @override
-  Stream<RoomInfo> call({required String roomId}) {
+  Stream<RoomInfo> call() {
     MockRoom.newStream();
     return MockRoom.stream;
   }

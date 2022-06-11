@@ -13,7 +13,7 @@ class GameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => GameViewModel(roomId: roomId),
+      create: (_) => GameViewModel(),
       builder: (context, child) {
         return WillPopScope(
           onWillPop: () => onWillPop(context),

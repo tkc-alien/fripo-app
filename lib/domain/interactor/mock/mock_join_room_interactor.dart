@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:fripo/data/app_data.dart';
 import 'package:fripo/data/mock/mock_room.dart';
 import 'package:fripo/define/alias.dart';
 import 'package:fripo/domain/use_case/join_room_use_case.dart';
@@ -8,7 +9,7 @@ import '../../enum/room_state.dart';
 
 class MockJoinRoomInteractor implements JoinRoomUseCase {
   @override
-  Response<String> call({required String roomId}) async {
+  Response<String> call() async {
     await Future.delayed(const Duration(milliseconds: 500));
 
     MockRoom.state = RoomState.preparing;
@@ -36,6 +37,8 @@ class MockJoinRoomInteractor implements JoinRoomUseCase {
       );
       MockRoom.addSink();
     });
+
+    AppData.roomId = MockRoom.roomId;
 
     return const Right(MockRoom.roomId);
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fripo/view_model/waiting_room_view_model.dart';
+import 'package:fripo/data/app_data.dart';
 
 class CopyRoomIdButton extends StatelessWidget {
   const CopyRoomIdButton({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class CopyRoomIdButton extends StatelessWidget {
   }
 
   void onPressed(BuildContext context) async {
-    final roomId = WaitingRoomViewModel.read(context).roomId;
+    final roomId = AppData.roomId;
     await Clipboard.setData(ClipboardData(text: roomId));
   }
 }

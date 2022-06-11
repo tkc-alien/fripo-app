@@ -5,7 +5,7 @@ import 'package:fripo/domain/use_case/exit_room_use_case.dart';
 
 class MockExitRoomInteractor implements ExitRoomUseCase {
   @override
-  Response<void> call({required String roomId}) async {
+  Response<void> call() async {
     await Future.delayed(const Duration(milliseconds: 500));
 
     MockRoom.members.remove(MockRoom.userId);

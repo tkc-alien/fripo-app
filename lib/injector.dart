@@ -21,6 +21,7 @@ import 'domain/interactor/mock/mock_update_profile_interactor.dart';
 import 'domain/interactor/mock/mock_upload_image_interactor.dart';
 import 'domain/interactor/pick_image_interactor.dart';
 import 'domain/interactor/register_user_interactor.dart';
+import 'domain/interactor/send_theme_interactor.dart';
 import 'domain/interactor/start_room_interactor.dart';
 import 'domain/use_case/create_room_use_case.dart';
 import 'domain/use_case/crop_image_use_case.dart';
@@ -123,7 +124,7 @@ Result init([Env env = Env.develop]) {
 
   register<SendThemeUseCase>(
     product: null,
-    develop: null,
+    develop: SendThemeInteractor(),
     mock: MockSendThemeInteractor(),
   );
 

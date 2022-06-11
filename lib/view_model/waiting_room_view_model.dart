@@ -14,22 +14,18 @@ import '../injector.dart';
 
 class WaitingRoomViewModel with ChangeNotifier {
   /// Constructor
-  WaitingRoomViewModel({
-    required this.roomId,
-  })  : _getRoomStreamUseCase = sl(),
+  WaitingRoomViewModel()
+      : _getRoomStreamUseCase = sl(),
         _exitRoomUseCase = sl(),
         _startRoomUseCase = sl() {
     _roomInfoSubscription =
-        _getRoomStreamUseCase.call(roomId: roomId).listen(_resolveRoomInfo);
+        _getRoomStreamUseCase.call().listen(_resolveRoomInfo);
   }
 
   /// UseCases
   final GetRoomStreamUseCase _getRoomStreamUseCase;
   final ExitRoomUseCase _exitRoomUseCase;
   final StartRoomUseCase _startRoomUseCase;
-
-  /// 参加中のRoomId
-  final String roomId;
 
   /// 参加中のMemberリスト
   List<MemberInfo> _members = [];
@@ -53,7 +49,7 @@ class WaitingRoomViewModel with ChangeNotifier {
   Future<void> exitRoom() async {
     if (_isRequestingExitRoom) return;
     _isRequestingExitRoom = true;
-    final res = await _exitRoomUseCase.call(roomId: roomId);
+    final res = await _exitRoomUseCase.call();
     res.fold(
       (failure) => print(failure),
       (_) => print('exitRoom succeed.'),
@@ -64,7 +60,7 @@ class WaitingRoomViewModel with ChangeNotifier {
   Future<void> startRoom() async {
     if (_isRequestingStartRoom) return;
     _isRequestingStartRoom = true;
-    final res = await _startRoomUseCase.call(roomId: roomId);
+    final res = await _startRoomUseCase.call();
     res.fold(
       (failure) => print(failure),
       (_) => print('startRoom succeed.'),
