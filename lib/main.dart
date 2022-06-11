@@ -12,13 +12,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // 環境
-  const env = injector.Env.develop;
+  const env = injector.Env.mock;
   bool shouldShowIntroduction;
 
   // DI注入
   final diResult = injector.init(env);
   print(
-      'DI injection for ${diResult.env.name} result: ${diResult.notRegisteredUseCaseList}');
+      'DI injection for ${diResult.env.name} component: ${diResult.notRegisteredUseCaseList}');
 
   // Firebase
   await Firebase.initializeApp();
