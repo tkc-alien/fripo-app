@@ -1,3 +1,4 @@
+import 'package:fripo/domain/interactor/send_answer_interactor.dart';
 import 'package:get_it/get_it.dart';
 
 import 'domain/interactor/create_room_interactor.dart';
@@ -21,6 +22,7 @@ import 'domain/interactor/mock/mock_update_profile_interactor.dart';
 import 'domain/interactor/mock/mock_upload_image_interactor.dart';
 import 'domain/interactor/pick_image_interactor.dart';
 import 'domain/interactor/register_user_interactor.dart';
+import 'domain/interactor/send_points_interactor.dart';
 import 'domain/interactor/send_theme_interactor.dart';
 import 'domain/interactor/start_room_interactor.dart';
 import 'domain/use_case/create_room_use_case.dart';
@@ -136,13 +138,13 @@ Result init([Env env = Env.develop]) {
 
   register<SendAnswerUseCase>(
     product: null,
-    develop: null,
+    develop: SendAnswerInteractor(),
     mock: MockSendAnswerInteractor(),
   );
 
   register<SendPointsUseCase>(
     product: null,
-    develop: null,
+    develop: SendPointsInteractor(),
     mock: MockSendPointsInteractor(),
   );
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fripo/define/app_colors.dart';
 import 'package:fripo/view/screen/app_introduction_screen.dart';
 import 'package:fripo/view/screen/home_screen.dart';
 
@@ -18,6 +19,11 @@ class App extends StatelessWidget {
           ? const AppIntroductionScreen()
           : const HomeScreen(),
       theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: AppColors.primarySwatch,
+        ).copyWith(
+          onPrimary: AppColors.onPrimary,
+        ),
         appBarTheme: const AppBarTheme(
           centerTitle: true,
         ),
