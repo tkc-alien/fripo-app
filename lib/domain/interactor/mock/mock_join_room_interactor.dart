@@ -9,7 +9,7 @@ import '../../enum/room_state.dart';
 
 class MockJoinRoomInteractor implements JoinRoomUseCase {
   @override
-  Response<String> call() async {
+  Response<String> call({required String roomId}) async {
     await Future.delayed(const Duration(milliseconds: 500));
 
     MockRoom.state = RoomState.preparing;

@@ -28,7 +28,7 @@ class HomeViewModel with ChangeNotifier {
   }
 
   Future<String?> joinRoom(String roomId) async {
-    final res = await _joinRoomUseCase.call();
+    final res = await _joinRoomUseCase.call(roomId: roomId);
     return res.fold(
       (failure) {
         resolveFailure(failure);
