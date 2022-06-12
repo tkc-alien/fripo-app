@@ -9,7 +9,7 @@ class GoToProfileEditButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () => onPressed(context),
-      child: const Text("Go to ProfileEdit"),
+      child: const Text("プロフィール編集"),
     );
   }
 

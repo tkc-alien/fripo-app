@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fripo/data/app_data.dart';
 import 'package:fripo/view/app_common/profile_icon.dart';
 import 'package:fripo/view/home/component/go_to_profile_edit_button.dart';
+import 'package:fripo/view/home/component/go_to_terms_button.dart';
 import 'package:fripo/view/home/component/join_room_button.dart';
 import 'package:fripo/view/home/component/logo_widget.dart';
 import 'package:fripo/view/home/component/profile_name_label.dart';
@@ -49,8 +50,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       ProfileIcon(url: AppData.userIconUrl),
+                      const VerticalDivider(
+                        color: Colors.transparent,
+                        width: 12,
+                      ),
                       const Expanded(child: ProfileNameLabel()),
                       const GoToProfileEditButton(),
+                      const GoToTermsButton(),
                     ],
                   ),
                   const Expanded(flex: 2, child: LogoWidget()),

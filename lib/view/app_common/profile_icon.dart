@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 class ProfileIcon extends StatelessWidget {
   const ProfileIcon({
     required this.url,
-    this.dimension = 60,
+    this.dimension = 48,
     Key? key,
   }) : super(key: key);
 

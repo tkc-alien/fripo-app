@@ -8,6 +8,8 @@ class ProfileNameLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       AppData.userName,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
       style: const TextStyle(
         fontSize: 20,
       ),

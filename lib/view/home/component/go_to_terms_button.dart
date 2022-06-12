@@ -7,9 +7,9 @@ class GoToTermsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return IconButton(
       onPressed: () => onPressed(context),
-      child: const Text("Go to Terms"),
+      icon: const Icon(Icons.help_outline),
     );
   }
 
