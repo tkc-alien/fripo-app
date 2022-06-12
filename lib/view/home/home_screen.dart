@@ -6,13 +6,32 @@ import 'package:fripo/view/home/component/join_room_button.dart';
 import 'package:fripo/view/home/component/logo_widget.dart';
 import 'package:fripo/view/home/component/profile_name_label.dart';
 import 'package:fripo/view_model/home_view_model.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
+import '../../util/ads/ads_util.dart';
 import 'component/any_label.dart';
 import 'component/create_room_button.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void didChangeDependencies() {
+    AdsUtil.loadBannerAd();
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    AdsUtil.disposeBanner();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +63,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                   _wrapHorizontalSpace(const JoinRoomButton()),
                   const Spacer(),
-                  // CreateRoomButton(),
-                  // JoinRoomButton(),
-                  // Divider(),
-                  // GoToProfileEditButton(),
-                  // GoToPrivacyPolicyButton(),
-                  // GoToTermsButton(),
+                  SizedBox(
+                    width: AdsUtil.banner.size.width.toDouble(),
+                    height: AdsUtil.banner.size.height.toDouble(),
+                    child: AdWidget(ad: AdsUtil.banner),
+                  ),
                 ],
               ),
             ),

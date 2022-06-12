@@ -3,7 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fripo/data/app_data.dart';
 import 'package:fripo/data/mock/mock_room.dart';
+import 'package:fripo/util/ads/ads_util.dart';
 import 'package:fripo/view/app.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'injector.dart' as injector;
 
@@ -19,6 +21,10 @@ void main() async {
   final diResult = injector.init(env);
   print(
       'DI injection for ${diResult.env.name} component: ${diResult.notRegisteredUseCaseList}');
+
+  // Ads
+  await MobileAds.instance.initialize();
+  await AdsUtil.initialize();
 
   // Firebase
   await Firebase.initializeApp();

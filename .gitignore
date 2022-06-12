@@ -50,3 +50,5 @@ app.*.map.json
 ios/Runner/GoogleService-Info.plist
 ios/Runner/GoogleService-Info-Develop.plist
 ios/Runner/GoogleService-Info-Release.plist
+
+assets/protected
