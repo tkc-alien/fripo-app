@@ -7,7 +7,7 @@ class GoToProfileEditButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return OutlinedButton(
       onPressed: () => onPressed(context),
       child: const Text("Go to ProfileEdit"),
     );

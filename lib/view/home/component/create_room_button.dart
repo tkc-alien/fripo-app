@@ -15,7 +15,7 @@ class _CreateRoomButtonState extends State<CreateRoomButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => onPressed(context),
-      child: const Text("Create Room"),
+      child: const Text("ルーム作成"),
     );
   }
 

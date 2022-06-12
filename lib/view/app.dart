@@ -28,6 +28,16 @@ class App extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           centerTitle: true,
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            padding: const EdgeInsets.all(16),
+            shape: const StadiumBorder(),
+            textStyle: const TextStyle(
+              fontSize: 20,
+            ),
+          ),
+        ),
       ),
     );
   }

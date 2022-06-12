@@ -26,7 +26,7 @@ void main() async {
     shouldShowIntroduction = FirebaseAuth.instance.currentUser == null;
     await FirebaseAuth.instance.signInAnonymously();
   } else {
-    shouldShowIntroduction = true;
+    shouldShowIntroduction = false;
   }
 
   // AppData

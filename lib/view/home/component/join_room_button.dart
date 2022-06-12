@@ -16,7 +16,7 @@ class _JoinRoomButtonState extends State<JoinRoomButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => onPressed(context),
-      child: const Text('Join Room'),
+      child: const Text('ルーム参加'),
     );
   }
 
