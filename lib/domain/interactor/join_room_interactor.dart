@@ -7,15 +7,15 @@ import '../../data/app_data.dart';
 
 class JoinRoomInteractor implements JoinRoomUseCase {
   @override
-  Response<String> call({required String roomId}) async {
+  Response<void> call({required String roomId}) async {
     final res = await ApiClient().call(
       endPoint: ApiConst.joinRoom,
       parameters: {'roomId': roomId},
     );
     AppData.roomId = res.fold(
       (failure) => '',
-      (data) => data['roomId'],
+      (data) => roomId,
     );
-    return res.map((data) => data['roomId']);
+    return res.map((data) => null);
   }
 }

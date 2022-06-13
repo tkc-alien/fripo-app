@@ -1,5 +1,5 @@
 import 'package:fripo/define/alias.dart';
 
 abstract class JoinRoomUseCase {
-  Response<String> call({required String roomId});
+  Response<void> call({required String roomId});
 }

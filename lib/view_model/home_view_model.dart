@@ -34,7 +34,7 @@ class HomeViewModel with ChangeNotifier {
         resolveFailure(failure);
         return null;
       },
-      (data) => data,
+      (_) => roomId,
     );
   }
 
