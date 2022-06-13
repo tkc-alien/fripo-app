@@ -10,7 +10,7 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
   Response<void> call({required String answer}) async {
     await Future.delayed(const Duration(milliseconds: 1000));
 
-    final current = MockRoom.turns[MockRoom.currentTurnId]!;
+    final current = MockRoom.turns[MockRoom.currentTurnId];
 
     final newAnswers = current.answers ?? {};
     newAnswers[MockRoom.userId] = AnswerInfo(
@@ -41,7 +41,7 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
     MockRoom.addSink();
 
     Future.delayed(const Duration(milliseconds: 5000), () {
-      final current = MockRoom.turns[MockRoom.currentTurnId]!;
+      final current = MockRoom.turns[MockRoom.currentTurnId];
       const point = 50;
       current.answers!.forEach((key, value) {
         final score = 50 - (current.targetPoint - point).abs();

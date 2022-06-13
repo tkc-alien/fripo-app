@@ -11,7 +11,7 @@ class MockSendThemeInteractor implements SendThemeUseCase {
   Response<void> call({required String theme}) async {
     await Future.delayed(const Duration(milliseconds: 300));
 
-    final current = MockRoom.turns[MockRoom.currentTurnId]!;
+    final current = MockRoom.turns[MockRoom.currentTurnId];
     MockRoom.turns[MockRoom.currentTurnId] = current.copyWith(
       theme: theme,
       state: TurnState.answering,
@@ -19,7 +19,7 @@ class MockSendThemeInteractor implements SendThemeUseCase {
     MockRoom.addSink();
 
     Future.delayed(const Duration(milliseconds: 5000), () {
-      final current = MockRoom.turns[MockRoom.currentTurnId]!;
+      final current = MockRoom.turns[MockRoom.currentTurnId];
       final newAnswers = current.answers ?? {};
       newAnswers[MockRoom.otherId1] = AnswerInfo(
         answer: 'Mock Answer1',

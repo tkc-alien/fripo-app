@@ -10,7 +10,7 @@ class MockSendPointsInteractor implements SendPointsUseCase {
   Response<void> call({required Map<String, int> points}) async {
     await Future.delayed(const Duration(milliseconds: 1000));
 
-    final current = MockRoom.turns[MockRoom.currentTurnId]!;
+    final current = MockRoom.turns[MockRoom.currentTurnId];
     final answers = current.answers!;
     final targetPoint = current.targetPoint;
     points.forEach((userId, point) {

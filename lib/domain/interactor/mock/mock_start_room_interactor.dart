@@ -16,7 +16,6 @@ class MockStartRoomInteractor implements StartRoomUseCase {
     if (MockRoom.members.length > 2) {
       MockRoom.state = RoomState.onGame;
       MockRoom.currentTurn = 0;
-      MockRoom.currentTurnId = MockRoom.newTurnId();
       MockRoom.turns.clear();
       MockRoom.addSink();
       Future.delayed(const Duration(milliseconds: 30), () {
