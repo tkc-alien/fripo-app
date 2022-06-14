@@ -3,6 +3,7 @@ enum TurnState {
   answering,
   marking,
   result,
+  done,
 }
 
 extension TurnStateExt on TurnState {
@@ -26,4 +27,5 @@ const _map = {
   200: TurnState.answering,
   300: TurnState.marking,
   400: TurnState.result,
+  500: TurnState.done,
 };
