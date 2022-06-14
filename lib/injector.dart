@@ -1,8 +1,8 @@
-import 'package:fripo/domain/interactor/send_answer_interactor.dart';
 import 'package:get_it/get_it.dart';
 
 import 'domain/interactor/create_room_interactor.dart';
 import 'domain/interactor/crop_image_interactor.dart';
+import 'domain/interactor/end_turn_interactor.dart';
 import 'domain/interactor/exit_room_interactor.dart';
 import 'domain/interactor/get_random_theme_interactor.dart';
 import 'domain/interactor/get_room_stream_interactor.dart';
@@ -22,6 +22,7 @@ import 'domain/interactor/mock/mock_update_profile_interactor.dart';
 import 'domain/interactor/mock/mock_upload_image_interactor.dart';
 import 'domain/interactor/pick_image_interactor.dart';
 import 'domain/interactor/register_user_interactor.dart';
+import 'domain/interactor/send_answer_interactor.dart';
 import 'domain/interactor/send_points_interactor.dart';
 import 'domain/interactor/send_theme_interactor.dart';
 import 'domain/interactor/start_room_interactor.dart';
@@ -150,7 +151,7 @@ Result init([Env env = Env.develop]) {
 
   register<EndTurnUseCase>(
     product: null,
-    develop: null,
+    develop: EndTurnInteractor(),
     mock: MockEndTurnInteractor(),
   );
 

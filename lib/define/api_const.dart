@@ -9,4 +9,5 @@ class ApiConst {
   static const setTheme = 'setTheme';
   static const setAnswer = 'setAnswer';
   static const setPoints = 'setPoints';
+  static const endTurn = 'endTurn';
 }
