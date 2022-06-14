@@ -13,6 +13,6 @@ class GoToNextTurnButton extends StatelessWidget {
   }
 
   void onPressed(BuildContext context) {
-    ResultViewModel.read(context).notifyNext();
+    ResultViewModel.read(context).endTurn();
   }
 }

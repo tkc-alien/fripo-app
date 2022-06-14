@@ -1,5 +1,5 @@
 import 'package:fripo/define/alias.dart';
 
-abstract class NotifyNextUseCase {
+abstract class EndTurnUseCase {
   Response<void> call();
 }

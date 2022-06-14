@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:fripo/domain/use_case/notify_next_use_case.dart';
+import 'package:fripo/domain/use_case/end_turn_use_case.dart';
 import 'package:provider/provider.dart';
 
 import '../injector.dart';
 
 class ResultViewModel with ChangeNotifier {
-  ResultViewModel() : _notifyNextUseCase = sl();
+  ResultViewModel() : _endTurnUseCase = sl();
 
-  final NotifyNextUseCase _notifyNextUseCase;
+  final EndTurnUseCase _endTurnUseCase;
 
-  bool _isRequestingNotifyNext = false;
+  bool _isRequestingEndTurn = false;
 
-  Future<void> notifyNext() async {
-    if (_isRequestingNotifyNext) return;
-    _isRequestingNotifyNext = true;
-    final res = await _notifyNextUseCase.call();
+  Future<void> endTurn() async {
+    if (_isRequestingEndTurn) return;
+    _isRequestingEndTurn = true;
+    final res = await _endTurnUseCase.call();
     res.fold(
       (failure) => print(failure),
       (_) => print('NotifyNext succeed.'),
     );
-    _isRequestingNotifyNext = false;
+    _isRequestingEndTurn = false;
   }
 
   static ResultViewModel read(BuildContext context) {

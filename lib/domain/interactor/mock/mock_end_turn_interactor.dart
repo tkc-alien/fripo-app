@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:fripo/data/mock/mock_room.dart';
 import 'package:fripo/define/alias.dart';
-import 'package:fripo/domain/use_case/notify_next_use_case.dart';
+import 'package:fripo/domain/use_case/end_turn_use_case.dart';
 
 import '../../entity/turn_info.dart';
 import '../../enum/turn_state.dart';
 
-class MockNotifyNextInteractor implements NotifyNextUseCase {
+class MockEndTurnInteractor implements EndTurnUseCase {
   @override
   Response<void> call() async {
     final currentParent = MockRoom.turns[MockRoom.currentTurn].parentUserId;
