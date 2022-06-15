@@ -31,13 +31,17 @@ class App extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             elevation: 0,
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(
+              vertical: 16,
+              horizontal: 48,
+            ),
             shape: const StadiumBorder(),
             textStyle: const TextStyle(
               fontSize: 20,
             ),
           ),
         ),
+        dividerColor: Colors.transparent,
       ),
     );
   }

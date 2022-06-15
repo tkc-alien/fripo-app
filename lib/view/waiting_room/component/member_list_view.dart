@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fripo/domain/entity/member_info.dart';
+import 'package:fripo/view/app_common/profile_icon.dart';
 import 'package:fripo/view_model/waiting_room_view_model.dart';
 
 class MemberListView extends StatelessWidget {
@@ -21,16 +22,9 @@ class _MemberTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text('name: ${info.name}'),
-          Text('iconUrl: ${info.iconUrl}'),
-          Text('isActive: ${info.isActive}'),
-        ],
-      ),
+    return ListTile(
+      leading: ProfileIcon(url: info.iconUrl),
+      title: Text(info.name),
     );
   }
 }

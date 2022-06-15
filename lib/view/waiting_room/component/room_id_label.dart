@@ -1,13 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/data/app_data.dart';
+import 'package:fripo/define/app_styles.dart';
+
+import 'copy_room_id_button.dart';
 
 class RoomIdLabel extends StatelessWidget {
   const RoomIdLabel({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'RoomID is ${AppData.roomId}',
+    return Container(
+      decoration: AppStyles.borderedContainerDecoration,
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            'ルームID',
+            style: TextStyle(
+              fontSize: 24,
+            ),
+          ),
+          const Divider(height: 8),
+          Text(
+            AppData.roomId,
+            style: const TextStyle(
+              fontSize: 48,
+              letterSpacing: 6,
+            ),
+          ),
+          const Divider(height: 8),
+          const CopyRoomIdButton(),
+        ],
+      ),
     );
   }
 }

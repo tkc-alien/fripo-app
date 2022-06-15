@@ -8,7 +8,7 @@ class StartRoomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => onPressed(context),
-      child: const Text('Start Room'),
+      child: const Text('ゲームスタート'),
     );
   }
 

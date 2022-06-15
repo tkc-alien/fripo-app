@@ -6,9 +6,9 @@ class ExitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return IconButton(
       onPressed: () => onPressed(context),
-      child: const Text('Exit'),
+      icon: const Icon(Icons.close),
     );
   }
 

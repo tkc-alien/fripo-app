@@ -1,21 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:fripo/view/waiting_room/component/turn_count_selector.dart';
 import 'package:fripo/view_model/waiting_room_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../game/game_screen.dart';
-import 'component/copy_room_id_button.dart';
 import 'component/exit_button.dart';
 import 'component/member_list_view.dart';
 import 'component/room_id_label.dart';
 import 'component/start_room_button.dart';
 
-class WaitingRoomScreen extends StatelessWidget {
+class WaitingRoomScreen extends StatefulWidget {
   const WaitingRoomScreen({
     Key? key,
     required this.roomId,
   }) : super(key: key);
 
   final String roomId;
+
+  @override
+  State<WaitingRoomScreen> createState() => _WaitingRoomScreenState();
+}
+
+class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
+  @override
+  void didChangeDependencies() {
+    //AdsUtil.loadBannerAd();
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    //AdsUtil.disposeBanner();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,25 +45,26 @@ class WaitingRoomScreen extends StatelessWidget {
             (_) => pushToGame(context),
           );
         }
-
         return WillPopScope(
           onWillPop: () => onWillPop(context),
           child: Scaffold(
-            appBar: AppBar(
-              title: const Text("WaitingScreen"),
-            ),
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
-                  children: [
-                    const RoomIdLabel(),
-                    const CopyRoomIdButton(),
-                    const Expanded(child: MemberListView()),
-                    const ExitButton(),
-                    if (WaitingRoomViewModel.select(
-                        context, (vm) => vm.isUserHost))
-                      const StartRoomButton(),
+                  children: const [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: ExitButton(),
+                    ),
+                    Divider(height: 12),
+                    RoomIdLabel(),
+                    Divider(height: 24),
+                    StartRoomButton(),
+                    Divider(height: 16),
+                    TurnCountSelector(),
+                    Divider(height: 16),
+                    Expanded(child: MemberListView()),
                   ],
                 ),
               ),
@@ -62,7 +80,7 @@ class WaitingRoomScreen extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => GameScreen(roomId: roomId),
+        builder: (_) => GameScreen(roomId: widget.roomId),
       ),
     );
   }
