@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fripo/util/ads/ads_util.dart';
 import 'package:fripo/view/waiting_room/component/turn_count_selector.dart';
 import 'package:fripo/view_model/waiting_room_view_model.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 import '../game/game_screen.dart';
@@ -22,15 +24,17 @@ class WaitingRoomScreen extends StatefulWidget {
 }
 
 class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
+  final _ad = AdsUtil.banner;
+
   @override
   void didChangeDependencies() {
-    //AdsUtil.loadBannerAd();
+    _ad.load();
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    //AdsUtil.disposeBanner();
+    _ad.dispose();
     super.dispose();
   }
 
@@ -52,19 +56,24 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
-                  children: const [
-                    Align(
+                  children: [
+                    const Align(
                       alignment: Alignment.topLeft,
                       child: ExitButton(),
                     ),
-                    Divider(height: 12),
-                    RoomIdLabel(),
-                    Divider(height: 24),
-                    StartRoomButton(),
-                    Divider(height: 16),
-                    TurnCountSelector(),
-                    Divider(height: 16),
-                    Expanded(child: MemberListView()),
+                    const Divider(height: 12),
+                    const RoomIdLabel(),
+                    const Divider(height: 24),
+                    const StartRoomButton(),
+                    const Divider(height: 16),
+                    const TurnCountSelector(),
+                    const Divider(height: 16),
+                    const Expanded(child: MemberListView()),
+                    SizedBox(
+                      width: AdsUtil.width.toDouble(),
+                      height: AdsUtil.height.toDouble(),
+                      child: AdWidget(ad: _ad),
+                    ),
                   ],
                 ),
               ),

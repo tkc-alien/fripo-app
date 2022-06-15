@@ -7,7 +7,10 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 class AdsUtil {
   AdsUtil._();
 
-  static late BannerAd banner;
+  static String _bannerId = '';
+
+  static int width = 320;
+  static int height = 50;
 
   /// Ads用のパラメータをプラットフォームに合わせて初期化
   static Future<void> initialize() async {
@@ -27,18 +30,15 @@ class AdsUtil {
     final platformData = data[platform] as Map<dynamic, dynamic>;
 
     // データを解析してIDを取得
-    final bannerId = platformData['bannerId'];
+    _bannerId = platformData['bannerId'];
+  }
 
-    // Adオブジェクトを初期化
-    banner = BannerAd(
-      size: AdSize.banner,
-      adUnitId: bannerId,
+  static BannerAd get banner {
+    return BannerAd(
+      size: AdSize(width: width, height: height),
+      adUnitId: _bannerId,
       listener: const BannerAdListener(),
       request: const AdRequest(),
     );
   }
-
-  static Future<void> loadBannerAd() => banner.load();
-
-  static Future<void> disposeBanner() => banner.dispose();
 }

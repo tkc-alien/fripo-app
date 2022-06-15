@@ -22,15 +22,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _ad = AdsUtil.banner;
+
   @override
   void didChangeDependencies() {
-    AdsUtil.loadBannerAd();
+    _ad.load();
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    AdsUtil.disposeBanner();
+    _ad.dispose();
     super.dispose();
   }
 
@@ -45,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                //crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Row(
                     children: [
@@ -62,17 +64,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Expanded(flex: 2, child: LogoWidget()),
                   const AnyLabel(),
                   const Spacer(),
-                  _wrapHorizontalSpace(const CreateRoomButton()),
+                  const CreateRoomButton(),
                   const Divider(
                     color: Colors.transparent,
                     height: 16,
                   ),
-                  _wrapHorizontalSpace(const JoinRoomButton()),
+                  const JoinRoomButton(),
                   const Spacer(),
                   SizedBox(
-                    width: AdsUtil.banner.size.width.toDouble(),
-                    height: AdsUtil.banner.size.height.toDouble(),
-                    child: AdWidget(ad: AdsUtil.banner),
+                    width: AdsUtil.width.toDouble(),
+                    height: AdsUtil.height.toDouble(),
+                    child: AdWidget(ad: _ad),
                   ),
                 ],
               ),
@@ -80,16 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         );
       },
-    );
-  }
-
-  Widget _wrapHorizontalSpace(Widget widget) {
-    return Row(
-      children: [
-        const Spacer(),
-        Expanded(flex: 3, child: widget),
-        const Spacer(),
-      ],
     );
   }
 }
