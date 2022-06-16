@@ -20,6 +20,8 @@ class _GameFragmentContainerState extends State<GameFragmentContainer> {
     final turnState =
         GameViewModel.select(context, (vm) => vm.currentTurnInfo?.state);
 
+    print('GameFragmentContainer is $turnState');
+
     switch (turnState) {
       case TurnState.themeSetting:
         return const ThemeSettingFragment();

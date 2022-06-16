@@ -15,17 +15,17 @@ class MockStartRoomInteractor implements StartRoomUseCase {
 
     if (MockRoom.members.length > 2) {
       MockRoom.state = RoomState.onGame;
-      MockRoom.currentTurn = 0;
+      MockRoom.currentTurn = 1;
       MockRoom.turns.clear();
       MockRoom.addSink();
       Future.delayed(const Duration(milliseconds: 30), () {
-        MockRoom.turns[MockRoom.currentTurnId] = TurnInfo(
+        MockRoom.turns.add(TurnInfo(
           parentUserId: MockRoom.hostUserId,
           theme: null,
           targetPoint: 30,
           state: TurnState.themeSetting,
           answers: null,
-        );
+        ));
         MockRoom.addSink();
       });
       return const Right(null);

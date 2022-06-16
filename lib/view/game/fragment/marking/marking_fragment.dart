@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fripo/view/game/fragment/answering/component/theme_label.dart';
+import 'package:fripo/view/game/fragment/marking/component/target_label.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../view_model/game_view_model.dart';
 import '../../../../view_model/marking_view_model.dart';
 import 'component/answer_list.dart';
-import 'component/send_points_button.dart';
 
 class MarkingFragment extends StatelessWidget {
   const MarkingFragment({Key? key}) : super(key: key);
@@ -30,8 +31,8 @@ class MarkingFragment extends StatelessWidget {
   Widget _buildParentContent(BuildContext context) {
     return Column(
       children: const [
-        Expanded(child: AnswerList()),
-        SendPointsButton(),
+        TargetLabel(),
+        ThemeLabel(),
       ],
     );
   }
