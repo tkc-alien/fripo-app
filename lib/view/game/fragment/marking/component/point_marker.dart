@@ -3,12 +3,14 @@ import 'package:fripo/define/app_colors.dart';
 import 'package:fripo/define/app_styles.dart';
 
 const _dotWidth = 24.0;
-//const _dotWidthFocused = 32.0;
+const _dotWidthFocused = 32.0;
 const _answerHeight = 32.0;
 double _totalHeight = 0;
 double _sideLineHeight = 0;
 double _topY = 0;
 double _bottomY = 0;
+
+// PointMarker ----------------------------------------------------------------
 
 class PointMarker extends StatefulWidget {
   const PointMarker({Key? key}) : super(key: key);
@@ -79,7 +81,7 @@ class _PointMarkerState extends State<PointMarker> {
                           const SizedBox(height: _answerHeight / 2),
                         ],
                       ),
-                      const _Tile(answer: 'テスト'),
+                      const Positioned.fill(child: _TileContainer()),
                     ],
                   ),
                 ),
@@ -92,13 +94,76 @@ class _PointMarkerState extends State<PointMarker> {
   }
 }
 
+// TileContainer --------------------------------------------------------------
+
+class _TileContainer extends StatefulWidget {
+  const _TileContainer({Key? key}) : super(key: key);
+
+  @override
+  State<_TileContainer> createState() => _TileContainerState();
+}
+
+class _TileContainerState extends State<_TileContainer> {
+  final List<_TileData> _data = [];
+  String _focusedId = '';
+
+  @override
+  void didChangeDependencies() {
+    _data.addAll([
+      _TileData(userId: 'id1', answer: '１', point: 0),
+      _TileData(userId: 'id2', answer: '２', point: 0),
+      _TileData(userId: 'id3', answer: '３', point: 0),
+    ]);
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final children = <_Tile>[];
+    for (var i = 0; i < _data.length; i++) {
+      children.add(
+        _Tile(
+          key: ValueKey(_data[i].userId),
+          hasFocus: _focusedId == _data[i].userId,
+          userId: _data[i].userId,
+          answer: _data[i].answer,
+          onDragStart: onDragStart,
+        ),
+      );
+    }
+
+    print(children.map((e) => e.key));
+
+    return Stack(children: children);
+  }
+
+  void onDragStart(String userId) {
+    final obj = _data.singleWhere((e) => e.userId == userId);
+    _data.remove(obj);
+    _data.add(obj);
+    print(obj.answer);
+    print(_data.map((e) => e.answer));
+    setState(() {
+      //_focusedIndex = index;
+    });
+  }
+}
+
+// Tile ----------------------------------------------------------------------
+
 class _Tile extends StatefulWidget {
   const _Tile({
     Key? key,
+    required this.hasFocus,
+    required this.userId,
     required this.answer,
+    required this.onDragStart,
   }) : super(key: key);
 
+  final bool hasFocus;
+  final String userId;
   final String answer;
+  final Function(String userId) onDragStart;
 
   @override
   State<_Tile> createState() => _TileState();
@@ -116,14 +181,16 @@ class _TileState extends State<_Tile> {
     return Positioned(
       key: _key,
       left: 0,
+      right: 0,
       bottom: point * _sideLineHeight * 0.01,
       child: GestureDetector(
         onVerticalDragUpdate: onDrag,
+        onVerticalDragStart: (_) => widget.onDragStart(widget.userId),
         child: Row(
           children: [
             Container(
-              width: _dotWidth,
-              height: _dotWidth,
+              width: widget.hasFocus ? _dotWidthFocused : _dotWidth,
+              height: widget.hasFocus ? _dotWidthFocused : _dotWidth,
               alignment: Alignment.center,
               decoration: const BoxDecoration(
                 color: AppColors.primary,
@@ -139,10 +206,16 @@ class _TileState extends State<_Tile> {
                 ),
               ),
             ),
-            Container(
-              height: _answerHeight,
-              decoration: AppStyles.borderedContainerDecoration,
-              child: const Text('アンサー'),
+            Flexible(
+              child: Container(
+                height: _answerHeight,
+                decoration: AppStyles.borderedContainerDecoration,
+                child: Text(
+                  widget.answer,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ),
           ],
         ),
@@ -150,6 +223,7 @@ class _TileState extends State<_Tile> {
     );
   }
 
+  /// ドラッグ更新のコールバック
   void onDrag(DragUpdateDetails details) {
     // ウィジェットのRenderBoxを取得
     final box = _key.currentContext!.findRenderObject() as RenderBox;
@@ -173,4 +247,34 @@ class _TileState extends State<_Tile> {
       });
     }
   }
+}
+
+// class _FocusedTile extends StatelessWidget {
+//   const _FocusedTile({
+//     Key? key,
+//     required this.answer,
+//   }) : super(key: key);
+//
+//   final String answer;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: AppStyles.borderedContainerDecoration,
+//       padding: const EdgeInsets.all(8),
+//       child: Text(answer),
+//     );
+//   }
+// }
+
+class _TileData {
+  _TileData({
+    required this.userId,
+    required this.answer,
+    required this.point,
+  });
+
+  final String userId;
+  final String answer;
+  final int point;
 }
