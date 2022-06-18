@@ -6,9 +6,20 @@ class AnswerSendButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final void Function()? handler;
+    final String label;
+    final canSend = AnsweringViewModel.select(context, (vm) => vm.canSend);
+    if (canSend) {
+      handler = () => onPressed(context);
+      label = '回答を送信する';
+    } else {
+      handler = null;
+      label = '回答済み';
+    }
+
     return ElevatedButton(
-      onPressed: () => onPressed(context),
-      child: const Text('Send Answer'),
+      onPressed: handler,
+      child: Text(label),
     );
   }
 

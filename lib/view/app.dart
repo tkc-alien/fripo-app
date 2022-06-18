@@ -50,6 +50,8 @@ class App extends StatelessWidget {
           ),
         ),
         inputDecorationTheme: const InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white,
           enabledBorder: AppStyles.defaultInputBorderEnabled,
           focusedBorder: AppStyles.defaultInputBorderFocused,
           errorBorder: AppStyles.defaultInputBorderError,

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:fripo/view/game/fragment/common/target_and_theme_label.dart';
 import 'package:fripo/view_model/result_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,7 @@ class ResultFragment extends StatelessWidget {
       builder: (context, child) {
         return Column(
           children: const [
+            TargetAndThemeLabel(forceToShowTarget: true),
             Expanded(child: ResultList()),
             GoToNextTurnButton(),
           ],

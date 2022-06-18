@@ -9,7 +9,7 @@ class ExampleLabel extends StatelessWidget {
       margin: const EdgeInsets.all(24),
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
+        color: Colors.grey.shade300.withOpacity(0.96),
         borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
       child: Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fripo/view/game/fragment/common/target_and_theme_label.dart';
 import 'package:fripo/view/game/fragment/common/target_point_label.dart';
 import 'package:fripo/view/game/fragment/common/theme_label.dart';
 import 'package:fripo/view/game/fragment/marking/component/point_marker.dart';
@@ -12,7 +13,10 @@ import 'component/answer_list.dart';
 class MarkingFragment extends StatelessWidget {
   const MarkingFragment({Key? key}) : super(key: key);
 
-  static const topHeight = TargetPointLabel.height + ThemeLabel.height + 40;
+  static const topHeight = TargetPointLabel.height +
+      ThemeLabel.height +
+      TargetAndThemeLabel.dividerHeight +
+      TargetAndThemeLabel.bottomPadding;
   static const sendButtonHeight = 80.0;
 
   @override
@@ -36,20 +40,12 @@ class MarkingFragment extends StatelessWidget {
   Widget _buildParentContent(BuildContext context) {
     return Stack(
       children: [
-        Positioned(
+        const Positioned(
           top: 0,
           left: 0,
           right: 0,
           height: topHeight,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              TargetPointLabel(),
-              Divider(height: 8),
-              Expanded(child: ThemeLabel()),
-              Divider(height: 32),
-            ],
-          ),
+          child: TargetAndThemeLabel(),
         ),
         Positioned(
           bottom: 8,
