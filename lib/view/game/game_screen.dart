@@ -19,18 +19,20 @@ class GameScreen extends StatelessWidget {
         return WillPopScope(
           onWillPop: () => onWillPop(context),
           child: Scaffold(
-            appBar: AppBar(
-              title: const Text('Game'),
-            ),
             body: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: const [
-                    ExitButton(),
-                    OpenHelpModalButton(),
-                    Expanded(child: GameFragmentContainer()),
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        ExitButton(),
+                        OpenHelpModalButton(),
+                      ],
+                    ),
+                    const Expanded(child: GameFragmentContainer()),
                   ],
                 ),
               ),

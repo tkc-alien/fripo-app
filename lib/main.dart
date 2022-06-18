@@ -14,7 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // 環境
-  const env = injector.Env.develop;
+  const env = injector.Env.mock;
   bool shouldShowIntroduction;
 
   // DI注入

@@ -7,9 +7,9 @@ class OpenHelpModalButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return IconButton(
       onPressed: () => onPressed(context),
-      child: const Text('Open HelpModal'),
+      icon: const Icon(Icons.help_outline),
     );
   }
 

@@ -138,6 +138,7 @@ class _TileContainerState extends State<_TileContainer> {
           hasFocus: _focusedId == _data[i].userId,
           userId: _data[i].userId,
           answer: _data[i].answer,
+          initialPoint: _data[i].point,
           onDragStart: onDragStart,
         ),
       );
@@ -164,12 +165,14 @@ class _Tile extends StatefulWidget {
     required this.hasFocus,
     required this.userId,
     required this.answer,
+    required this.initialPoint,
     required this.onDragStart,
   }) : super(key: key);
 
   final bool hasFocus;
   final String userId;
   final String answer;
+  final int initialPoint;
   final Function(String userId) onDragStart;
 
   @override
@@ -182,6 +185,14 @@ class _TileState extends State<_Tile> {
 
   // 現在のポイント
   int point = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() => point = widget.initialPoint);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
