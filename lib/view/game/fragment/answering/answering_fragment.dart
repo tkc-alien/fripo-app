@@ -38,7 +38,10 @@ class AnsweringFragment extends StatelessWidget {
         Divider(height: 32),
         Text('今回のお題は...'),
         Divider(height: 16),
-        ThemeLabel(),
+        Align(
+          alignment: Alignment.center,
+          child: ThemeLabel(),
+        ),
         Divider(height: 32),
         SizedBox(
           height: 60,

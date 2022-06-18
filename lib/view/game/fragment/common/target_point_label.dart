@@ -6,6 +6,8 @@ import '../../../../view_model/game_view_model.dart';
 class TargetPointLabel extends StatelessWidget {
   const TargetPointLabel({Key? key, this.forceShow = false}) : super(key: key);
 
+  static const height = 60.0;
+
   final bool forceShow;
 
   @override
@@ -25,38 +27,42 @@ class TargetPointLabel extends StatelessWidget {
       label = '??';
     }
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        const Text(
-          '目指すマッチ度',
-          style: TextStyle(fontSize: 18),
-        ),
-        const VerticalDivider(width: 16),
-        Expanded(
-          child: Stack(
-            children: [
-              AspectRatio(
-                aspectRatio: 4 / 3,
-                child: Container(
-                  color: AppColors.secondary,
+    return SizedBox(
+      height: height,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          const Text(
+            '目指すマッチ度',
+            style: TextStyle(fontSize: 18),
+          ),
+          const VerticalDivider(width: 16),
+          Center(
+            child: Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 4 / 3,
+                  child: Container(
+                    color: AppColors.secondary,
+                  ),
                 ),
-              ),
-              Positioned.fill(
-                child: Center(
-                  child: Text(
-                    label,
-                    style: const TextStyle(
-                      color: AppColors.primary,
-                      fontSize: 48,
+                Positioned.fill(
+                  child: Center(
+                    child: Text(
+                      label,
+                      style: const TextStyle(
+                        color: AppColors.primary,
+                        fontSize: 48,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

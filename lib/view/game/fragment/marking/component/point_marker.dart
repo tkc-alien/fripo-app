@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/define/app_colors.dart';
-import 'package:fripo/define/app_styles.dart';
 import 'package:fripo/view/game/fragment/marking/marking_fragment.dart';
 import 'package:fripo/view_model/game_view_model.dart';
 import 'package:fripo/view_model/marking_view_model.dart';
@@ -8,13 +7,13 @@ import 'package:fripo/view_model/marking_view_model.dart';
 const _dotWidth = 24.0;
 const _dotWidthFocused = 32.0;
 const _bottomPadding = MarkingFragment.sendButtonHeight;
-const _topPadding = MarkingFragment.turnInfoHeight;
+const _topPadding = MarkingFragment.topHeight;
 double _sideLineHeight = 0;
 double _topY = 0;
 double _bottomY = 0;
 
-const _answerStyle = TextStyle(fontSize: 12);
-const _focusedAnswerStyle = TextStyle(fontSize: 18);
+const _answerStyle = TextStyle(fontSize: 14);
+const _focusedAnswerStyle = TextStyle(fontSize: 20);
 
 // PointMarker ----------------------------------------------------------------
 
@@ -77,7 +76,7 @@ class _PointMarkerState extends State<PointMarker> {
                       child: VerticalDivider(
                         key: _sideLineKey,
                         thickness: 2,
-                        width: _dotWidth,
+                        width: _dotWidthFocused,
                         color: Colors.black,
                       ),
                     ),
@@ -119,11 +118,13 @@ class _TileContainerState extends State<_TileContainer> {
       p = 0;
     }
     for (var i = 0; i < answers.length; i++) {
+      final point = (p * i).round();
       _data.add(_TileData(
         userId: entries[i].key,
         answer: entries[i].value.answer,
-        point: (p * i).round(),
+        point: point,
       ));
+      MarkingViewModel.read(context).setPoint(entries[i].key, point);
     }
     super.didChangeDependencies();
   }
@@ -196,19 +197,21 @@ class _TileState extends State<_Tile> {
 
   @override
   Widget build(BuildContext context) {
+    double left = 0;
     double bottom = point * _sideLineHeight * 0.01 + _bottomPadding;
     if (widget.hasFocus) {
       // ウィジェットのRenderBoxを取得
       final box = _key.currentContext?.findRenderObject() as RenderBox?;
       bottom -= (box?.size.height ?? 0) / 2;
     } else {
+      left = (_dotWidthFocused - _dotWidth) / 2;
       bottom -= _dotWidth / 2;
     }
 
     return Positioned(
       key: _key,
-      left: 0,
       right: 0,
+      left: left,
       bottom: bottom,
       child: GestureDetector(
         onVerticalDragUpdate: onDrag,
@@ -226,6 +229,12 @@ class _TileState extends State<_Tile> {
               decoration: const BoxDecoration(
                 color: AppColors.primary,
                 shape: BoxShape.circle,
+                border: Border.fromBorderSide(
+                  BorderSide(
+                    color: AppColors.onPrimary,
+                    width: 2,
+                  ),
+                ),
               ),
               child: FittedBox(
                 child: Text(
@@ -240,7 +249,28 @@ class _TileState extends State<_Tile> {
             Flexible(
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                decoration: AppStyles.borderedContainerDecoration,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 6,
+                  horizontal: 16,
+                ),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  border: Border.fromBorderSide(
+                    BorderSide(
+                      color: AppColors.secondary,
+                      width: 2,
+                    ),
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(24)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      spreadRadius: 0,
+                      blurRadius: 2,
+                      offset: Offset(4, 4),
+                    ),
+                  ],
+                ),
                 child: Text(
                   widget.answer,
                   maxLines: widget.hasFocus ? null : 1,
