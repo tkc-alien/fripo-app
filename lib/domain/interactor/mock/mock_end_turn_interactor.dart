@@ -42,7 +42,7 @@ class MockEndTurnInteractor implements EndTurnUseCase {
   void _setThemeAsync() async {
     Future.delayed(const Duration(milliseconds: 5000), () {
       final current = MockRoom.turns[MockRoom.currentTurnId];
-      MockRoom.turns[MockRoom.currentTurn] = current.copyWith(
+      MockRoom.turns[MockRoom.currentTurnId] = current.copyWith(
         state: TurnState.answering,
         theme: 'Other set Theme',
       );
