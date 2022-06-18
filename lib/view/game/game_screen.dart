@@ -64,7 +64,21 @@ class _GameScreenState extends State<GameScreen> {
                                 OpenHelpModalButton(),
                               ],
                             ),
-                            const Expanded(child: GameFragmentContainer()),
+                            Expanded(
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    height: 250,
+                                    right: 0,
+                                    bottom: 0,
+                                    child: Image.asset(
+                                      'assets/image/fripo_touch.png',
+                                    ),
+                                  ),
+                                  const GameFragmentContainer(),
+                                ],
+                              ),
+                            ),
                             SizedBox(
                               width: AdsUtil.width.toDouble(),
                               height: AdsUtil.height.toDouble(),

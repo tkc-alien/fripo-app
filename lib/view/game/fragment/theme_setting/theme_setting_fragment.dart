@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/view/game/fragment/theme_setting/component/example_label.dart';
+import 'package:fripo/view/game/fragment/theme_setting/component/parent_label.dart';
 import 'package:fripo/view/game/fragment/theme_setting/component/role_label.dart';
 import 'package:fripo/view_model/game_view_model.dart';
 import 'package:provider/provider.dart';
@@ -63,8 +64,16 @@ class ThemeSettingFragment extends StatelessWidget {
   }
 
   Widget _buildChildContent(BuildContext context) {
-    return const Center(
-      child: Text('Theme Setting'),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: const [
+        Padding(
+          padding: EdgeInsets.all(32),
+          child: RoleLabel(),
+        ),
+        ParentLabel(),
+        Expanded(child: Center(child: Text('親のお題待ち...'))),
+      ],
     );
   }
 }

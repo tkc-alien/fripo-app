@@ -80,6 +80,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/image/fripo_touch.png
     - assets/json/theme_list.json
     - assets/protected/admob.json
 

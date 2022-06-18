@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fripo/view/game/fragment/answering/component/theme_label.dart';
+import 'package:fripo/view/game/fragment/common/theme_label.dart';
 import 'package:fripo/view/game/fragment/marking/component/point_marker.dart';
 import 'package:fripo/view/game/fragment/marking/component/send_points_button.dart';
 import 'package:fripo/view/game/fragment/marking/component/target_label.dart';
@@ -49,13 +49,17 @@ class MarkingFragment extends StatelessWidget {
             ],
           ),
         ),
-        const Positioned(
-          bottom: 0,
+        Positioned(
+          bottom: 16,
           right: 0,
+          left: 0,
           height: sendButtonHeight,
-          child: Align(
-            alignment: Alignment.bottomRight,
-            child: SendPointsButton(),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: const [
+              Spacer(),
+              Expanded(child: SendPointsButton()),
+            ],
           ),
         ),
         const PointMarker(),

@@ -18,7 +18,7 @@ class MockSendThemeInteractor implements SendThemeUseCase {
     );
     MockRoom.addSink();
 
-    Future.delayed(const Duration(milliseconds: 5000), () {
+    Future.delayed(const Duration(milliseconds: 1000), () {
       final current = MockRoom.turns[MockRoom.currentTurnId];
       final newAnswers = current.answers ?? {};
       newAnswers[MockRoom.otherId1] = AnswerInfo(

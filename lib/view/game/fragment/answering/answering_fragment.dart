@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fripo/view_model/answering_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../view_model/game_view_model.dart';
+import '../common/target_point_label.dart';
+import '../common/theme_label.dart';
 import 'component/answer_input_field.dart';
 import 'component/answer_send_button.dart';
 import 'component/member_status_list.dart';
-import 'component/target_point_label.dart';
-import 'component/theme_label.dart';
-import 'component/time_limit_view.dart';
 
 class AnsweringFragment extends StatelessWidget {
   const AnsweringFragment({Key? key}) : super(key: key);
@@ -33,11 +33,28 @@ class AnsweringFragment extends StatelessWidget {
 
   Widget _buildParentContent(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: const [
+        Divider(height: 32),
+        Text('今回のお題は...'),
+        Divider(height: 16),
         ThemeLabel(),
-        TargetPointLabel(),
-        TimeLimitView(),
-        Expanded(child: MemberStatusList()),
+        Divider(height: 32),
+        SizedBox(
+          height: 60,
+          child: MemberStatusList(),
+        ),
+        Divider(height: 32),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 8,
+            horizontal: 32,
+          ),
+          child: TargetPointLabel(),
+        ),
+        Expanded(
+          child: Center(child: Text('子の回答待ち...')),
+        ),
       ],
     );
   }
@@ -47,7 +64,6 @@ class AnsweringFragment extends StatelessWidget {
       children: const [
         ThemeLabel(),
         TargetPointLabel(),
-        TimeLimitView(),
         AnswerInputField(),
         AnswerSendButton(),
         Expanded(child: MemberStatusList()),

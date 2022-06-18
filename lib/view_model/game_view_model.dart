@@ -8,6 +8,7 @@ import 'package:fripo/domain/use_case/exit_room_use_case.dart';
 import 'package:fripo/domain/use_case/get_room_stream_use_case.dart';
 import 'package:provider/provider.dart';
 
+import '../domain/entity/member_info.dart';
 import '../injector.dart';
 
 class GameViewModel with ChangeNotifier {
@@ -36,6 +37,10 @@ class GameViewModel with ChangeNotifier {
 
   TurnInfo? get currentTurnInfo {
     return _roomInfo?.turns?[_roomInfo!.currentTurn! - 1];
+  }
+
+  MemberInfo? get parentMember {
+    return _roomInfo?.members[currentTurnInfo?.parentUserId];
   }
 
   Future<void> exitRoom() async {
