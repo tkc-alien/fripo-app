@@ -31,4 +31,7 @@ class AppColors {
 
   static const secondary = Color(0xffffed03);
   static const onPrimary = Color(0xffffffff);
+
+  static const black = Color(0xff000000);
+  static const error = Color(0xffee5555);
 }

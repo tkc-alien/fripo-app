@@ -8,7 +8,7 @@ class ThemeSendButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => onPressed(context),
-      child: const Text('Send theme'),
+      child: const Text('確定する'),
     );
   }
 

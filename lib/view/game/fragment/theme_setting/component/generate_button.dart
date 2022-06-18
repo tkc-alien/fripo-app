@@ -8,7 +8,7 @@ class GenerateButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () => onPressed(context),
-      child: const Text('Generate'),
+      child: const Text('ランダム'),
     );
   }
 

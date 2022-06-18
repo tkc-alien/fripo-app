@@ -3,7 +3,6 @@ import 'package:fripo/data/app_data.dart';
 import 'package:fripo/view/app_common/profile_icon.dart';
 import 'package:fripo/view/home/component/go_to_profile_edit_button.dart';
 import 'package:fripo/view/home/component/go_to_terms_button.dart';
-import 'package:fripo/view/home/component/join_room_button.dart';
 import 'package:fripo/view/home/component/logo_widget.dart';
 import 'package:fripo/view/home/component/profile_name_label.dart';
 import 'package:fripo/view_model/home_view_model.dart';
@@ -13,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../../util/ads/ads_util.dart';
 import 'component/any_label.dart';
 import 'component/create_room_button.dart';
+import 'component/join_room_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                //crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Row(
                     children: [
@@ -67,12 +67,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Expanded(flex: 2, child: LogoWidget()),
                   const AnyLabel(),
                   const Spacer(),
-                  const CreateRoomButton(),
-                  const Divider(
-                    color: Colors.transparent,
-                    height: 16,
+                  const Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 60,
+                    ),
+                    child: CreateRoomButton(),
                   ),
-                  const JoinRoomButton(),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 60,
+                    ),
+                    child: JoinRoomButton(),
+                  ),
                   const Spacer(),
                   SizedBox(
                     width: AdsUtil.width.toDouble(),

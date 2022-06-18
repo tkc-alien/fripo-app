@@ -49,6 +49,12 @@ class App extends StatelessWidget {
             ),
           ),
         ),
+        inputDecorationTheme: const InputDecorationTheme(
+          enabledBorder: AppStyles.defaultInputBorderEnabled,
+          focusedBorder: AppStyles.defaultInputBorderFocused,
+          errorBorder: AppStyles.defaultInputBorderError,
+          focusedErrorBorder: AppStyles.defaultInputBorderError,
+        ),
         dividerColor: Colors.transparent,
       ),
     );

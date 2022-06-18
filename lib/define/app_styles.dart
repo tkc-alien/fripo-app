@@ -21,17 +21,40 @@ class AppStyles {
   );
 
   static const defaultButtonPadding = EdgeInsets.symmetric(
-    vertical: 16,
-    horizontal: 48,
+    vertical: 12,
+    horizontal: 6,
   );
 
   static const defaultButtonElevation = 0.0;
+
+  static const defaultInputBorderRadius = BorderRadius.zero;
+
+  static const defaultInputBorderEnabled = OutlineInputBorder(
+    borderRadius: defaultInputBorderRadius,
+    borderSide: BorderSide(
+      color: AppColors.black,
+    ),
+  );
+
+  static const defaultInputBorderFocused = OutlineInputBorder(
+    borderRadius: defaultInputBorderRadius,
+    borderSide: BorderSide(
+      color: AppColors.primary,
+    ),
+  );
+
+  static const defaultInputBorderError = OutlineInputBorder(
+    borderRadius: defaultInputBorderRadius,
+    borderSide: BorderSide(
+      color: AppColors.error,
+    ),
+  );
 }
 
 class AppTextStyles {
   AppTextStyles._();
 
   static const defaultButtonTextStyle = TextStyle(
-    fontSize: 20,
+    fontSize: 16,
   );
 }

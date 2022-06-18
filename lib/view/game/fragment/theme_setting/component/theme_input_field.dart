@@ -23,6 +23,7 @@ class _ThemeInputFieldState extends State<ThemeInputField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _controller,
+      autofocus: false,
     );
   }
 

@@ -1,4 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fripo/view/game/fragment/theme_setting/component/example_label.dart';
+import 'package:fripo/view/game/fragment/theme_setting/component/role_label.dart';
 import 'package:fripo/view_model/game_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -30,10 +32,32 @@ class ThemeSettingFragment extends StatelessWidget {
 
   Widget _buildParentContent(BuildContext context) {
     return Column(
-      children: const [
-        ThemeInputField(),
-        GenerateButton(),
-        ThemeSendButton(),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(32),
+          child: RoleLabel(),
+        ),
+        const Text('お題を決めよう'),
+        const Padding(
+          padding: EdgeInsets.all(24),
+          child: ThemeInputField(),
+        ),
+        Row(
+          children: const [
+            Expanded(
+              flex: 1,
+              child: GenerateButton(),
+            ),
+            VerticalDivider(width: 16),
+            Expanded(
+              flex: 2,
+              child: ThemeSendButton(),
+            ),
+          ],
+        ),
+        const Spacer(),
+        const ExampleLabel(),
       ],
     );
   }
