@@ -14,14 +14,14 @@ class MockSendPointsInteractor implements SendPointsUseCase {
     final answers = current.answers!;
     final targetPoint = current.targetPoint;
     points.forEach((userId, point) {
-      final score = 50 - (targetPoint - point).abs();
+      final dif = (targetPoint - point).abs();
       answers[userId] = AnswerInfo(
         answer: answers[userId]!.answer,
-        score: score,
-        parentMarkedPoint: point,
+        difference: dif,
+        point: point,
       );
       MockRoom.members[userId] = MockRoom.members[userId]!.copyWith(
-        totalScore: MockRoom.members[userId]!.totalScore + score,
+        life: MockRoom.members[userId]!.life - dif,
       );
     });
     MockRoom.turns[MockRoom.currentTurnId] = current.copyWith(

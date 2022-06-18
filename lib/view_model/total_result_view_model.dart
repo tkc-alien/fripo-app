@@ -16,9 +16,8 @@ class TotalResultViewModel with ChangeNotifier {
 
   List<Tuple2<int, MemberInfo>> get membersWithRank {
     return _members.values.map((member) {
-      final upperCount = _members.values
-          .where((other) => other.totalScore > member.totalScore)
-          .length;
+      final upperCount =
+          _members.values.where((other) => other.life > member.life).length;
       return Tuple2(upperCount + 1, member);
     }).toList();
   }

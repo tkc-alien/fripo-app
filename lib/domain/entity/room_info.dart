@@ -7,7 +7,7 @@ class RoomInfo {
     required this.state,
     required this.members,
     required this.turns,
-    required this.maxTurn,
+    required this.defaultLife,
     required this.currentTurn,
     required this.hostUserId,
   });
@@ -23,7 +23,7 @@ class RoomInfo {
           ?.sublist(1)
           .map((e) => TurnInfo.fromMap(e))
           .toList(),
-      maxTurn: map['maxTurn'],
+      defaultLife: map['defaultLife'],
       currentTurn: map['currentTurn'],
       hostUserId: map['hostUserId'],
     );
@@ -32,7 +32,7 @@ class RoomInfo {
   final RoomState state;
   final Map<String, MemberInfo> members;
   final List<TurnInfo>? turns;
-  final int? maxTurn;
+  final int? defaultLife;
   final int? currentTurn;
   final String hostUserId;
 }

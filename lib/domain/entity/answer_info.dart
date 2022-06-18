@@ -1,19 +1,19 @@
 class AnswerInfo {
   AnswerInfo({
     required this.answer,
-    required this.score,
-    required this.parentMarkedPoint,
+    required this.difference,
+    required this.point,
   });
 
   factory AnswerInfo.fromMap(Map<dynamic, dynamic> map) {
     return AnswerInfo(
       answer: map['answer'],
-      score: map['score'],
-      parentMarkedPoint: map['parentMarkedPoint'],
+      difference: map['difference'],
+      point: map['point'],
     );
   }
 
   final String answer;
-  final int? score;
-  final int? parentMarkedPoint;
+  final int? difference;
+  final int? point;
 }

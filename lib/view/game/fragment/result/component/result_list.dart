@@ -43,9 +43,9 @@ class _ResultTile extends StatelessWidget {
           Text('name: ${memberInfo.name}'),
           Text('iconUrl: ${memberInfo.iconUrl}'),
           Text('answer: ${answerInfo?.answer ?? 'No Answer'}'),
-          Text('point: ${answerInfo?.parentMarkedPoint ?? '-'}'),
-          Text('score: ${answerInfo?.score ?? '-'}'),
-          Text('totalScore: ${memberInfo.totalScore}'),
+          Text('point: ${answerInfo?.point ?? '-'}'),
+          Text('score: ${answerInfo?.difference ?? '-'}'),
+          Text('totalScore: ${memberInfo.life}'),
         ],
       ),
     );

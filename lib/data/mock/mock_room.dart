@@ -36,7 +36,7 @@ class MockRoom {
         state: state,
         members: members,
         turns: turns,
-        maxTurn: maxTurn,
+        defaultLife: maxTurn,
         currentTurn: currentTurn,
         hostUserId: hostUserId,
       ),

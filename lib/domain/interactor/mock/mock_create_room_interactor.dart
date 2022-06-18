@@ -18,8 +18,9 @@ class MockCreateRoomInteractor implements CreateRoomUseCase {
       MockRoom.members[MockRoom.userId] = MemberInfo(
         name: 'TEST-USER',
         iconUrl: '...',
-        totalScore: 0,
-        isActive: false,
+        life: 0,
+        isActive: true,
+        isNotExited: true,
       );
       MockRoom.addSink();
     });
@@ -28,14 +29,16 @@ class MockCreateRoomInteractor implements CreateRoomUseCase {
       MockRoom.members[MockRoom.otherId1] = MemberInfo(
         name: 'USER-1',
         iconUrl: '...',
-        totalScore: 0,
+        life: 0,
         isActive: true,
+        isNotExited: true,
       );
       MockRoom.members[MockRoom.otherId2] = MemberInfo(
         name: 'USER-2',
         iconUrl: '...',
-        totalScore: 0,
+        life: 0,
         isActive: true,
+        isNotExited: true,
       );
       MockRoom.addSink();
     });

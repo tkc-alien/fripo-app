@@ -23,13 +23,13 @@ class MockSendThemeInteractor implements SendThemeUseCase {
       final newAnswers = current.answers ?? {};
       newAnswers[MockRoom.otherId1] = AnswerInfo(
         answer: 'Mock Answer1',
-        score: null,
-        parentMarkedPoint: null,
+        difference: null,
+        point: null,
       );
       newAnswers[MockRoom.otherId2] = AnswerInfo(
         answer: 'Mock Answer2',
-        score: null,
-        parentMarkedPoint: null,
+        difference: null,
+        point: null,
       );
       MockRoom.turns[MockRoom.currentTurnId] = current.copyWith(
         answers: newAnswers,

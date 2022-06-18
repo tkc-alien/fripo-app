@@ -15,22 +15,22 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
     final newAnswers = current.answers ?? {};
     newAnswers[MockRoom.userId] = AnswerInfo(
       answer: answer,
-      score: null,
-      parentMarkedPoint: null,
+      difference: null,
+      point: null,
     );
 
     final parent = current.parentUserId;
     if (parent == MockRoom.otherId1) {
       newAnswers[MockRoom.otherId2] = AnswerInfo(
         answer: 'MockAnswer',
-        score: null,
-        parentMarkedPoint: null,
+        difference: null,
+        point: null,
       );
     } else if (parent == MockRoom.otherId2) {
       newAnswers[MockRoom.otherId1] = AnswerInfo(
         answer: 'MockAnswer',
-        score: null,
-        parentMarkedPoint: null,
+        difference: null,
+        point: null,
       );
     }
 
@@ -42,18 +42,17 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
 
     Future.delayed(const Duration(milliseconds: 5000), () {
       final current = MockRoom.turns[MockRoom.currentTurnId];
-      const point = 50;
+      final dif = (current.targetPoint - 55).abs();
       current.answers!.forEach((key, value) {
-        final score = 50 - (current.targetPoint - point).abs();
         current.answers![key] = AnswerInfo(
           answer: value.answer,
-          score: score,
-          parentMarkedPoint: point,
+          difference: dif,
+          point: 55,
         );
 
         final currentMember = MockRoom.members[key]!;
         MockRoom.members[key] = currentMember.copyWith(
-          totalScore: currentMember.totalScore + score,
+          life: currentMember.life - dif,
         );
       });
       MockRoom.turns[MockRoom.currentTurnId] = current.copyWith(

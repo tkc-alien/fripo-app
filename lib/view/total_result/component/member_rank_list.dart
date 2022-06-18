@@ -40,7 +40,7 @@ class _MemberRankTile extends StatelessWidget {
           Text('rank: $rank'),
           Text('name: ${member.name}'),
           Text('iconUrl: ${member.iconUrl}'),
-          Text('totalScore: ${member.totalScore}'),
+          Text('totalScore: ${member.life}'),
         ],
       ),
     );
