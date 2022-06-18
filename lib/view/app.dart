@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/define/app_colors.dart';
-import 'package:fripo/view/test_screen.dart';
+
+import 'app_introduction/app_introduction_screen.dart';
+import 'home/home_screen.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -14,10 +16,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: true,
-      // home: shouldShowIntroduction
-      //     ? const AppIntroductionScreen()
-      //     : const HomeScreen(),
-      home: const TestScreen(),
+      home: shouldShowIntroduction
+          ? const AppIntroductionScreen()
+          : const HomeScreen(),
+      //home: const TestScreen(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: AppColors.primarySwatch,

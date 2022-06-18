@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/define/app_colors.dart';
 import 'package:fripo/define/app_styles.dart';
+import 'package:fripo/view/game/fragment/marking/marking_fragment.dart';
 
 const _dotWidth = 24.0;
 const _dotWidthFocused = 32.0;
-const _answerHeight = 32.0;
-double _totalHeight = 0;
+const _bottomPadding = MarkingFragment.sendButtonHeight;
+const _topPadding = MarkingFragment.turnInfoHeight;
 double _sideLineHeight = 0;
 double _topY = 0;
 double _bottomY = 0;
+
+const _answerStyle = TextStyle(fontSize: 12);
+const _focusedAnswerStyle = TextStyle(fontSize: 18);
 
 // PointMarker ----------------------------------------------------------------
 
@@ -26,8 +30,8 @@ class _PointMarkerState extends State<PointMarker> {
   @override
   void didChangeDependencies() {
     // ウィジェットサイズは画面サイズから計算して決定
-    final screenSize = MediaQuery.of(context).size;
-    _totalHeight = screenSize.height * 0.5;
+    //final screenSize = MediaQuery.of(context).size;
+    //_topPadding = screenSize.height * 0.2 - _bottomPadding;
 
     // スライダーに必要な値は一度レンダリングしてから取得する
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -44,47 +48,41 @@ class _PointMarkerState extends State<PointMarker> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: _totalHeight,
-      child: Column(
+    return Positioned.fill(
+      child: Row(
         children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: const [
+              SizedBox(height: _topPadding),
+              Text('100'),
+              Spacer(),
+              Text('50'),
+              Spacer(),
+              Text('0'),
+              SizedBox(height: _bottomPadding),
+            ],
+          ),
+          const VerticalDivider(width: 8),
           Expanded(
-            child: Row(
+            child: Stack(
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: const [
-                    SizedBox(height: _answerHeight / 2),
-                    Text('100'),
-                    Spacer(),
-                    Text('50'),
-                    Spacer(),
-                    Text('0'),
-                    SizedBox(height: _answerHeight / 2),
+                  children: [
+                    const SizedBox(height: _topPadding),
+                    Expanded(
+                      child: VerticalDivider(
+                        key: _sideLineKey,
+                        thickness: 2,
+                        width: _dotWidth,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: _bottomPadding),
                   ],
                 ),
-                const VerticalDivider(width: 8),
-                Expanded(
-                  child: Stack(
-                    children: [
-                      Column(
-                        children: [
-                          const SizedBox(height: _answerHeight / 2),
-                          Expanded(
-                            child: VerticalDivider(
-                              key: _sideLineKey,
-                              thickness: 2,
-                              width: _dotWidth,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(height: _answerHeight / 2),
-                        ],
-                      ),
-                      const Positioned.fill(child: _TileContainer()),
-                    ],
-                  ),
-                ),
+                const Positioned.fill(child: _TileContainer()),
               ],
             ),
           ),
@@ -110,9 +108,13 @@ class _TileContainerState extends State<_TileContainer> {
   @override
   void didChangeDependencies() {
     _data.addAll([
-      _TileData(userId: 'id1', answer: '１', point: 0),
-      _TileData(userId: 'id2', answer: '２', point: 0),
-      _TileData(userId: 'id3', answer: '３', point: 0),
+      _TileData(userId: 'id1', answer: 'レーマン不連続面', point: 0),
+      _TileData(userId: 'id2', answer: '初期微動継続時間', point: 0),
+      _TileData(
+        userId: 'id3',
+        answer: '超絶スーパーウルトラハイパーグレートエクストラワンダフルマグニチュード７',
+        point: 0,
+      ),
     ]);
     super.didChangeDependencies();
   }
@@ -132,8 +134,6 @@ class _TileContainerState extends State<_TileContainer> {
       );
     }
 
-    print(children.map((e) => e.key));
-
     return Stack(children: children);
   }
 
@@ -141,10 +141,8 @@ class _TileContainerState extends State<_TileContainer> {
     final obj = _data.singleWhere((e) => e.userId == userId);
     _data.remove(obj);
     _data.add(obj);
-    print(obj.answer);
-    print(_data.map((e) => e.answer));
     setState(() {
-      //_focusedIndex = index;
+      _focusedId = userId;
     });
   }
 }
@@ -178,17 +176,27 @@ class _TileState extends State<_Tile> {
 
   @override
   Widget build(BuildContext context) {
+    double bottom = point * _sideLineHeight * 0.01 + _bottomPadding;
+    if (widget.hasFocus) {
+      // ウィジェットのRenderBoxを取得
+      final box = _key.currentContext?.findRenderObject() as RenderBox?;
+      bottom -= (box?.size.height ?? 0) / 2;
+    } else {
+      bottom -= _dotWidth / 2;
+    }
+
     return Positioned(
       key: _key,
       left: 0,
       right: 0,
-      bottom: point * _sideLineHeight * 0.01,
+      bottom: bottom,
       child: GestureDetector(
         onVerticalDragUpdate: onDrag,
         onVerticalDragStart: (_) => widget.onDragStart(widget.userId),
         child: Row(
           children: [
-            Container(
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
               width: widget.hasFocus ? _dotWidthFocused : _dotWidth,
               height: widget.hasFocus ? _dotWidthFocused : _dotWidth,
               alignment: Alignment.center,
@@ -207,13 +215,14 @@ class _TileState extends State<_Tile> {
               ),
             ),
             Flexible(
-              child: Container(
-                height: _answerHeight,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
                 decoration: AppStyles.borderedContainerDecoration,
                 child: Text(
                   widget.answer,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                  maxLines: widget.hasFocus ? null : 1,
+                  overflow: widget.hasFocus ? null : TextOverflow.ellipsis,
+                  style: widget.hasFocus ? _focusedAnswerStyle : _answerStyle,
                 ),
               ),
             ),
@@ -225,10 +234,8 @@ class _TileState extends State<_Tile> {
 
   /// ドラッグ更新のコールバック
   void onDrag(DragUpdateDetails details) {
-    // ウィジェットのRenderBoxを取得
-    final box = _key.currentContext!.findRenderObject() as RenderBox;
     // 選択地点の数直線範囲内での座標を取得
-    final posY = (details.globalPosition.dy - _topY - box.size.height / 2);
+    final posY = (details.globalPosition.dy - _topY);
     // 最大地点の数直線範囲内での座標を取得
     final maxY = _bottomY - _topY;
     // 最大地点に対する選択地点の割合を百分率整数で取得

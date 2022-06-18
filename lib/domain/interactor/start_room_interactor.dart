@@ -9,7 +9,7 @@ class StartRoomInteractor implements StartRoomUseCase {
   Response<void> call() async {
     final res = await ApiClient().call(
       endPoint: ApiConst.startGame,
-      parameters: {'roomId': AppData.roomId},
+      parameters: {'roomId': AppData.roomId, 'maxTurn': 5},
     );
     return res.map((_) => null);
   }
