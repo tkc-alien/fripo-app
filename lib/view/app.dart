@@ -19,7 +19,6 @@ class App extends StatelessWidget {
       home: shouldShowIntroduction
           ? const AppIntroductionScreen()
           : const HomeScreen(),
-      //home: const TestScreen(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: AppColors.primarySwatch,
