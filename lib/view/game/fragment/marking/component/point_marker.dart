@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fripo/define/app_colors.dart';
 import 'package:fripo/define/app_styles.dart';
 import 'package:fripo/view/game/fragment/marking/marking_fragment.dart';
+import 'package:fripo/view_model/game_view_model.dart';
+import 'package:fripo/view_model/marking_view_model.dart';
 
 const _dotWidth = 24.0;
 const _dotWidthFocused = 32.0;
@@ -107,15 +109,22 @@ class _TileContainerState extends State<_TileContainer> {
 
   @override
   void didChangeDependencies() {
-    _data.addAll([
-      _TileData(userId: 'id1', answer: 'レーマン不連続面', point: 0),
-      _TileData(userId: 'id2', answer: '初期微動継続時間', point: 0),
-      _TileData(
-        userId: 'id3',
-        answer: '超絶スーパーウルトラハイパーグレートエクストラワンダフルマグニチュード７',
-        point: 0,
-      ),
-    ]);
+    final answers = GameViewModel.read(context).currentTurnInfo?.answers;
+    if (answers == null) throw Exception();
+    final entries = answers.entries.toList();
+    final double p;
+    if (entries.length > 1) {
+      p = 100 / (entries.length - 1);
+    } else {
+      p = 0;
+    }
+    for (var i = 0; i < answers.length; i++) {
+      _data.add(_TileData(
+        userId: entries[i].key,
+        answer: entries[i].value.answer,
+        point: (p * i).round(),
+      ));
+    }
     super.didChangeDependencies();
   }
 
@@ -193,6 +202,9 @@ class _TileState extends State<_Tile> {
       child: GestureDetector(
         onVerticalDragUpdate: onDrag,
         onVerticalDragStart: (_) => widget.onDragStart(widget.userId),
+        onVerticalDragEnd: (_) {
+          MarkingViewModel.read(context).setPoint(widget.userId, point);
+        },
         child: Row(
           children: [
             AnimatedContainer(
