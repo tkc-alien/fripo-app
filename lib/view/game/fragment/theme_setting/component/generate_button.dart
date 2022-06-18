@@ -6,7 +6,7 @@ class GenerateButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return OutlinedButton(
       onPressed: () => onPressed(context),
       child: const Text('Generate'),
     );

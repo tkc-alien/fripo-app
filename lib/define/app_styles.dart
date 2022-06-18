@@ -19,8 +19,19 @@ class AppStyles {
     ),
     borderRadius: BorderRadius.all(Radius.circular(48)),
   );
+
+  static const defaultButtonPadding = EdgeInsets.symmetric(
+    vertical: 16,
+    horizontal: 48,
+  );
+
+  static const defaultButtonElevation = 0.0;
 }
 
 class AppTextStyles {
   AppTextStyles._();
+
+  static const defaultButtonTextStyle = TextStyle(
+    fontSize: 20,
+  );
 }

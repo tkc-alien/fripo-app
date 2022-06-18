@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/define/app_colors.dart';
+import 'package:fripo/define/app_styles.dart';
 
 import 'app_introduction/app_introduction_screen.dart';
 import 'home/home_screen.dart';
@@ -30,14 +31,21 @@ class App extends StatelessWidget {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            elevation: 0,
-            padding: const EdgeInsets.symmetric(
-              vertical: 16,
-              horizontal: 48,
-            ),
+            elevation: AppStyles.defaultButtonElevation,
+            padding: AppStyles.defaultButtonPadding,
             shape: const StadiumBorder(),
-            textStyle: const TextStyle(
-              fontSize: 20,
+            textStyle: AppTextStyles.defaultButtonTextStyle,
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            elevation: AppStyles.defaultButtonElevation,
+            padding: AppStyles.defaultButtonPadding,
+            shape: const StadiumBorder(),
+            textStyle: AppTextStyles.defaultButtonTextStyle,
+            side: const BorderSide(
+              color: Colors.black,
+              width: 1,
             ),
           ),
         ),

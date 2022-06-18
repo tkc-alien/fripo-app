@@ -57,9 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 12,
                       ),
                       const Expanded(child: ProfileNameLabel()),
-                      const GoToProfileEditButton(),
                       const GoToTermsButton(),
                     ],
+                  ),
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: GoToProfileEditButton(),
                   ),
                   const Expanded(flex: 2, child: LogoWidget()),
                   const AnyLabel(),
