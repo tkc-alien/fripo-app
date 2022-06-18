@@ -21,7 +21,7 @@ class MockSendPointsInteractor implements SendPointsUseCase {
         point: point,
       );
       MockRoom.members[userId] = MockRoom.members[userId]!.copyWith(
-        life: MockRoom.members[userId]!.life - dif,
+        life: MockRoom.members[userId]!.life! - dif,
       );
     });
     MockRoom.turns[MockRoom.currentTurnId] = current.copyWith(

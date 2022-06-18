@@ -35,7 +35,7 @@ class MemberInfo {
 
   final String name;
   final String iconUrl;
-  final int life;
+  final int? life;
   final bool isActive;
   final bool isNotExited;
 }

@@ -52,7 +52,7 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
 
         final currentMember = MockRoom.members[key]!;
         MockRoom.members[key] = currentMember.copyWith(
-          life: currentMember.life - dif,
+          life: currentMember.life! - dif,
         );
       });
       MockRoom.turns[MockRoom.currentTurnId] = current.copyWith(
