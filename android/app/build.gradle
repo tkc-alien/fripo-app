@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -44,8 +45,8 @@ android {
 
     defaultConfig {
         applicationId "tokyo.t_alien.fripo"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 32
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -53,6 +54,22 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.debug
+        }
+    }
+
+    flavorDimensions "flavor-type"
+
+    productFlavors {
+        develop {
+            dimension "flavor-type"
+            applicationIdSuffix ".dev"
+        }
+        staging {
+            dimension "flavor-type"
+            applicationIdSuffix ".stg"
+        }
+        product {
+            dimension "flavor-type"
         }
     }
 }
