@@ -8,6 +8,7 @@ class RoomIdField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: true,
       keyboardType: TextInputType.number,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       validator: RoomIdInputViewModel.read(context).validateRoomId,

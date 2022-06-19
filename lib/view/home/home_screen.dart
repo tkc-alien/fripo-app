@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       create: (_) => HomeViewModel(),
       builder: (context, child) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16),

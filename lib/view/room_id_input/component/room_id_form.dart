@@ -31,7 +31,10 @@ class _RoomIdFormState extends State<RoomIdForm> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: const [
+          Text('ルームIDを入力'),
+          Divider(height: 8),
           RoomIdField(),
+          Divider(height: 8),
           EnterButton(),
         ],
       ),
