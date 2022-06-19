@@ -51,7 +51,8 @@ ios/Runner/GoogleService-Info.plist
 ios/Runner/GoogleService-Info-Develop.plist
 ios/Runner/GoogleService-Info-Release.plist
 
-android/app/src/debug/google-services.json
-android/app/src/release/google-services.json
+android/app/src/develop/google-services.json
+android/app/src/staging/google-services.json
+android/app/src/product/google-services.json
 
 assets/protected
