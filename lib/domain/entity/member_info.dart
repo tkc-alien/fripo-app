@@ -4,7 +4,7 @@ class MemberInfo {
     required this.iconUrl,
     required this.life,
     required this.isActive,
-    required this.isNotExited,
+    required this.isParticipating,
   });
 
   factory MemberInfo.fromMap(Map<dynamic, dynamic> map) {
@@ -13,7 +13,7 @@ class MemberInfo {
       iconUrl: map['iconUrl'],
       life: map['totalScore'],
       isActive: map['isActive'],
-      isNotExited: map['isNotExited'],
+      isParticipating: map['isParticipating'],
     );
   }
 
@@ -22,14 +22,14 @@ class MemberInfo {
     String? iconUrl,
     int? life,
     bool? isActive,
-    bool? isNotExited,
+    bool? isParticipating,
   }) {
     return MemberInfo(
       name: name ?? this.name,
       iconUrl: iconUrl ?? this.iconUrl,
       life: life ?? this.life,
       isActive: isActive ?? this.isActive,
-      isNotExited: isNotExited ?? this.isNotExited,
+      isParticipating: isParticipating ?? this.isParticipating,
     );
   }
 
@@ -37,5 +37,5 @@ class MemberInfo {
   final String iconUrl;
   final int? life;
   final bool isActive;
-  final bool isNotExited;
+  final bool isParticipating;
 }

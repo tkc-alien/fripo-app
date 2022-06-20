@@ -19,14 +19,14 @@ class MockJoinRoomInteractor implements JoinRoomUseCase {
       iconUrl: '...',
       life: 0,
       isActive: true,
-      isNotExited: true,
+      isParticipating: true,
     );
     MockRoom.members[MockRoom.otherId2] = MemberInfo(
       name: 'USER-2',
       iconUrl: '...',
       life: 0,
       isActive: true,
-      isNotExited: true,
+      isParticipating: true,
     );
     MockRoom.addSink();
 
@@ -36,7 +36,7 @@ class MockJoinRoomInteractor implements JoinRoomUseCase {
         iconUrl: '...',
         life: 0,
         isActive: true,
-        isNotExited: true,
+        isParticipating: true,
       );
       MockRoom.addSink();
     });
