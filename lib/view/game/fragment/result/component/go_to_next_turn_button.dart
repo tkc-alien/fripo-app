@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fripo/view_model/game_view_model.dart';
 import 'package:fripo/view_model/result_view_model.dart';
 
 class GoToNextTurnButton extends StatelessWidget {
@@ -6,9 +7,23 @@ class GoToNextTurnButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isUserParent = GameViewModel.select(context, (vm) => vm.isUserParent);
+    if (isUserParent == null) throw Exception();
+
+    final Function()? handler;
+    final String label;
+
+    if (isUserParent) {
+      handler = () => onPressed(context);
+      label = '次のターンを始める';
+    } else {
+      handler = null;
+      label = '親を待っています...';
+    }
+
     return ElevatedButton(
-      onPressed: () => onPressed(context),
-      child: const Text('Go to NextTurn'),
+      onPressed: handler,
+      child: Text(label),
     );
   }
 

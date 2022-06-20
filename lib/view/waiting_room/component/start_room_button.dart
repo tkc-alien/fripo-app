@@ -6,9 +6,23 @@ class StartRoomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isUserHost =
+        WaitingRoomViewModel.select(context, (vm) => vm.isUserHost);
+
+    final Function()? handler;
+    final String label;
+
+    if (isUserHost) {
+      handler = () => onPressed(context);
+      label = 'ゲームスタート';
+    } else {
+      handler = null;
+      label = '待機中...';
+    }
+
     return ElevatedButton(
-      onPressed: () => onPressed(context),
-      child: const Text('ゲームスタート'),
+      onPressed: handler,
+      child: Text(label),
     );
   }
 
