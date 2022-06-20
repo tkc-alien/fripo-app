@@ -11,7 +11,7 @@ class MemberInfo {
     return MemberInfo(
       name: map['name'],
       iconUrl: map['iconUrl'],
-      life: map['totalScore'],
+      life: map['life'],
       isActive: map['isActive'],
       isParticipating: map['isParticipating'],
     );
