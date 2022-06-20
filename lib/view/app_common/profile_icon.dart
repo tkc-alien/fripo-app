@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fripo/define/app_colors.dart';
 
 class ProfileIcon extends StatelessWidget {
   const ProfileIcon({
@@ -19,7 +21,11 @@ class ProfileIcon extends StatelessWidget {
         width: dimension,
         height: dimension,
         fit: BoxFit.contain,
+        placeholder: (context, url) => _placeholder,
+        errorWidget: (context, url, error) => _placeholder,
       ),
     );
   }
+
+  Widget get _placeholder => Container(color: AppColors.profileIconBack);
 }

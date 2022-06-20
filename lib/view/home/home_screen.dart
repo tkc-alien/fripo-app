@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fripo/data/app_data.dart';
 import 'package:fripo/view/app_common/profile_icon.dart';
 import 'package:fripo/view/app_common/provider_initializer.dart';
 import 'package:fripo/view/home/component/go_to_profile_edit_button.dart';
@@ -59,7 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Row(
                       children: [
-                        ProfileIcon(url: AppData.userIconUrl),
+                        ProfileIcon(
+                          url: HomeViewModel.select(
+                            context,
+                            (vm) => vm.user?.iconUrl ?? '',
+                          ),
+                        ),
                         const VerticalDivider(
                           color: Colors.transparent,
                           width: 12,

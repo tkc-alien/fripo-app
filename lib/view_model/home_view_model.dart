@@ -3,20 +3,39 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fripo/domain/error/failure.dart';
 import 'package:fripo/domain/use_case/create_room_use_case.dart';
+import 'package:fripo/domain/use_case/get_user_data_use_case.dart';
 import 'package:fripo/domain/use_case/join_room_use_case.dart';
 import 'package:provider/provider.dart';
 
+import '../domain/entity/user_info.dart';
 import '../injector.dart';
 
 class HomeViewModel with ChangeNotifier {
   HomeViewModel()
-      : _createRoomUseCase = sl(),
-        _joinRoomUseCase = sl();
+      : _getUserDataUseCase = sl(),
+        _createRoomUseCase = sl(),
+        _joinRoomUseCase = sl() {
+    fetchUserData();
+  }
 
+  final GetUserDataUseCase _getUserDataUseCase;
   final CreateRoomUseCase _createRoomUseCase;
   final JoinRoomUseCase _joinRoomUseCase;
 
   final errorMessageController = StreamController<String>();
+
+  UserInfo? _user;
+
+  Future<void> fetchUserData() async {
+    final res = await _getUserDataUseCase.call();
+    res.fold(
+      (failure) => handleFailure,
+      (data) {
+        _user = data;
+        notifyListeners();
+      },
+    );
+  }
 
   Future<String?> createRoom() async {
     final res = await _createRoomUseCase.call();
@@ -56,4 +75,6 @@ class HomeViewModel with ChangeNotifier {
   }
 }
 
-extension Getters on HomeViewModel {}
+extension Getters on HomeViewModel {
+  UserInfo? get user => _user;
+}

@@ -7,12 +7,14 @@ import 'domain/interactor/exit_room_interactor.dart';
 import 'domain/interactor/get_random_theme_interactor.dart';
 import 'domain/interactor/get_room_data_interactor.dart';
 import 'domain/interactor/get_room_stream_interactor.dart';
+import 'domain/interactor/get_user_data_interactor.dart';
 import 'domain/interactor/join_room_interactor.dart';
 import 'domain/interactor/mock/mock_create_room_interactor.dart';
 import 'domain/interactor/mock/mock_end_turn_interactor.dart';
 import 'domain/interactor/mock/mock_exit_room_interactor.dart';
 import 'domain/interactor/mock/mock_get_random_theme_interactor.dart';
 import 'domain/interactor/mock/mock_get_room_stream_interactor.dart';
+import 'domain/interactor/mock/mock_get_user_data_interactor.dart';
 import 'domain/interactor/mock/mock_join_room_interactor.dart';
 import 'domain/interactor/mock/mock_register_user_interactor.dart';
 import 'domain/interactor/mock/mock_send_answer_use_case.dart';
@@ -34,6 +36,7 @@ import 'domain/use_case/exit_room_use_case.dart';
 import 'domain/use_case/get_random_theme_use_case.dart';
 import 'domain/use_case/get_room_data_use_case.dart';
 import 'domain/use_case/get_room_stream_use_case.dart';
+import 'domain/use_case/get_user_data_use_case.dart';
 import 'domain/use_case/join_room_use_case.dart';
 import 'domain/use_case/pick_image_use_case.dart';
 import 'domain/use_case/register_user_use_case.dart';
@@ -95,6 +98,12 @@ Result init([Env env = Env.develop]) {
     product: null,
     develop: RegisterUserInteractor(),
     mock: MockRegisterUserInteractor(),
+  );
+
+  register<GetUserDataUseCase>(
+    product: null,
+    develop: GetUserDataInteractor(),
+    mock: MockGetUserDataInteractor(),
   );
 
   register<CreateRoomUseCase>(
