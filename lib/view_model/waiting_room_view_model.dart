@@ -37,6 +37,8 @@ class WaitingRoomViewModel with ChangeNotifier {
   /// Room情報のSubscription
   StreamSubscription<RoomInfo>? _roomInfoSubscription;
 
+  int _defaultLife = 100;
+
   /// RoomInfoを解決
   void _resolveRoomInfo(RoomInfo info) {
     print('WaitingRoomVM listened roomInfo update.');
@@ -60,12 +62,16 @@ class WaitingRoomViewModel with ChangeNotifier {
   Future<void> startRoom() async {
     if (_isRequestingStartRoom) return;
     _isRequestingStartRoom = true;
-    final res = await _startRoomUseCase.call();
+    final res = await _startRoomUseCase.call(defaultLife: _defaultLife);
     res.fold(
       (failure) => print(failure),
       (_) => print('startRoom succeed.'),
     );
     _isRequestingStartRoom = false;
+  }
+
+  void setDefaultLife(int value) {
+    _defaultLife = value;
   }
 
   void cancelSubscriptions() {
@@ -94,4 +100,5 @@ extension Getters on WaitingRoomViewModel {
   List<MemberInfo> get members => _members;
   bool get isUserHost => _isUserHost;
   bool get startFlg => _startFlg;
+  int get defaultLife => _defaultLife;
 }

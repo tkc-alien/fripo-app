@@ -1,5 +1,5 @@
 import 'package:fripo/define/alias.dart';
 
 abstract class StartRoomUseCase {
-  Response<void> call();
+  Response<void> call({required int defaultLife});
 }

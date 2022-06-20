@@ -11,4 +11,12 @@ class AppConst {
     'JPEG',
     'JPG',
   ];
+
+  static const defaultLifeChoiceList = [
+    100,
+    200,
+    300,
+    400,
+    500,
+  ];
 }

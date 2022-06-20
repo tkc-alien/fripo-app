@@ -6,10 +6,13 @@ import 'package:fripo/util/api/api_client.dart';
 
 class StartRoomInteractor implements StartRoomUseCase {
   @override
-  Response<void> call() async {
+  Response<void> call({required int defaultLife}) async {
     final res = await ApiClient().call(
       endPoint: ApiConst.startGame,
-      parameters: {'roomId': AppData.roomId, 'defaultLife': 100},
+      parameters: {
+        'roomId': AppData.roomId,
+        'defaultLife': defaultLife,
+      },
     );
     return res.map((_) => null);
   }

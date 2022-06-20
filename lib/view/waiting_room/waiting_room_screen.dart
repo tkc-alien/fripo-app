@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/util/ads/ads_util.dart';
-import 'package:fripo/view/waiting_room/component/turn_count_selector.dart';
+import 'package:fripo/view/waiting_room/component/default_life_selector.dart';
 import 'package:fripo/view_model/waiting_room_view_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -66,7 +66,7 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
                     const Divider(height: 24),
                     const StartRoomButton(),
                     const Divider(height: 16),
-                    const TurnCountSelector(),
+                    const DefaultLifeSelector(),
                     const Divider(height: 16),
                     const Expanded(child: MemberListView()),
                     SizedBox(
