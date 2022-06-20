@@ -71,8 +71,11 @@ class _GameScreenState extends State<GameScreen> {
                                     height: 250,
                                     right: 0,
                                     bottom: 0,
-                                    child: Image.asset(
-                                      'assets/image/fripo_touch.png',
+                                    child: Opacity(
+                                      opacity: 0.3,
+                                      child: Image.asset(
+                                        'assets/image/fripo_touch.png',
+                                      ),
                                     ),
                                   ),
                                   const GameFragmentContainer(),
