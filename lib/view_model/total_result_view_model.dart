@@ -2,24 +2,43 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:fripo/domain/entity/member_info.dart';
 import 'package:fripo/domain/entity/turn_info.dart';
+import 'package:fripo/domain/use_case/get_room_data_use_case.dart';
 import 'package:provider/provider.dart';
 
+import '../injector.dart';
+
 class TotalResultViewModel with ChangeNotifier {
-  TotalResultViewModel({
-    required Map<String, MemberInfo> members,
-    required List<TurnInfo> turns,
-  })  : _members = members,
-        _turns = turns;
+  TotalResultViewModel() : _getRoomDataUseCase = sl() {
+    fetch();
+  }
 
-  final Map<String, MemberInfo> _members;
-  final List<TurnInfo> _turns;
+  final GetRoomDataUseCase _getRoomDataUseCase;
 
-  List<Tuple2<int, MemberInfo>> get membersWithRank {
-    return _members.values.map((member) {
-      final upperCount =
-          _members.values.where((other) => other.life! > member.life!).length;
-      return Tuple2(upperCount + 1, member);
-    }).toList();
+  TotalResultData? _data;
+
+  Future<void> fetch() async {
+    final res = await _getRoomDataUseCase.call();
+    res.fold(
+      (failure) => print(failure),
+      (room) {
+        final members = room.members.entries;
+        final membersWithRank = members.map((member) {
+          return Tuple3(
+            members
+                .where((other) => other.value.life! > member.value.life!)
+                .length,
+            member.key,
+            member.value,
+          );
+        }).toList();
+        final turns = room.turns ?? [];
+        _data = TotalResultData(
+          membersWithRank: membersWithRank,
+          turns: turns,
+        );
+        notifyListeners();
+      },
+    );
   }
 
   static TotalResultViewModel read(BuildContext context) {
@@ -35,5 +54,15 @@ class TotalResultViewModel with ChangeNotifier {
 }
 
 extension Getters on TotalResultViewModel {
-  List<TurnInfo> get turns => _turns.toList();
+  TotalResultData? get data => _data;
+}
+
+class TotalResultData {
+  TotalResultData({
+    required this.membersWithRank,
+    required this.turns,
+  });
+
+  final List<Tuple3<int, String, MemberInfo>> membersWithRank;
+  final List<TurnInfo> turns;
 }

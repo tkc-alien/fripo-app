@@ -9,12 +9,16 @@ class MemberRankList extends StatelessWidget {
   Widget build(BuildContext context) {
     final membersWithRank = TotalResultViewModel.select(
       context,
-      (vm) => vm.membersWithRank,
+      (vm) => vm.data?.membersWithRank,
     );
+
+    if (membersWithRank == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
     return ListView(
       children: membersWithRank
-          .map((e) => _MemberRankTile(e.value1, e.value2))
+          .map((e) => _MemberRankTile(e.value1, e.value3))
           .toList(),
     );
   }

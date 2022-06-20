@@ -5,6 +5,7 @@ import 'domain/interactor/crop_image_interactor.dart';
 import 'domain/interactor/end_turn_interactor.dart';
 import 'domain/interactor/exit_room_interactor.dart';
 import 'domain/interactor/get_random_theme_interactor.dart';
+import 'domain/interactor/get_room_data_interactor.dart';
 import 'domain/interactor/get_room_stream_interactor.dart';
 import 'domain/interactor/join_room_interactor.dart';
 import 'domain/interactor/mock/mock_create_room_interactor.dart';
@@ -31,6 +32,7 @@ import 'domain/use_case/crop_image_use_case.dart';
 import 'domain/use_case/end_turn_use_case.dart';
 import 'domain/use_case/exit_room_use_case.dart';
 import 'domain/use_case/get_random_theme_use_case.dart';
+import 'domain/use_case/get_room_data_use_case.dart';
 import 'domain/use_case/get_room_stream_use_case.dart';
 import 'domain/use_case/join_room_use_case.dart';
 import 'domain/use_case/pick_image_use_case.dart';
@@ -123,6 +125,12 @@ Result init([Env env = Env.develop]) {
     product: null,
     develop: GetRoomStreamInteractor(),
     mock: MockGetRoomStreamInteractor(),
+  );
+
+  register<GetRoomDataUseCase>(
+    product: null,
+    develop: GetRoomDataInteractor(),
+    mock: null,
   );
 
   register<SendThemeUseCase>(

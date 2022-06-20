@@ -133,10 +133,7 @@ class _GameScreenState extends State<GameScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => TotalResultScreen(
-          members: vm.roomInfo!.members,
-          turns: vm.roomInfo!.turns!,
-        ),
+        builder: (_) => TotalResultScreen(),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fripo/domain/entity/turn_info.dart';
 import 'package:fripo/view_model/total_result_view_model.dart';
 
@@ -7,7 +8,11 @@ class TurnList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final turns = TotalResultViewModel.select(context, (vm) => vm.turns);
+    final turns = TotalResultViewModel.select(context, (vm) => vm.data?.turns);
+
+    if (turns == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
     return ListView.builder(
       itemCount: turns.length,
