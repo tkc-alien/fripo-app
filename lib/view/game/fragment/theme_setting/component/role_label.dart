@@ -27,9 +27,7 @@ class RoleLabel extends StatelessWidget {
               right: width * (_rightWeight - _coverWeight),
               top: 0,
               bottom: 0,
-              child: Container(
-                color: AppColors.secondary,
-              ),
+              child: Image.asset('assets/image/bubble.png'),
             ),
             Positioned(
               left: width * (_leftWeight - _coverWeight),

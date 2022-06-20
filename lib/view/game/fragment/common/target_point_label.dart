@@ -43,17 +43,18 @@ class TargetPointLabel extends StatelessWidget {
               children: [
                 AspectRatio(
                   aspectRatio: 4 / 3,
-                  child: Container(
-                    color: AppColors.secondary,
-                  ),
+                  child: Image.asset('assets/image/bubble.png'),
                 ),
-                Positioned.fill(
-                  child: Center(
+                Positioned(
+                  left: 8,
+                  top: 8,
+                  right: 8,
+                  bottom: 8,
+                  child: FittedBox(
                     child: Text(
                       label,
                       style: const TextStyle(
                         color: AppColors.primary,
-                        fontSize: 48,
                       ),
                     ),
                   ),
