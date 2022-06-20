@@ -35,8 +35,6 @@ class _JoinRoomButtonState extends State<JoinRoomButton> {
           builder: (_) => WaitingRoomScreen(roomId: joinedRoomId),
         ),
       );
-    } else {
-      print(HomeViewModel.read(context).errorMessage);
     }
   }
 }

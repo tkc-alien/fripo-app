@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fripo/domain/error/failure.dart';
 import 'package:fripo/domain/use_case/create_room_use_case.dart';
@@ -14,13 +16,13 @@ class HomeViewModel with ChangeNotifier {
   final CreateRoomUseCase _createRoomUseCase;
   final JoinRoomUseCase _joinRoomUseCase;
 
-  String? _errorMessage;
+  final errorMessageController = StreamController<String>();
 
   Future<String?> createRoom() async {
     final res = await _createRoomUseCase.call();
     return res.fold(
       (failure) {
-        resolveFailure(failure);
+        handleFailure(failure);
         return null;
       },
       (data) => data,
@@ -31,16 +33,15 @@ class HomeViewModel with ChangeNotifier {
     final res = await _joinRoomUseCase.call(roomId: roomId);
     return res.fold(
       (failure) {
-        resolveFailure(failure);
+        handleFailure(failure);
         return null;
       },
       (_) => roomId,
     );
   }
 
-  void resolveFailure(Failure failure) {
-    _errorMessage = failure.message;
-    notifyListeners();
+  void handleFailure(Failure failure) {
+    errorMessageController.sink.add(failure.message);
   }
 
   static HomeViewModel read(BuildContext context) {
@@ -55,6 +56,4 @@ class HomeViewModel with ChangeNotifier {
   }
 }
 
-extension Getters on HomeViewModel {
-  String? get errorMessage => _errorMessage;
-}
+extension Getters on HomeViewModel {}

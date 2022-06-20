@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fripo/data/app_data.dart';
 import 'package:fripo/view/app_common/profile_icon.dart';
+import 'package:fripo/view/app_common/provider_initializer.dart';
 import 'package:fripo/view/home/component/go_to_profile_edit_button.dart';
 import 'package:fripo/view/home/component/go_to_terms_button.dart';
 import 'package:fripo/view/home/component/logo_widget.dart';
@@ -41,59 +43,69 @@ class _HomeScreenState extends State<HomeScreen> {
     return ChangeNotifierProvider(
       create: (_) => HomeViewModel(),
       builder: (context, child) {
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    children: [
-                      ProfileIcon(url: AppData.userIconUrl),
-                      const VerticalDivider(
-                        color: Colors.transparent,
-                        width: 12,
+        return ProviderInitializer(
+          initialize: () {
+            final vm = HomeViewModel.read(context);
+            vm.errorMessageController.stream.listen(showError);
+          },
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      children: [
+                        ProfileIcon(url: AppData.userIconUrl),
+                        const VerticalDivider(
+                          color: Colors.transparent,
+                          width: 12,
+                        ),
+                        const Expanded(child: ProfileNameLabel()),
+                        const GoToTermsButton(),
+                      ],
+                    ),
+                    const Align(
+                      alignment: Alignment.topLeft,
+                      child: GoToProfileEditButton(),
+                    ),
+                    const Expanded(flex: 2, child: LogoWidget()),
+                    const AnyLabel(),
+                    const Spacer(),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 60,
                       ),
-                      const Expanded(child: ProfileNameLabel()),
-                      const GoToTermsButton(),
-                    ],
-                  ),
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: GoToProfileEditButton(),
-                  ),
-                  const Expanded(flex: 2, child: LogoWidget()),
-                  const AnyLabel(),
-                  const Spacer(),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 60,
+                      child: CreateRoomButton(),
                     ),
-                    child: CreateRoomButton(),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 60,
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 60,
+                      ),
+                      child: JoinRoomButton(),
                     ),
-                    child: JoinRoomButton(),
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    width: AdsUtil.width.toDouble(),
-                    height: AdsUtil.height.toDouble(),
-                    child: AdWidget(ad: _ad),
-                  ),
-                ],
+                    const Spacer(),
+                    SizedBox(
+                      width: AdsUtil.width.toDouble(),
+                      height: AdsUtil.height.toDouble(),
+                      child: AdWidget(ad: _ad),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         );
       },
     );
+  }
+
+  void showError(String error) {
+    Fluttertoast.showToast(msg: error);
   }
 }

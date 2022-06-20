@@ -29,8 +29,6 @@ class _CreateRoomButtonState extends State<CreateRoomButton> {
           builder: (_) => WaitingRoomScreen(roomId: createdRoomId),
         ),
       );
-    } else {
-      print(HomeViewModel.read(context).errorMessage);
     }
   }
 }

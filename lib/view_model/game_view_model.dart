@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:fripo/data/app_data.dart';
 import 'package:fripo/domain/entity/room_info.dart';
 import 'package:fripo/domain/entity/turn_info.dart';
+import 'package:fripo/domain/enum/room_state.dart';
 import 'package:fripo/domain/use_case/exit_room_use_case.dart';
 import 'package:fripo/domain/use_case/get_room_stream_use_case.dart';
 import 'package:provider/provider.dart';
 
 import '../domain/entity/member_info.dart';
+import '../domain/error/failure.dart';
 import '../injector.dart';
 
 class GameViewModel with ChangeNotifier {
@@ -23,15 +25,20 @@ class GameViewModel with ChangeNotifier {
   final GetRoomStreamUseCase _getRoomStreamUseCase;
   final ExitRoomUseCase _exitRoomUseCase;
 
+  final errorMessageController = StreamController<String>();
+  final finishEventController = StreamController<bool>();
+
   StreamSubscription<RoomInfo>? _roomInfoSubscription;
 
   RoomInfo? _roomInfo;
   bool _isUserParent = false;
 
   void _resolveRoomInfo(RoomInfo info) {
-    print('GameVM listened RoomInfo update.');
     _roomInfo = info;
     _isUserParent = currentTurnInfo?.parentUserId == AppData.userId;
+    if (info.state != RoomState.onGame) {
+      finishEventController.sink.add(true);
+    }
     notifyListeners();
   }
 
@@ -46,8 +53,8 @@ class GameViewModel with ChangeNotifier {
   Future<void> exitRoom() async {
     final res = await _exitRoomUseCase.call();
     res.fold(
-      (failure) => print(failure),
-      (_) => print('Exit Room succeed.'),
+      (failure) => handleFailure,
+      (_) => {},
     );
   }
 
@@ -55,9 +62,19 @@ class GameViewModel with ChangeNotifier {
     _roomInfoSubscription?.cancel();
   }
 
+  void closeStreams() {
+    errorMessageController.close();
+    finishEventController.close();
+  }
+
+  void handleFailure(Failure failure) {
+    errorMessageController.sink.add(failure.message);
+  }
+
   @override
   void dispose() {
     cancelSubscriptions();
+    closeStreams();
     super.dispose();
   }
 

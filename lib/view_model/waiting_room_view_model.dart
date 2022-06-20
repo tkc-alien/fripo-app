@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fripo/data/app_data.dart';
 import 'package:fripo/domain/enum/room_state.dart';
+import 'package:fripo/domain/error/failure.dart';
 import 'package:fripo/domain/use_case/exit_room_use_case.dart';
 import 'package:fripo/domain/use_case/get_room_stream_use_case.dart';
 import 'package:fripo/domain/use_case/start_room_use_case.dart';
@@ -27,10 +28,13 @@ class WaitingRoomViewModel with ChangeNotifier {
   final ExitRoomUseCase _exitRoomUseCase;
   final StartRoomUseCase _startRoomUseCase;
 
+  /// エラーメッセージ
+  final errorMessageController = StreamController<String>();
+  final startFlag = StreamController<bool>();
+
   /// 参加中のMemberリスト
   List<MemberInfo> _members = [];
   bool _isUserHost = false;
-  bool _startFlg = false;
   bool _isRequestingExitRoom = false;
   bool _isRequestingStartRoom = false;
 
@@ -44,7 +48,9 @@ class WaitingRoomViewModel with ChangeNotifier {
     print('WaitingRoomVM listened roomInfo update.');
     _members = info.members.values.toList();
     _isUserHost = info.hostUserId == AppData.userId;
-    _startFlg = info.state != RoomState.preparing;
+    if (info.state != RoomState.preparing) {
+      startFlag.sink.add(true);
+    }
     notifyListeners();
   }
 
@@ -53,7 +59,7 @@ class WaitingRoomViewModel with ChangeNotifier {
     _isRequestingExitRoom = true;
     final res = await _exitRoomUseCase.call();
     res.fold(
-      (failure) => print(failure),
+      (failure) => _handleFailure(failure),
       (_) => print('exitRoom succeed.'),
     );
     _isRequestingExitRoom = false;
@@ -64,7 +70,7 @@ class WaitingRoomViewModel with ChangeNotifier {
     _isRequestingStartRoom = true;
     final res = await _startRoomUseCase.call(defaultLife: _defaultLife);
     res.fold(
-      (failure) => print(failure),
+      (failure) => _handleFailure(failure),
       (_) => print('startRoom succeed.'),
     );
     _isRequestingStartRoom = false;
@@ -78,9 +84,20 @@ class WaitingRoomViewModel with ChangeNotifier {
     _roomInfoSubscription?.cancel();
   }
 
+  void closeStreams() {
+    errorMessageController.close();
+    startFlag.close();
+  }
+
+  void _handleFailure(Failure failure) {
+    print(failure);
+    errorMessageController.sink.add(failure.message);
+  }
+
   @override
   void dispose() {
     cancelSubscriptions();
+    closeStreams();
     super.dispose();
   }
 
@@ -99,6 +116,5 @@ class WaitingRoomViewModel with ChangeNotifier {
 extension Getters on WaitingRoomViewModel {
   List<MemberInfo> get members => _members;
   bool get isUserHost => _isUserHost;
-  bool get startFlg => _startFlg;
   int get defaultLife => _defaultLife;
 }

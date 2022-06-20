@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fripo/util/ads/ads_util.dart';
+import 'package:fripo/view/app_common/provider_initializer.dart';
+import 'package:fripo/view/total_result/total_result_screen.dart';
 import 'package:fripo/view_model/game_view_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -39,60 +42,72 @@ class _GameScreenState extends State<GameScreen> {
     return ChangeNotifierProvider(
       create: (_) => GameViewModel(),
       builder: (context, child) {
-        return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: WillPopScope(
-            onWillPop: () => onWillPop(context),
-            child: Scaffold(
-              resizeToAvoidBottomInset: true,
-              body: SafeArea(
-                child: LayoutBuilder(builder: (context, constraints) {
-                  height ??= constraints.maxHeight;
-                  return SingleChildScrollView(
-                    child: SizedBox(
-                      height: height,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                ExitButton(),
-                                OpenHelpModalButton(),
+        return ProviderInitializer(
+          initialize: () {
+            final vm = GameViewModel.read(context);
+            vm.errorMessageController.stream.listen(showError);
+            vm.finishEventController.stream.listen(
+              (_) => pushToTotalResult(context),
+            );
+          },
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: WillPopScope(
+              onWillPop: () => onWillPop(context),
+              child: Scaffold(
+                resizeToAvoidBottomInset: true,
+                body: SafeArea(
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      height ??= constraints.maxHeight;
+                      return SingleChildScrollView(
+                        child: SizedBox(
+                          height: height,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    ExitButton(),
+                                    OpenHelpModalButton(),
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        height: 250,
+                                        right: 0,
+                                        bottom: 0,
+                                        child: Opacity(
+                                          opacity: 0.3,
+                                          child: Image.asset(
+                                            'assets/image/fripo_touch.png',
+                                          ),
+                                        ),
+                                      ),
+                                      const GameFragmentContainer(),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: AdsUtil.width.toDouble(),
+                                  height: AdsUtil.height.toDouble(),
+                                  child: AdWidget(ad: _ad),
+                                ),
                               ],
                             ),
-                            Expanded(
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    height: 250,
-                                    right: 0,
-                                    bottom: 0,
-                                    child: Opacity(
-                                      opacity: 0.3,
-                                      child: Image.asset(
-                                        'assets/image/fripo_touch.png',
-                                      ),
-                                    ),
-                                  ),
-                                  const GameFragmentContainer(),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: AdsUtil.width.toDouble(),
-                              height: AdsUtil.height.toDouble(),
-                              child: AdWidget(ad: _ad),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  );
-                }),
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
           ),
@@ -105,5 +120,24 @@ class _GameScreenState extends State<GameScreen> {
     GameViewModel.read(context).exitRoom();
     Navigator.popUntil(context, (route) => route.isFirst);
     return Future.value(false);
+  }
+
+  void showError(String error) {
+    Fluttertoast.showToast(msg: error);
+  }
+
+  void pushToTotalResult(BuildContext context) {
+    final vm = GameViewModel.read(context);
+    vm.closeStreams();
+    vm.cancelSubscriptions();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => TotalResultScreen(
+          members: vm.roomInfo!.members,
+          turns: vm.roomInfo!.turns!,
+        ),
+      ),
+    );
   }
 }

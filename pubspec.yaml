@@ -53,6 +53,7 @@ dependencies:
   introduction_screen:
   cached_network_image:
   google_mobile_ads:
+  fluttertoast:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
