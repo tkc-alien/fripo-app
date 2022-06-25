@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:fripo/view/app_common/profile_icon.dart';
 
@@ -18,9 +20,13 @@ class ProfileIconWithLife extends StatelessWidget {
     return Stack(
       children: [
         Positioned.fill(
-          child: CircularProgressIndicator(
-            value: (life / maxLife),
-            strokeWidth: 3,
+          child: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(pi),
+            child: CircularProgressIndicator(
+              value: (life / maxLife),
+              strokeWidth: 3,
+            ),
           ),
         ),
         Padding(
