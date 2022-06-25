@@ -26,7 +26,7 @@ class GameViewModel with ChangeNotifier {
   final ExitRoomUseCase _exitRoomUseCase;
 
   final errorMessageController = StreamController<String>();
-  final finishEventController = StreamController<bool>();
+  final finishEventController = StreamController<RoomState>();
 
   StreamSubscription<RoomInfo>? _roomInfoSubscription;
 
@@ -37,7 +37,7 @@ class GameViewModel with ChangeNotifier {
     _roomInfo = info;
     _isUserParent = currentTurnInfo?.parentUserId == AppData.userId;
     if (info.state != RoomState.onGame) {
-      finishEventController.sink.add(true);
+      finishEventController.sink.add(info.state);
     }
     notifyListeners();
   }

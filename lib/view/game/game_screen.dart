@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fripo/domain/enum/room_state.dart';
 import 'package:fripo/util/ads/ads_util.dart';
 import 'package:fripo/view/app_common/provider_initializer.dart';
+import 'package:fripo/view/error_notification/error_notification_modal.dart';
 import 'package:fripo/view/total_result/total_result_screen.dart';
 import 'package:fripo/view_model/game_view_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -47,7 +49,7 @@ class _GameScreenState extends State<GameScreen> {
             final vm = GameViewModel.read(context);
             vm.errorMessageController.stream.listen(showError);
             vm.finishEventController.stream.listen(
-              (_) => pushToTotalResult(context),
+              (state) => pushToTotalResult(context, state),
             );
           },
           child: GestureDetector(
@@ -126,15 +128,31 @@ class _GameScreenState extends State<GameScreen> {
     Fluttertoast.showToast(msg: error);
   }
 
-  void pushToTotalResult(BuildContext context) {
+  void pushToTotalResult(BuildContext context, RoomState state) async {
+    // VM終了処理
     final vm = GameViewModel.read(context);
     vm.closeStreams();
     vm.cancelSubscriptions();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => TotalResultScreen(),
-      ),
-    );
+
+    // State分岐
+    final error = state.errorMessage;
+    if (error == null) {
+      //正常終了
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const TotalResultScreen(),
+        ),
+      );
+    } else {
+      // 異常終了
+      await showDialog(
+        context: context,
+        builder: (_) => ErrorNotificationModal(message: error),
+        barrierDismissible: false,
+      );
+      if (!mounted) return;
+      Navigator.popUntil(context, (route) => route.isFirst);
+    }
   }
 }
