@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fripo/define/app_colors.dart';
-import 'package:fripo/define/app_styles.dart';
 import 'package:fripo/view_model/room_id_input_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -15,11 +13,11 @@ class RoomIdInputModal extends StatelessWidget {
       create: (_) => RoomIdInputViewModel(),
       builder: (context, child) {
         return const AlertDialog(
-          backgroundColor: AppColors.primary100,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(24)),
-            side: AppStyles.standardBorderSide,
-          ),
+          // backgroundColor: AppColors.primary100,
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.all(Radius.circular(24)),
+          //   side: AppStyles.standardBorderSide,
+          // ),
           content: RoomIdForm(),
         );
       },

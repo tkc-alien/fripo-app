@@ -20,7 +20,7 @@ class ProfileIcon extends StatelessWidget {
         imageUrl: url,
         width: dimension,
         height: dimension,
-        fit: BoxFit.contain,
+        fit: BoxFit.cover,
         placeholder: (context, url) => _placeholder,
         errorWidget: (context, url, error) => _placeholder,
       ),

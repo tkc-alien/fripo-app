@@ -11,11 +11,11 @@ class RoomIdInputViewModel with ChangeNotifier {
 
   String? validateRoomId(String? input) {
     if (input == null || input.isEmpty) {
-      return 'No content.';
+      return '5桁の数字で入力してください。';
     } else if (input.length != 5) {
-      return 'Length not available.';
+      return '5桁の数字で入力してください。';
     } else if (!RegExp(AppConst.roomIdReg).hasMatch(input)) {
-      return 'Invalid character used.';
+      return '5桁の数字で入力してください。';
     } else {
       return null;
     }

@@ -58,6 +58,13 @@ class App extends StatelessWidget {
           focusedErrorBorder: AppStyles.defaultInputBorderError,
         ),
         dividerColor: Colors.transparent,
+        dialogTheme: const DialogTheme(
+          backgroundColor: AppColors.primary100,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(24)),
+            side: AppStyles.standardBorderSide,
+          ),
+        ),
       ),
     );
   }
