@@ -13,7 +13,7 @@ class CurrentTurnLabel extends StatelessWidget {
         Text(
           GameViewModel.select(
             context,
-            (vm) => vm.roomInfo?.currentTurn?.toString() ?? '?',
+            (vm) => vm.roomInfo?.currentTurn?.toString() ?? '',
           ),
           style: const TextStyle(
             fontSize: 32,
