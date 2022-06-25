@@ -22,6 +22,7 @@ class _AnswerInputFieldState extends State<AnswerInputField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _controller,
+      enabled: AnsweringViewModel.select(context, (vm) => vm.canSend),
     );
   }
 
