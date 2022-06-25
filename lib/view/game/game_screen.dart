@@ -4,12 +4,13 @@ import 'package:fripo/domain/enum/room_state.dart';
 import 'package:fripo/util/ads/ads_util.dart';
 import 'package:fripo/view/app_common/provider_initializer.dart';
 import 'package:fripo/view/error_notification/error_notification_modal.dart';
+import 'package:fripo/view/game/component/current_turn_label.dart';
+import 'package:fripo/view/game/component/member_list.dart';
 import 'package:fripo/view/total_result/total_result_screen.dart';
 import 'package:fripo/view_model/game_view_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
-import 'component/exit_button.dart';
 import 'component/game_fragment_container.dart';
 import 'component/open_help_modal_button.dart';
 
@@ -66,16 +67,20 @@ class _GameScreenState extends State<GameScreen> {
                         child: SizedBox(
                           height: height,
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 16,
+                              horizontal: 24,
+                            ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
                                   children: const [
-                                    ExitButton(),
+                                    CurrentTurnLabel(),
+                                    VerticalDivider(width: 16),
+                                    Expanded(child: MemberList()),
+                                    VerticalDivider(width: 16),
                                     OpenHelpModalButton(),
                                   ],
                                 ),
