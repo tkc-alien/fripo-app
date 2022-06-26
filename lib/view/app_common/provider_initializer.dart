@@ -26,6 +26,7 @@ class _ProviderInitializerState extends State<ProviderInitializer> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    widget.didChangeDependencies?.call();
   }
 
   @override
