@@ -1,3 +1,4 @@
+import 'package:fripo/domain/interactor/mock/mock_get_room_data_interactor.dart';
 import 'package:get_it/get_it.dart';
 
 import 'domain/interactor/create_room_interactor.dart';
@@ -139,7 +140,7 @@ Result init([Env env = Env.develop]) {
   register<GetRoomDataUseCase>(
     product: null,
     develop: GetRoomDataInteractor(),
-    mock: null,
+    mock: MockGetRoomDataInteractor(),
   );
 
   register<SendThemeUseCase>(

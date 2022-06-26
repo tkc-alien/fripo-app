@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fripo/data/mock/mock_room.dart';
 import 'package:fripo/define/alias.dart';
+import 'package:fripo/domain/enum/room_state.dart';
 import 'package:fripo/domain/use_case/end_turn_use_case.dart';
 
 import '../../entity/turn_info.dart';
@@ -9,6 +10,12 @@ import '../../enum/turn_state.dart';
 class MockEndTurnInteractor implements EndTurnUseCase {
   @override
   Response<void> call() async {
+    if (MockRoom.members.values.any((element) => element.life! <= 0)) {
+      MockRoom.state = RoomState.result;
+      MockRoom.addSink();
+      return const Right(null);
+    }
+
     final currentParent = MockRoom.turns[MockRoom.currentTurnId].parentUserId;
     final String newParentId;
     switch (currentParent) {

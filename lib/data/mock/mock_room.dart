@@ -15,7 +15,7 @@ class MockRoom {
   static RoomState state = RoomState.preparing;
   static Map<String, MemberInfo> members = {};
   static List<TurnInfo> turns = [];
-  static int maxTurn = 10;
+  static int defaultLife = 100;
   static int currentTurn = -1;
   static String hostUserId = MockRoom.userId;
 
@@ -36,7 +36,7 @@ class MockRoom {
         state: state,
         members: members,
         turns: turns,
-        defaultLife: maxTurn,
+        defaultLife: defaultLife,
         currentTurn: currentTurn,
         hostUserId: hostUserId,
       ),

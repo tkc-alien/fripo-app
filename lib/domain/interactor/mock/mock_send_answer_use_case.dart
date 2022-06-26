@@ -3,6 +3,7 @@ import 'package:fripo/data/mock/mock_room.dart';
 import 'package:fripo/define/alias.dart';
 import 'package:fripo/domain/entity/answer_info.dart';
 import 'package:fripo/domain/enum/turn_state.dart';
+import 'package:fripo/domain/interactor/mock/mock_end_turn_interactor.dart';
 import 'package:fripo/domain/use_case/send_answer_use_case.dart';
 
 class MockSendAnswerInteractor implements SendAnswerUseCase {
@@ -59,6 +60,10 @@ class MockSendAnswerInteractor implements SendAnswerUseCase {
         state: TurnState.result,
       );
       MockRoom.addSink();
+
+      Future.delayed(const Duration(milliseconds: 3000), () {
+        MockEndTurnInteractor().call();
+      });
     });
 
     return const Right(null);
