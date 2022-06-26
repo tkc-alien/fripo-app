@@ -5,7 +5,7 @@ import 'package:fripo/util/ads/ads_util.dart';
 import 'package:fripo/view/app_common/provider_initializer.dart';
 import 'package:fripo/view/error_notification/error_notification_modal.dart';
 import 'package:fripo/view/game/component/current_turn_label.dart';
-import 'package:fripo/view/game/component/life_cycle_observer.dart';
+import 'package:fripo/view/game/component/game_life_cycle_observer.dart';
 import 'package:fripo/view/game/component/member_list.dart';
 import 'package:fripo/view/game/component/pause_button.dart';
 import 'package:fripo/view/total_result/total_result_screen.dart';
@@ -54,7 +54,7 @@ class _GameScreenState extends State<GameScreen> {
               (state) => pushToTotalResult(context, state),
             );
           },
-          child: LifeCycleObserver(
+          child: GameLifeCycleObserver(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
               child: WillPopScope(
@@ -141,9 +141,7 @@ class _GameScreenState extends State<GameScreen> {
 
   void pushToTotalResult(BuildContext context, RoomState state) async {
     // VM終了処理
-    final vm = GameViewModel.read(context);
-    vm.closeStreams();
-    vm.cancelSubscriptions();
+    GameViewModel.read(context).close();
 
     // State分岐
     final error = state.errorMessage;

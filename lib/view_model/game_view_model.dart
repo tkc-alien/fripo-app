@@ -11,24 +11,39 @@ import 'package:provider/provider.dart';
 
 import '../domain/entity/member_info.dart';
 import '../domain/error/failure.dart';
+import '../domain/use_case/cancel_disconnected_event_use_case.dart';
+import '../domain/use_case/get_connection_stream_use_case.dart';
+import '../domain/use_case/notify_active_use_case.dart';
+import '../domain/use_case/register_disconnected_event_use_case.dart';
 import '../injector.dart';
 
 class GameViewModel with ChangeNotifier {
   GameViewModel()
       : _getRoomStreamUseCase = sl(),
+        _getConnectionStreamUseCase = sl(),
+        _registerDisconnectedEventUseCase = sl(),
+        _cancelDisconnectedEventUseCase = sl(),
+        _notifyActiveUseCase = sl(),
         _exitRoomUseCase = sl() {
     _roomInfoSubscription =
         _getRoomStreamUseCase.call().listen(_resolveRoomInfo);
+    _connectionSubscription =
+        _getConnectionStreamUseCase.call().listen(_listenConnection);
   }
 
   /// UseCases
   final GetRoomStreamUseCase _getRoomStreamUseCase;
+  final GetConnectionStreamUseCase _getConnectionStreamUseCase;
+  final RegisterDisconnectedEventUseCase _registerDisconnectedEventUseCase;
+  final CancelDisconnectedEventUseCase _cancelDisconnectedEventUseCase;
+  final NotifyActiveUseCase _notifyActiveUseCase;
   final ExitRoomUseCase _exitRoomUseCase;
 
   final errorMessageController = StreamController<String>();
   final finishEventController = StreamController<RoomState>();
 
   StreamSubscription<RoomInfo>? _roomInfoSubscription;
+  StreamSubscription<bool>? _connectionSubscription;
 
   RoomInfo? _roomInfo;
   bool _isUserParent = false;
@@ -42,12 +57,23 @@ class GameViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void _listenConnection(bool connection) {
+    if (!connection) {
+      return;
+    }
+    _registerDisconnectedEventUseCase.call();
+  }
+
   TurnInfo? get currentTurnInfo {
     return _roomInfo?.turns?[_roomInfo!.currentTurn! - 1];
   }
 
   MemberInfo? get parentMember {
     return _roomInfo?.members[currentTurnInfo?.parentUserId];
+  }
+
+  Future<void> notifyActive(bool isActive) async {
+    _notifyActiveUseCase.call(isActive: isActive);
   }
 
   Future<void> exitRoom() async {
@@ -58,23 +84,23 @@ class GameViewModel with ChangeNotifier {
     );
   }
 
-  void cancelSubscriptions() {
-    _roomInfoSubscription?.cancel();
-  }
-
-  void closeStreams() {
-    errorMessageController.close();
-    finishEventController.close();
-  }
-
   void handleFailure(Failure failure) {
     errorMessageController.sink.add(failure.message);
   }
 
+  void close() {
+    _cancelDisconnectedEventUseCase.call();
+
+    _roomInfoSubscription?.cancel();
+    _connectionSubscription?.cancel();
+
+    errorMessageController.close();
+    finishEventController.close();
+  }
+
   @override
   void dispose() {
-    cancelSubscriptions();
-    closeStreams();
+    close();
     super.dispose();
   }
 
