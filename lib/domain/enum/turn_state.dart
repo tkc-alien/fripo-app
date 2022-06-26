@@ -4,6 +4,8 @@ enum TurnState {
   marking,
   result,
   done,
+  errorByRoomError,
+  errorByParentDisconnected,
 }
 
 extension TurnStateExt on TurnState {
@@ -28,4 +30,6 @@ const _map = {
   300: TurnState.marking,
   400: TurnState.result,
   500: TurnState.done,
+  -100: TurnState.errorByRoomError,
+  -200: TurnState.errorByParentDisconnected,
 };
