@@ -5,6 +5,7 @@ import 'package:fripo/util/ads/ads_util.dart';
 import 'package:fripo/view/app_common/provider_initializer.dart';
 import 'package:fripo/view/error_notification/error_notification_modal.dart';
 import 'package:fripo/view/game/component/current_turn_label.dart';
+import 'package:fripo/view/game/component/life_cycle_observer.dart';
 import 'package:fripo/view/game/component/member_list.dart';
 import 'package:fripo/view/game/component/pause_button.dart';
 import 'package:fripo/view/total_result/total_result_screen.dart';
@@ -29,9 +30,9 @@ class _GameScreenState extends State<GameScreen> {
   double? height;
 
   @override
-  void didChangeDependencies() {
+  void initState() {
+    super.initState();
     _ad.load();
-    super.didChangeDependencies();
   }
 
   @override
@@ -46,73 +47,32 @@ class _GameScreenState extends State<GameScreen> {
       create: (_) => GameViewModel(),
       builder: (context, child) {
         return ProviderInitializer(
-          initialize: () {
+          didChangeDependencies: () {
             final vm = GameViewModel.read(context);
             vm.errorMessageController.stream.listen(showError);
             vm.finishEventController.stream.listen(
               (state) => pushToTotalResult(context, state),
             );
           },
-          child: GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
-            child: WillPopScope(
-              onWillPop: () => onWillPop(context),
-              child: Scaffold(
-                resizeToAvoidBottomInset: true,
-                body: SafeArea(
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      height ??= constraints.maxHeight;
-                      return SingleChildScrollView(
-                        child: SizedBox(
-                          height: height,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 16,
-                              horizontal: 24,
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Row(
-                                  children: const [
-                                    CurrentTurnLabel(),
-                                    VerticalDivider(width: 16),
-                                    Expanded(child: MemberList()),
-                                    VerticalDivider(width: 16),
-                                    PauseButton(),
-                                  ],
-                                ),
-                                Expanded(
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                        height: 250,
-                                        right: 0,
-                                        bottom: 0,
-                                        child: Opacity(
-                                          opacity: 0.3,
-                                          child: Image.asset(
-                                            'assets/image/fripo_touch.png',
-                                          ),
-                                        ),
-                                      ),
-                                      const GameFragmentContainer(),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: AdsUtil.width.toDouble(),
-                                  height: AdsUtil.height.toDouble(),
-                                  child: AdWidget(ad: _ad),
-                                ),
-                              ],
-                            ),
+          child: LifeCycleObserver(
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: WillPopScope(
+                onWillPop: () => onWillPop(context),
+                child: Scaffold(
+                  resizeToAvoidBottomInset: true,
+                  body: SafeArea(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        height ??= constraints.maxHeight;
+                        return SingleChildScrollView(
+                          child: SizedBox(
+                            height: height,
+                            child: _buildContent(context),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -120,6 +80,52 @@ class _GameScreenState extends State<GameScreen> {
           ),
         );
       },
+    );
+  }
+
+  /// build関数が複雑になったので、実レイアウトの部分だけ分離
+  Widget _buildContent(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 16,
+        horizontal: 24,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: const [
+              CurrentTurnLabel(),
+              VerticalDivider(width: 16),
+              Expanded(child: MemberList()),
+              VerticalDivider(width: 16),
+              PauseButton(),
+            ],
+          ),
+          Expanded(
+            child: Stack(
+              children: [
+                Positioned(
+                  height: 250,
+                  right: 0,
+                  bottom: 0,
+                  child: Opacity(
+                    opacity: 0.3,
+                    child: Image.asset('assets/image/fripo_touch.png'),
+                  ),
+                ),
+                const GameFragmentContainer(),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: AdsUtil.width.toDouble(),
+            height: AdsUtil.height.toDouble(),
+            child: AdWidget(ad: _ad),
+          ),
+        ],
+      ),
     );
   }
 

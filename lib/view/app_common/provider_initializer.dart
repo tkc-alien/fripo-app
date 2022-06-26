@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ProviderInitializer extends StatefulWidget {
   const ProviderInitializer({
     Key? key,
-    required this.initialize,
+    this.initState,
+    this.didChangeDependencies,
     required this.child,
   }) : super(key: key);
 
-  final Function() initialize;
+  final Function()? initState;
+  final Function()? didChangeDependencies;
   final Widget child;
 
   @override
@@ -18,9 +20,12 @@ class _ProviderInitializerState extends State<ProviderInitializer> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.initialize.call();
-    });
+    widget.initState?.call();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override

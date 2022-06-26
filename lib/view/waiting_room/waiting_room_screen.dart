@@ -47,7 +47,7 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
       builder: (context, child) {
         // return
         return ProviderInitializer(
-          initialize: () {
+          didChangeDependencies: () {
             final vm = WaitingRoomViewModel.read(context);
             vm.errorMessageController.stream.listen(showError);
             vm.startFlag.stream.listen((_) => pushToGame(context));

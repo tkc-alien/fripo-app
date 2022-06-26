@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
       create: (_) => HomeViewModel(),
       builder: (context, child) {
         return ProviderInitializer(
-          initialize: () {
+          didChangeDependencies: () {
             final vm = HomeViewModel.read(context);
             vm.errorMessageController.stream.listen(showError);
           },
