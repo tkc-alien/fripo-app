@@ -6,13 +6,13 @@ import 'package:fripo/view/app_common/provider_initializer.dart';
 import 'package:fripo/view/error_notification/error_notification_modal.dart';
 import 'package:fripo/view/game/component/current_turn_label.dart';
 import 'package:fripo/view/game/component/member_list.dart';
+import 'package:fripo/view/game/component/pause_button.dart';
 import 'package:fripo/view/total_result/total_result_screen.dart';
 import 'package:fripo/view_model/game_view_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 import 'component/game_fragment_container.dart';
-import 'component/open_help_modal_button.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key? key, required this.roomId}) : super(key: key);
@@ -81,7 +81,7 @@ class _GameScreenState extends State<GameScreen> {
                                     VerticalDivider(width: 16),
                                     Expanded(child: MemberList()),
                                     VerticalDivider(width: 16),
-                                    OpenHelpModalButton(),
+                                    PauseButton(),
                                   ],
                                 ),
                                 Expanded(
