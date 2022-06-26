@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:fripo/data/app_data.dart';
 import 'package:fripo/domain/enum/room_state.dart';
 import 'package:fripo/domain/error/failure.dart';
+import 'package:fripo/domain/use_case/cancel_disconnected_event_use_case.dart';
 import 'package:fripo/domain/use_case/exit_room_use_case.dart';
+import 'package:fripo/domain/use_case/get_connection_stream_use_case.dart';
 import 'package:fripo/domain/use_case/get_room_stream_use_case.dart';
+import 'package:fripo/domain/use_case/notify_active_use_case.dart';
+import 'package:fripo/domain/use_case/register_disconnected_event_use_case.dart';
 import 'package:fripo/domain/use_case/start_room_use_case.dart';
 import 'package:provider/provider.dart';
 
@@ -17,14 +21,25 @@ class WaitingRoomViewModel with ChangeNotifier {
   /// Constructor
   WaitingRoomViewModel()
       : _getRoomStreamUseCase = sl(),
+        _getConnectionStreamUseCase = sl(),
+        _registerDisconnectedEventUseCase = sl(),
+        _cancelDisconnectedEventUseCase = sl(),
+        _notifyActiveUseCase = sl(),
         _exitRoomUseCase = sl(),
         _startRoomUseCase = sl() {
+    _registerDisconnectedEventUseCase.call();
     _roomInfoSubscription =
         _getRoomStreamUseCase.call().listen(_resolveRoomInfo);
+    _connectionSubscription =
+        _getConnectionStreamUseCase.call().listen(_listenConnection);
   }
 
   /// UseCases
   final GetRoomStreamUseCase _getRoomStreamUseCase;
+  final GetConnectionStreamUseCase _getConnectionStreamUseCase;
+  final RegisterDisconnectedEventUseCase _registerDisconnectedEventUseCase;
+  final CancelDisconnectedEventUseCase _cancelDisconnectedEventUseCase;
+  final NotifyActiveUseCase _notifyActiveUseCase;
   final ExitRoomUseCase _exitRoomUseCase;
   final StartRoomUseCase _startRoomUseCase;
 
@@ -40,6 +55,7 @@ class WaitingRoomViewModel with ChangeNotifier {
 
   /// Room情報のSubscription
   StreamSubscription<RoomInfo>? _roomInfoSubscription;
+  StreamSubscription<bool>? _connectionSubscription;
 
   int _defaultLife = 100;
 
@@ -52,6 +68,13 @@ class WaitingRoomViewModel with ChangeNotifier {
       startFlag.sink.add(true);
     }
     notifyListeners();
+  }
+
+  void _listenConnection(bool connection) {
+    if (connection == false) {
+      return;
+    }
+    _registerDisconnectedEventUseCase.call();
   }
 
   Future<void> exitRoom() async {
@@ -76,17 +99,12 @@ class WaitingRoomViewModel with ChangeNotifier {
     _isRequestingStartRoom = false;
   }
 
+  Future<void> notifyActive(bool isActive) async {
+    _notifyActiveUseCase.call(isActive: isActive);
+  }
+
   void setDefaultLife(int value) {
     _defaultLife = value;
-  }
-
-  void cancelSubscriptions() {
-    _roomInfoSubscription?.cancel();
-  }
-
-  void closeStreams() {
-    errorMessageController.close();
-    startFlag.close();
   }
 
   void _handleFailure(Failure failure) {
@@ -94,10 +112,19 @@ class WaitingRoomViewModel with ChangeNotifier {
     errorMessageController.sink.add(failure.message);
   }
 
+  void close() {
+    _cancelDisconnectedEventUseCase.call();
+
+    _roomInfoSubscription?.cancel();
+    _connectionSubscription?.cancel();
+
+    errorMessageController.close();
+    startFlag.close();
+  }
+
   @override
   void dispose() {
-    cancelSubscriptions();
-    closeStreams();
+    close();
     super.dispose();
   }
 

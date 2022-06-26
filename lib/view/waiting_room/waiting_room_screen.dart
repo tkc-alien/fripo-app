@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fripo/view/waiting_room/component/waiting_room_life_cycle_observer.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
@@ -46,38 +47,40 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
       create: (_) => WaitingRoomViewModel(),
       builder: (context, child) {
         // return
-        return ProviderInitializer(
-          didChangeDependencies: () {
-            final vm = WaitingRoomViewModel.read(context);
-            vm.errorMessageController.stream.listen(showError);
-            vm.startFlag.stream.listen((_) => pushToGame(context));
-          },
-          child: WillPopScope(
-            onWillPop: () => onWillPop(context),
-            child: Scaffold(
-              body: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      const Align(
-                        alignment: Alignment.topLeft,
-                        child: ExitButton(),
-                      ),
-                      const Divider(height: 12),
-                      const RoomIdLabel(),
-                      const Divider(height: 24),
-                      const StartRoomButton(),
-                      const Divider(height: 16),
-                      const DefaultLifeSelector(),
-                      const Divider(height: 16),
-                      const Expanded(child: MemberListView()),
-                      SizedBox(
-                        width: AdsUtil.width.toDouble(),
-                        height: AdsUtil.height.toDouble(),
-                        child: AdWidget(ad: _ad),
-                      ),
-                    ],
+        return WaitingRoomLifeCycleObserver(
+          child: ProviderInitializer(
+            didChangeDependencies: () {
+              final vm = WaitingRoomViewModel.read(context);
+              vm.errorMessageController.stream.listen(showError);
+              vm.startFlag.stream.listen((_) => pushToGame(context));
+            },
+            child: WillPopScope(
+              onWillPop: () => onWillPop(context),
+              child: Scaffold(
+                body: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        const Align(
+                          alignment: Alignment.topLeft,
+                          child: ExitButton(),
+                        ),
+                        const Divider(height: 12),
+                        const RoomIdLabel(),
+                        const Divider(height: 24),
+                        const StartRoomButton(),
+                        const Divider(height: 16),
+                        const DefaultLifeSelector(),
+                        const Divider(height: 16),
+                        const Expanded(child: MemberListView()),
+                        SizedBox(
+                          width: AdsUtil.width.toDouble(),
+                          height: AdsUtil.height.toDouble(),
+                          child: AdWidget(ad: _ad),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -89,8 +92,7 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
   }
 
   void pushToGame(BuildContext context) {
-    WaitingRoomViewModel.read(context).closeStreams();
-    WaitingRoomViewModel.read(context).cancelSubscriptions();
+    WaitingRoomViewModel.read(context).close();
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -102,7 +104,7 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
   Future<bool> onWillPop(BuildContext context) async {
     final vm = WaitingRoomViewModel.read(context);
     await vm.exitRoom();
-    vm.cancelSubscriptions();
+    vm.close();
     return true;
   }
 
