@@ -9,7 +9,7 @@ class ExitRoomInteractor implements ExitRoomUseCase {
   @override
   Response<void> call() async {
     final res = await ApiClient().call(
-      endPoint: ApiConst.exitRoom,
+      endPoint: ApiConst.exitGame,
       parameters: {'roomId': AppData.roomId},
     );
     AppData.roomId = res.fold(
