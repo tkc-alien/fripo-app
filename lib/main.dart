@@ -9,31 +9,23 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'injector.dart' as injector;
 
+const env = injector.Env.develop;
+bool _shouldShowIntroduction = true;
+
 void main() async {
   // ensureInitialized
   WidgetsFlutterBinding.ensureInitialized();
-
-  // 環境
-  const env = injector.Env.develop;
-  bool shouldShowIntroduction;
 
   // DI注入
   final diResult = injector.init(env);
   print(
       'DI injection for ${diResult.env.name} component: ${diResult.notRegisteredUseCaseList}');
 
-  // Ads
-  await MobileAds.instance.initialize();
-  await AdsUtil.initialize();
-
-  // Firebase
-  await Firebase.initializeApp();
-  if (env != injector.Env.mock) {
-    shouldShowIntroduction = FirebaseAuth.instance.currentUser == null;
-    await FirebaseAuth.instance.signInAnonymously();
-  } else {
-    shouldShowIntroduction = false;
-  }
+  // 各種初期化処理
+  await Future.wait([
+    _setupFirebase(),
+    _setupMobileAds(),
+  ]);
 
   // AppData
   if (env != injector.Env.mock) {
@@ -45,7 +37,22 @@ void main() async {
   // runApp
   runApp(
     App(
-      shouldShowIntroduction: shouldShowIntroduction,
+      shouldShowIntroduction: _shouldShowIntroduction,
     ),
   );
+}
+
+Future<void> _setupFirebase() async {
+  await Firebase.initializeApp();
+  if (env != injector.Env.mock) {
+    _shouldShowIntroduction = FirebaseAuth.instance.currentUser == null;
+    await FirebaseAuth.instance.signInAnonymously();
+  } else {
+    _shouldShowIntroduction = false;
+  }
+}
+
+Future<void> _setupMobileAds() async {
+  await MobileAds.instance.initialize();
+  await AdsUtil.initialize();
 }

@@ -49,7 +49,6 @@ dependencies:
   cloud_functions: 
 
   # View
-  flutter_native_splash:
   introduction_screen:
   cached_network_image:
   google_mobile_ads:
@@ -69,6 +68,8 @@ dev_dependencies:
   build_runner:
   freezed:
   json_serializable:
+
+  flutter_native_splash:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -112,3 +113,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  color: '#ff7d30'
+  image: 'assets/image/splash_image.png'
+  android_12:
+    icon_background_color: '#ff7d30'
+    image: 'assets/image/splash_image_android_12.png'
