@@ -10,4 +10,5 @@ class ApiConst {
   static const setAnswer = 'setAnswer';
   static const setPoints = 'setPoints';
   static const endTurn = 'endTurn';
+  static const readyForNextTurn = 'readyForNextTurn';
 }

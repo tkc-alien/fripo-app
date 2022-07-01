@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:fripo/domain/use_case/end_turn_use_case.dart';
+import 'package:fripo/domain/use_case/notify_ready_for_next_turn_use_case.dart';
 import 'package:provider/provider.dart';
 
 import '../injector.dart';
 
 class ResultViewModel with ChangeNotifier {
-  ResultViewModel() : _endTurnUseCase = sl();
+  ResultViewModel() : _notifyReadyForNextTurnUseCase = sl();
 
-  final EndTurnUseCase _endTurnUseCase;
+  final NotifyReadyForNextTurnUseCase _notifyReadyForNextTurnUseCase;
 
+  bool _hasNotified = false;
   bool _isRequestingEndTurn = false;
 
-  Future<void> endTurn() async {
+  Future<void> notifyReady() async {
     if (_isRequestingEndTurn) return;
     _isRequestingEndTurn = true;
-    final res = await _endTurnUseCase.call();
+    final res = await _notifyReadyForNextTurnUseCase.call();
     res.fold(
       (failure) => print(failure),
-      (_) => print('NotifyNext succeed.'),
+      (_) {
+        print('NotifyNext succeed.');
+        _hasNotified = true;
+        notifyListeners();
+      },
     );
     _isRequestingEndTurn = false;
   }
@@ -32,4 +37,8 @@ class ResultViewModel with ChangeNotifier {
   ) {
     return context.select(select);
   }
+}
+
+extension Getters on ResultViewModel {
+  bool get hasNotified => _hasNotified;
 }
