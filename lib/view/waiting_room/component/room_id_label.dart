@@ -19,18 +19,18 @@ class RoomIdLabel extends StatelessWidget {
           const Text(
             'ルームID',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          const Divider(height: 8),
           Text(
             AppData.roomId,
             style: const TextStyle(
-              fontSize: 48,
-              letterSpacing: 6,
+              fontFamily: 'BlackHanSans',
+              fontSize: 64,
+              letterSpacing: 8,
             ),
           ),
-          const Divider(height: 8),
           const CopyRoomIdButton(),
         ],
       ),

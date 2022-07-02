@@ -79,20 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Expanded(flex: 2, child: LogoWidget()),
                     const AnyLabel(),
                     const Spacer(),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 60,
-                      ),
-                      child: CreateRoomButton(),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 60,
-                      ),
-                      child: JoinRoomButton(),
-                    ),
+                    const Align(child: CreateRoomButton()),
+                    const Divider(height: 16),
+                    const Align(child: JoinRoomButton()),
                     const Spacer(),
                     SizedBox(
                       width: AdsUtil.width.toDouble(),

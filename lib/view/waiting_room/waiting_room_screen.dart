@@ -61,6 +61,7 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const Align(
                           alignment: Alignment.topLeft,
@@ -69,7 +70,7 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
                         const Divider(height: 12),
                         const RoomIdLabel(),
                         const Divider(height: 24),
-                        const StartRoomButton(),
+                        const Align(child: StartRoomButton()),
                         const Divider(height: 16),
                         const DefaultLifeSelector(),
                         const Divider(height: 16),

@@ -46,15 +46,9 @@ class ThemeSettingFragment extends StatelessWidget {
         ),
         Row(
           children: const [
-            Expanded(
-              flex: 1,
-              child: GenerateButton(),
-            ),
-            VerticalDivider(width: 16),
-            Expanded(
-              flex: 2,
-              child: ThemeSendButton(),
-            ),
+            GenerateButton(),
+            VerticalDivider(width: 12),
+            Expanded(child: ThemeSendButton()),
           ],
         ),
         const Spacer(),

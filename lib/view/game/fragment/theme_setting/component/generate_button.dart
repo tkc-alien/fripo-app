@@ -8,6 +8,12 @@ class GenerateButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () => onPressed(context),
+      style: OutlinedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(
+          vertical: 12,
+          horizontal: 18,
+        ),
+      ),
       child: const Text('ランダム'),
     );
   }

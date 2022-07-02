@@ -22,7 +22,7 @@ class AppStyles {
 
   static const defaultButtonPadding = EdgeInsets.symmetric(
     vertical: 12,
-    horizontal: 6,
+    horizontal: 48,
   );
 
   static const defaultButtonElevation = 0.0;

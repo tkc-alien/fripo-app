@@ -57,11 +57,8 @@ class AnsweringFragment extends StatelessWidget {
           child: AnswerInputField(),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 16,
-            horizontal: 60,
-          ),
-          child: AnswerSendButton(),
+          padding: EdgeInsets.symmetric(vertical: 16),
+          child: Align(child: AnswerSendButton()),
         ),
       ],
     );
