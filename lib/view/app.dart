@@ -21,6 +21,7 @@ class App extends StatelessWidget {
           ? const AppIntroductionScreen()
           : const HomeScreen(),
       theme: ThemeData(
+        fontFamily: 'NotoSansJP',
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: AppColors.primarySwatch,
         ).copyWith(
