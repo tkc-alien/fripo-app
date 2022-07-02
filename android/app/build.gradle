@@ -44,7 +44,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "tokyo.t_alien.fripo"
+        applicationId "com.chocolate_hunt.fripo"
         minSdkVersion 21
         targetSdkVersion 32
         versionCode flutterVersionCode.toInteger()
