@@ -46,7 +46,6 @@ Future<void> _setupFirebase() async {
   await Firebase.initializeApp();
   if (env != injector.Env.mock) {
     _shouldShowIntroduction = FirebaseAuth.instance.currentUser == null;
-    await FirebaseAuth.instance.signInAnonymously();
   } else {
     _shouldShowIntroduction = false;
   }

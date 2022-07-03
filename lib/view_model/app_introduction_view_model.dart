@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fripo/domain/use_case/register_user_use_case.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ class AppIntroductionViewModel with ChangeNotifier {
   Future<String?> register() async {
     final name = getNameText?.call();
     if (name == null) return 'getNameText is null';
+    await FirebaseAuth.instance.signInAnonymously();
     final res = await _registerUserUseCase.call(name: name);
     return res.fold(
       (failure) => failure.toString(),
