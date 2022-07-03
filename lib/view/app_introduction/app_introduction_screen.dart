@@ -25,6 +25,7 @@ class AppIntroductionScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: const [
+                    Spacer(),
                     Align(
                       child: Text(
                         'ニックネームを入力してください',
@@ -47,7 +48,7 @@ class AppIntroductionScreen extends StatelessWidget {
                     NameInputField(),
                     Divider(height: 24),
                     Align(child: RegisterButton()),
-                    Spacer(),
+                    Spacer(flex: 2),
                     GoToTermsButton(),
                     Divider(height: 8),
                     GoToPrivacyPolicyButton(),
