@@ -10,21 +10,20 @@ class ResultViewModel with ChangeNotifier {
   final NotifyReadyForNextTurnUseCase _notifyReadyForNextTurnUseCase;
 
   bool _hasNotified = false;
-  bool _isRequestingEndTurn = false;
+  bool _isRequestingNotifyReady = false;
 
   Future<void> notifyReady() async {
-    if (_isRequestingEndTurn) return;
-    _isRequestingEndTurn = true;
+    if (_isRequestingNotifyReady) return;
+    _isRequestingNotifyReady = true;
     final res = await _notifyReadyForNextTurnUseCase.call();
     res.fold(
       (failure) => print(failure),
       (_) {
-        print('NotifyNext succeed.');
         _hasNotified = true;
         notifyListeners();
       },
     );
-    _isRequestingEndTurn = false;
+    _isRequestingNotifyReady = false;
   }
 
   static ResultViewModel read(BuildContext context) {
