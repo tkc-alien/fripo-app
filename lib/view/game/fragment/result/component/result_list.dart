@@ -1,5 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:fripo/domain/entity/member_info.dart';
+import 'package:flutter/material.dart';
+import 'package:fripo/define/app_colors.dart';
+import 'package:fripo/domain/entity/answer_info.dart';
+import 'package:fripo/view/app_common/profile_icon.dart';
 import 'package:fripo/view_model/game_view_model.dart';
 
 class ResultList extends StatelessWidget {
@@ -7,10 +9,13 @@ class ResultList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final members = GameViewModel.select(context, (vm) => vm.roomInfo!.members);
+    final answers =
+        GameViewModel.select(context, (vm) => vm.currentTurnInfo?.answers);
+
+    if (answers == null) return const SizedBox.shrink();
 
     return ListView(
-      children: members.entries
+      children: answers.entries
           .map((entry) => _ResultTile(entry.key, entry.value))
           .toList(),
     );
@@ -20,33 +25,98 @@ class ResultList extends StatelessWidget {
 class _ResultTile extends StatelessWidget {
   const _ResultTile(
     this.userId,
-    this.memberInfo, {
+    this.answer, {
     Key? key,
   }) : super(key: key);
 
   final String userId;
-  final MemberInfo memberInfo;
+  final AnswerInfo answer;
 
   @override
   Widget build(BuildContext context) {
-    final answerInfo = GameViewModel.select(
+    final member = GameViewModel.select(
       context,
-      (vm) => vm.currentTurnInfo?.answers?[userId],
+      (vm) => vm.roomInfo?.members[userId],
     );
 
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('userId: $userId'),
-          Text('name: ${memberInfo.name}'),
-          Text('iconUrl: ${memberInfo.iconUrl}'),
-          Text('answer: ${answerInfo?.answer ?? 'No Answer'}'),
-          Text('point: ${answerInfo?.point ?? '-'}'),
-          Text('score: ${answerInfo?.difference ?? '-'}'),
-          Text('totalScore: ${memberInfo.life}'),
-        ],
+    if (member == null || answer.point == null || answer.difference == null) {
+      return const SizedBox.shrink();
+    }
+
+    return Card(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      elevation: 4,
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Divider(height: 8),
+                ProfileIcon(url: member.iconUrl),
+                Text(
+                  member.life?.toString() ?? '??',
+                  style: const TextStyle(
+                    fontFamily: 'BlackHanSans',
+                    fontSize: 20,
+                    color: AppColors.primary,
+                  ),
+                ),
+                const Divider(height: 8),
+              ],
+            ),
+            const VerticalDivider(width: 12),
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          member.name,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Stack(
+                        children: [
+                          SizedBox(
+                            height: 52,
+                            child: Image.asset('assets/image/bubble.png'),
+                          ),
+                          Positioned.fill(
+                            child: Center(
+                              child: Text(
+                                answer.point.toString(),
+                                style: const TextStyle(
+                                  fontFamily: 'BlackHanSans',
+                                  fontSize: 32,
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Divider(height: 8),
+                  Text(answer.answer),
+                  const Divider(height: 8),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
