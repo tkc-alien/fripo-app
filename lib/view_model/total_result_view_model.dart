@@ -30,7 +30,8 @@ class TotalResultViewModel with ChangeNotifier {
             member.key,
             member.value,
           );
-        }).toList();
+        }).toList()
+          ..sort((a, b) => a.value1.compareTo(b.value1));
         final turns = room.turns ?? [];
         _data = TotalResultData(
           membersWithRank: membersWithRank,

@@ -13,7 +13,7 @@ class _GoToHomeButtonState extends State<GoToHomeButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => onPressed(context),
-      child: const Text('Go to Home'),
+      child: const Text('ホーム画面へ'),
     );
   }
 
