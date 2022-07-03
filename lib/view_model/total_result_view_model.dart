@@ -1,7 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:fripo/domain/entity/member_info.dart';
-import 'package:fripo/domain/entity/turn_info.dart';
+import 'package:fripo/domain/enum/turn_state.dart';
 import 'package:fripo/domain/use_case/get_room_data_use_case.dart';
 import 'package:provider/provider.dart';
 
@@ -14,29 +13,66 @@ class TotalResultViewModel with ChangeNotifier {
 
   final GetRoomDataUseCase _getRoomDataUseCase;
 
-  TotalResultData? _data;
+  List<MemberWithRankData>? _membersWithRank;
+  List<TurnLogData>? _turns;
 
   Future<void> fetch() async {
     final res = await _getRoomDataUseCase.call();
     res.fold(
       (failure) => print(failure),
       (room) {
+        // メンバーデータを詰め替え
         final members = room.members.entries;
-        final membersWithRank = members.map((member) {
-          return Tuple3(
-            members
-                .where((other) => other.value.life! > member.value.life!)
-                .length,
-            member.key,
-            member.value,
+        _membersWithRank = members.map((member) {
+          return MemberWithRankData(
+            rank: members
+                    .where((other) => other.value.life! > member.value.life!)
+                    .length +
+                1,
+            userId: member.key,
+            member: member.value,
           );
         }).toList()
-          ..sort((a, b) => a.value1.compareTo(b.value1));
+          ..sort((a, b) => a.rank.compareTo(b.rank));
+
+        // ターンデータを詰め替え
+        _turns = [];
         final turns = room.turns ?? [];
-        _data = TotalResultData(
-          membersWithRank: membersWithRank,
-          turns: turns,
-        );
+        for (var turnId = 0; turnId < turns.length; turnId++) {
+          final turn = turns[turnId];
+          // 整合性チェック
+          if (turn.state.errorMessage != null ||
+              turn.theme == null ||
+              turn.answers == null ||
+              turn.answers!.values.any((e) => e.point == null)) continue;
+
+          print('turnId $turnId passed null check.');
+
+          // 回答データを結合して詰め替え
+          final answers = <AnswerData>[];
+          for (var answer in turn.answers!.entries) {
+            final member = room.members[answer.key];
+            if (member == null) continue;
+            answers.add(AnswerData(
+              userName: member.name,
+              userIconUrl: member.iconUrl,
+              answer: answer.value.answer,
+              point: answer.value.point!,
+            ));
+          }
+
+          // 詰め替え
+          _turns?.add(
+            TurnLogData(
+              turnId: turnId + 1,
+              theme: turn.theme!,
+              targetPoint: turn.targetPoint,
+              answers: answers,
+            ),
+          );
+        }
+
+        // 通知
         notifyListeners();
       },
     );
@@ -55,15 +91,46 @@ class TotalResultViewModel with ChangeNotifier {
 }
 
 extension Getters on TotalResultViewModel {
-  TotalResultData? get data => _data;
+  List<MemberWithRankData>? get membersWithRank => _membersWithRank;
+  List<TurnLogData>? get turns => _turns;
 }
 
-class TotalResultData {
-  TotalResultData({
-    required this.membersWithRank,
-    required this.turns,
+class MemberWithRankData {
+  MemberWithRankData({
+    required this.rank,
+    required this.userId,
+    required this.member,
   });
 
-  final List<Tuple3<int, String, MemberInfo>> membersWithRank;
-  final List<TurnInfo> turns;
+  final String userId;
+  final int rank;
+  final MemberInfo member;
+}
+
+class TurnLogData {
+  TurnLogData({
+    required this.turnId,
+    required this.theme,
+    required this.targetPoint,
+    required this.answers,
+  });
+
+  final int turnId;
+  final String theme;
+  final int targetPoint;
+  final List<AnswerData> answers;
+}
+
+class AnswerData {
+  AnswerData({
+    required this.userName,
+    required this.userIconUrl,
+    required this.answer,
+    required this.point,
+  });
+
+  final String userName;
+  final String userIconUrl;
+  final String answer;
+  final int point;
 }

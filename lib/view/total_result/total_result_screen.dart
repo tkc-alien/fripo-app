@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/view/total_result/component/go_to_home_button.dart';
 import 'package:fripo/view/total_result/component/member_rank_list.dart';
-import 'package:fripo/view/total_result/component/open_log_button.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
@@ -53,8 +52,8 @@ class _TotalResultScreenState extends State<TotalResultScreen> {
                     ),
                     const Divider(height: 16),
                     const Expanded(child: MemberRankList()),
-                    const Divider(height: 8),
-                    const Align(child: OpenLogButton()),
+                    // const Divider(height: 8),
+                    // const Align(child: OpenLogButton()),
                     const Divider(height: 16),
                     const Align(child: GoToHomeButton()),
                     const Divider(height: 12),

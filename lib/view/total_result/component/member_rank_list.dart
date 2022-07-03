@@ -11,17 +11,22 @@ class MemberRankList extends StatelessWidget {
   Widget build(BuildContext context) {
     final membersWithRank = TotalResultViewModel.select(
       context,
-      (vm) => vm.data?.membersWithRank,
+      (vm) => vm.membersWithRank,
     );
 
-    if (membersWithRank == null) {
+    final turns = TotalResultViewModel.select(context, (vm) => vm.turns);
+
+    if (membersWithRank == null || turns == null) {
       return const Center(child: CircularProgressIndicator());
     }
 
     return ListView(
-      children: membersWithRank
-          .map((e) => _MemberRankTile(e.value1, e.value3))
-          .toList(),
+      children: [
+        ...membersWithRank
+            .map((e) => _MemberRankTile(e.rank, e.member))
+            .toList(),
+        ...turns.map((e) => TurnLogTile(e)).toList(),
+      ],
     );
   }
 }
@@ -49,7 +54,7 @@ class _MemberRankTile extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              (rank + 1).toString(),
+              rank.toString(),
               style: const TextStyle(
                 fontFamily: 'BlackHanSans',
                 fontSize: 32,
@@ -82,6 +87,78 @@ class _MemberRankTile extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class TurnLogTile extends StatelessWidget {
+  const TurnLogTile(this.data, {Key? key}) : super(key: key);
+
+  final TurnLogData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Divider(height: 32, color: Colors.black),
+        Text(
+          'TURN ${data.turnId}',
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Text(
+                data.theme,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const VerticalDivider(width: 12),
+            Text(
+              data.targetPoint.toString(),
+              style: const TextStyle(
+                fontFamily: 'BlackHanSans',
+                fontSize: 48,
+                color: AppColors.primary,
+              ),
+            ),
+          ],
+        ),
+        for (var answer in data.answers)
+          Padding(
+            padding: const EdgeInsets.all(6),
+            child: Row(
+              children: [
+                ProfileIcon(url: answer.userIconUrl),
+                const VerticalDivider(width: 12),
+                Expanded(
+                  child: Text(answer.answer),
+                ),
+                const VerticalDivider(width: 12),
+                SizedBox(
+                  width: 64,
+                  child: Text(
+                    answer.point.toString(),
+                    textAlign: TextAlign.end,
+                    style: const TextStyle(
+                      fontFamily: 'BlackHanSans',
+                      fontSize: 32,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
     );
   }
 }

@@ -22,6 +22,17 @@ extension TurnStateExt on TurnState {
     final key = _map.entries.singleWhere((e) => e.value == this).key;
     return key;
   }
+
+  String? get errorMessage {
+    switch (this) {
+      case TurnState.errorByRoomError:
+        return 'ルームに異常が発生しました。';
+      case TurnState.errorByParentDisconnected:
+        return '親との通信が切断されました。';
+      default:
+        return null;
+    }
+  }
 }
 
 const _map = {
