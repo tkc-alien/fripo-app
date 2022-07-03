@@ -15,7 +15,7 @@ class _RegisterButtonState extends State<RegisterButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => onPressed(context),
-      child: const Text('Register'),
+      child: const Text('登録してはじめる'),
     );
   }
 
