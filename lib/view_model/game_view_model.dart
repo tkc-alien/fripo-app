@@ -48,6 +48,8 @@ class GameViewModel with ChangeNotifier {
   RoomInfo? _roomInfo;
   bool _isUserParent = false;
 
+  MemberInfo? getMember(String userId) => _roomInfo?.members[userId];
+
   void _resolveRoomInfo(RoomInfo info) {
     _roomInfo = info;
     _isUserParent = currentTurnInfo?.parentUserId == AppData.userId;
