@@ -8,13 +8,23 @@ class MemberStatusList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final members = GameViewModel.select(context, (vm) => vm.roomInfo!.members);
+    final members = GameViewModel.select(
+      context,
+      (vm) => vm.roomInfo?.members.entries.toList(),
+    );
+    final parentId = GameViewModel.select(
+      context,
+      (vm) => vm.currentTurnInfo?.parentUserId,
+    );
+
+    if (members == null || parentId == null) return const SizedBox.shrink();
+
+    members.removeWhere((element) => element.key == parentId);
+
     return ListView(
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
-      children: members.entries
-          .map((e) => _MemberStatusTile(e.key, e.value))
-          .toList(),
+      children: members.map((e) => _MemberStatusTile(e.key, e.value)).toList(),
     );
   }
 }
@@ -38,10 +48,12 @@ class _MemberStatusTile extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: Stack(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           ProfileIcon(url: info.iconUrl),
-          Positioned.fill(child: Icon(hasAnswer ? Icons.done : Icons.edit)),
+          const Divider(height: 8),
+          Icon(hasAnswer ? Icons.done : Icons.edit),
         ],
       ),
     );

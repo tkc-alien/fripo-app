@@ -36,7 +36,7 @@ class AnsweringFragment extends StatelessWidget {
       children: const [
         TargetAndThemeLabel(),
         SizedBox(
-          height: 60,
+          height: 100,
           child: MemberStatusList(),
         ),
         Divider(height: 32),
