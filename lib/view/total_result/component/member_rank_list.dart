@@ -113,6 +113,7 @@ class TurnLogTile extends StatelessWidget {
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w900,
+            color: Colors.grey,
           ),
         ),
         Row(

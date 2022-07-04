@@ -39,15 +39,20 @@ class _TotalResultScreenState extends State<TotalResultScreen> {
           child: Scaffold(
             body: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Text(
-                      '最終結果',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 64,
+                    const FittedBox(
+                      child: Text(
+                        'TOTAL RESULT',
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontFamily: 'BlackHanSans',
+                          fontSize: 48,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                     const Divider(height: 16),
