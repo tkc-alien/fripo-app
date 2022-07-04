@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:fripo/define/app_colors.dart';
 import 'package:fripo/view_model/game_view_model.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../domain/enum/turn_state.dart';
 import '../fragment/answering/answering_fragment.dart';
@@ -20,8 +22,6 @@ class _GameFragmentContainerState extends State<GameFragmentContainer> {
     final turnState =
         GameViewModel.select(context, (vm) => vm.currentTurnInfo?.state);
 
-    print('GameFragmentContainer is $turnState');
-
     switch (turnState) {
       case TurnState.themeSetting:
         return const ThemeSettingFragment();
@@ -32,7 +32,12 @@ class _GameFragmentContainerState extends State<GameFragmentContainer> {
       case TurnState.result:
         return const ResultFragment();
       default:
-        return const Center(child: Text('No State'));
+        return Center(
+          child: LoadingAnimationWidget.staggeredDotsWave(
+            color: AppColors.primary,
+            size: 40,
+          ),
+        );
     }
   }
 }

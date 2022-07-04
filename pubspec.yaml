@@ -35,6 +35,7 @@ dependencies:
   fluttertoast:
   url_launcher:
   webview_flutter:
+  loading_animation_widget:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

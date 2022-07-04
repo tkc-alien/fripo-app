@@ -3,6 +3,7 @@ import 'package:fripo/define/app_colors.dart';
 import 'package:fripo/domain/entity/member_info.dart';
 import 'package:fripo/view/app_common/profile_icon.dart';
 import 'package:fripo/view_model/total_result_view_model.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class MemberRankList extends StatelessWidget {
   const MemberRankList({Key? key}) : super(key: key);
@@ -17,7 +18,12 @@ class MemberRankList extends StatelessWidget {
     final turns = TotalResultViewModel.select(context, (vm) => vm.turns);
 
     if (membersWithRank == null || turns == null) {
-      return const Center(child: CircularProgressIndicator());
+      return Center(
+        child: LoadingAnimationWidget.staggeredDotsWave(
+          color: AppColors.primary,
+          size: 40,
+        ),
+      );
     }
 
     return ListView(

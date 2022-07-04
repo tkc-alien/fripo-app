@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/view_model/home_view_model.dart';
 
+import '../../loading_indigator/loading_indicator_modal.dart';
 import '../../room_id_input/room_id_input_modal.dart';
 import '../../waiting_room/waiting_room_screen.dart';
 
@@ -26,8 +27,14 @@ class _JoinRoomButtonState extends State<JoinRoomButton> {
       builder: (_) => const RoomIdInputModal(),
     );
     if (!mounted || roomId == null) return;
+    showDialog(
+      context: context,
+      builder: (_) => const LoadingIndicatorModal(),
+      barrierDismissible: false,
+    );
     final joinedRoomId = await HomeViewModel.read(context).joinRoom(roomId);
     if (!mounted) return;
+    Navigator.pop(context);
     if (joinedRoomId != null) {
       Navigator.push(
         context,
