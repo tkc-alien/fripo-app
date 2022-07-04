@@ -8,7 +8,12 @@ class AnyLabel extends StatelessWidget {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 32),
       child: Text(
-        'どんなゲーム？\nああああああああああああああああああああああああああああああああ',
+        '友達の感性を見極めろ！',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }
