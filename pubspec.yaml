@@ -30,11 +30,11 @@ dependencies:
   cloud_functions: 
 
   # View
-  introduction_screen:
   cached_network_image:
   google_mobile_ads:
   fluttertoast:
   url_launcher:
+  webview_flutter:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
