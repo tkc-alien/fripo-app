@@ -4,11 +4,13 @@ import 'package:fripo/domain/interactor/mock/mock_get_room_data_interactor.dart'
 import 'package:fripo/domain/interactor/notify_active_interactor.dart';
 import 'package:fripo/domain/interactor/notify_ready_for_next_turn_interactor.dart';
 import 'package:fripo/domain/interactor/register_disconnected_event_interactor.dart';
+import 'package:fripo/domain/interactor/update_default_life_interactor.dart';
 import 'package:fripo/domain/use_case/cancel_disconnected_event_use_case.dart';
 import 'package:fripo/domain/use_case/get_connection_stream_use_case.dart';
 import 'package:fripo/domain/use_case/notify_active_use_case.dart';
 import 'package:fripo/domain/use_case/notify_ready_for_next_turn_use_case.dart';
 import 'package:fripo/domain/use_case/register_disconnected_event_use_case.dart';
+import 'package:fripo/domain/use_case/update_default_life_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 import 'domain/interactor/create_room_interactor.dart';
@@ -139,6 +141,12 @@ Result init([Env env = Env.develop]) {
     product: null,
     develop: StartRoomInteractor(),
     mock: MockStartRoomInteractor(),
+  );
+
+  register<UpdateDefaultLifeUseCase>(
+    product: null,
+    develop: UpdateDefaultLifeInteractor(),
+    mock: null,
   );
 
   register<GetRoomStreamUseCase>(

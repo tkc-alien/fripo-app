@@ -13,7 +13,9 @@ class AppConst {
   ];
 
   static const defaultLifeChoiceList = [
+    50,
     100,
+    150,
     200,
     300,
     400,

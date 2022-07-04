@@ -11,6 +11,7 @@ import 'package:fripo/domain/use_case/get_room_stream_use_case.dart';
 import 'package:fripo/domain/use_case/notify_active_use_case.dart';
 import 'package:fripo/domain/use_case/register_disconnected_event_use_case.dart';
 import 'package:fripo/domain/use_case/start_room_use_case.dart';
+import 'package:fripo/domain/use_case/update_default_life_use_case.dart';
 import 'package:provider/provider.dart';
 
 import '../domain/entity/member_info.dart';
@@ -25,6 +26,7 @@ class WaitingRoomViewModel with ChangeNotifier {
         _registerDisconnectedEventUseCase = sl(),
         _cancelDisconnectedEventUseCase = sl(),
         _notifyActiveUseCase = sl(),
+        _updateDefaultLifeUseCase = sl(),
         _exitRoomUseCase = sl(),
         _startRoomUseCase = sl() {
     _registerDisconnectedEventUseCase.call();
@@ -40,11 +42,13 @@ class WaitingRoomViewModel with ChangeNotifier {
   final RegisterDisconnectedEventUseCase _registerDisconnectedEventUseCase;
   final CancelDisconnectedEventUseCase _cancelDisconnectedEventUseCase;
   final NotifyActiveUseCase _notifyActiveUseCase;
+  final UpdateDefaultLifeUseCase _updateDefaultLifeUseCase;
   final ExitRoomUseCase _exitRoomUseCase;
   final StartRoomUseCase _startRoomUseCase;
 
   /// エラーメッセージ
   final errorMessageController = StreamController<String>();
+  final defaultLifeController = StreamController<int>();
   final startFlag = StreamController<bool>();
 
   /// 参加中のMemberリスト
@@ -64,7 +68,8 @@ class WaitingRoomViewModel with ChangeNotifier {
     print('WaitingRoomVM listened roomInfo update.');
     _members = info.members.values.toList();
     _isUserHost = info.hostUserId == AppData.userId;
-    if (info.state != RoomState.preparing) {
+    defaultLifeController.sink.add(info.defaultLife ?? 100);
+    if (info.state == RoomState.onGame) {
       startFlag.sink.add(true);
     }
     notifyListeners();
@@ -75,6 +80,12 @@ class WaitingRoomViewModel with ChangeNotifier {
       return;
     }
     _registerDisconnectedEventUseCase.call();
+  }
+
+  Future<void> updateDefaultLife(int value) async {
+    _updateDefaultLifeUseCase.call(defaultLife: value);
+    _defaultLife = value;
+    notifyListeners();
   }
 
   Future<void> exitRoom() async {
@@ -103,10 +114,6 @@ class WaitingRoomViewModel with ChangeNotifier {
     _notifyActiveUseCase.call(isActive: isActive);
   }
 
-  void setDefaultLife(int value) {
-    _defaultLife = value;
-  }
-
   void _handleFailure(Failure failure) {
     print(failure);
     errorMessageController.sink.add(failure.message);
@@ -119,6 +126,7 @@ class WaitingRoomViewModel with ChangeNotifier {
     _connectionSubscription?.cancel();
 
     errorMessageController.close();
+    defaultLifeController.close();
     startFlag.close();
   }
 
