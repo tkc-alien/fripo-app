@@ -3,8 +3,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fripo/view/app_common/profile_icon.dart';
 import 'package:fripo/view/app_common/provider_initializer.dart';
 import 'package:fripo/view/home/component/go_to_profile_edit_button.dart';
-import 'package:fripo/view/home/component/go_to_terms_button.dart';
 import 'package:fripo/view/home/component/logo_widget.dart';
+import 'package:fripo/view/home/component/open_help_button.dart';
 import 'package:fripo/view/home/component/profile_name_label.dart';
 import 'package:fripo/view_model/home_view_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 12,
                         ),
                         const Expanded(child: ProfileNameLabel()),
-                        const GoToTermsButton(),
+                        const OpenHelpButton(),
                       ],
                     ),
                     const Align(
