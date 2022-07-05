@@ -29,6 +29,9 @@ class App extends StatelessWidget {
         ),
         appBarTheme: const AppBarTheme(
           centerTitle: true,
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          elevation: 0,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
