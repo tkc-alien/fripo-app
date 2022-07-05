@@ -108,115 +108,115 @@ Result init([Env env = Env.develop]) {
   // UseCases
 
   register<RegisterUserUseCase>(
-    product: null,
+    product: RegisterUserInteractor(),
     develop: RegisterUserInteractor(),
     mock: MockRegisterUserInteractor(),
   );
 
   register<GetUserDataUseCase>(
-    product: null,
+    product: GetUserDataInteractor(),
     develop: GetUserDataInteractor(),
     mock: MockGetUserDataInteractor(),
   );
 
   register<CreateRoomUseCase>(
-    product: null,
+    product: CreateRoomInteractor(),
     develop: CreateRoomInteractor(),
     mock: MockCreateRoomInteractor(),
   );
 
   register<JoinRoomUseCase>(
-    product: null,
+    product: JoinRoomInteractor(),
     develop: JoinRoomInteractor(),
     mock: MockJoinRoomInteractor(),
   );
 
   register<ExitRoomUseCase>(
-    product: null,
+    product: ExitRoomInteractor(),
     develop: ExitRoomInteractor(),
     mock: MockExitRoomInteractor(),
   );
 
   register<StartRoomUseCase>(
-    product: null,
+    product: StartRoomInteractor(),
     develop: StartRoomInteractor(),
     mock: MockStartRoomInteractor(),
   );
 
   register<UpdateDefaultLifeUseCase>(
-    product: null,
+    product: UpdateDefaultLifeInteractor(),
     develop: UpdateDefaultLifeInteractor(),
     mock: null,
   );
 
   register<GetRoomStreamUseCase>(
-    product: null,
+    product: GetRoomStreamInteractor(),
     develop: GetRoomStreamInteractor(),
     mock: MockGetRoomStreamInteractor(),
   );
 
   register<GetRoomDataUseCase>(
-    product: null,
+    product: GetRoomDataInteractor(),
     develop: GetRoomDataInteractor(),
     mock: MockGetRoomDataInteractor(),
   );
 
   register<GetConnectionStreamUseCase>(
-    product: null,
+    product: GetConnectionStreamInteractor(),
     develop: GetConnectionStreamInteractor(),
     mock: null,
   );
 
   register<RegisterDisconnectedEventUseCase>(
-    product: null,
+    product: RegisterDisconnectedEventInteractor(),
     develop: RegisterDisconnectedEventInteractor(),
     mock: null,
   );
 
   register<CancelDisconnectedEventUseCase>(
-    product: null,
+    product: CancelDisconnectedEventInteractor(),
     develop: CancelDisconnectedEventInteractor(),
     mock: null,
   );
 
   register<NotifyActiveUseCase>(
-    product: null,
+    product: NotifyActiveInteractor(),
     develop: NotifyActiveInteractor(),
     mock: null,
   );
 
   register<SendThemeUseCase>(
-    product: null,
+    product: SendThemeInteractor(),
     develop: SendThemeInteractor(),
     mock: MockSendThemeInteractor(),
   );
 
   register<GetRandomThemeUseCase>(
-    product: null,
+    product: GetRandomThemeInteractor(),
     develop: GetRandomThemeInteractor(),
     mock: MockGetRandomThemeInteractor(),
   );
 
   register<SendAnswerUseCase>(
-    product: null,
+    product: SendAnswerInteractor(),
     develop: SendAnswerInteractor(),
     mock: MockSendAnswerInteractor(),
   );
 
   register<SendPointsUseCase>(
-    product: null,
+    product: SendPointsInteractor(),
     develop: SendPointsInteractor(),
     mock: MockSendPointsInteractor(),
   );
 
   register<EndTurnUseCase>(
-    product: null,
+    product: EndTurnInteractor(),
     develop: EndTurnInteractor(),
     mock: MockEndTurnInteractor(),
   );
 
   register<NotifyReadyForNextTurnUseCase>(
-    product: null,
+    product: NotifyReadyForNextTurnInteractor(),
     develop: NotifyReadyForNextTurnInteractor(),
     mock: null,
   );
