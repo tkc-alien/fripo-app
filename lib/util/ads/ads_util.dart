@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../../injector.dart' as injector;
+
 class AdsUtil {
   AdsUtil._();
 
@@ -13,7 +15,7 @@ class AdsUtil {
   static int height = 50;
 
   /// Ads用のパラメータをプラットフォームに合わせて初期化
-  static Future<void> initialize() async {
+  static Future<void> initialize({required injector.Env env}) async {
     // プラットフォーム名を取得
     final String platform;
     if (Platform.isIOS) {
@@ -27,10 +29,13 @@ class AdsUtil {
     // アセットからAdmobデータを取得
     final json = await rootBundle.loadString('assets/protected/admob.json');
     final data = jsonDecode(json) as Map<dynamic, dynamic>;
-    final platformData = data[platform] as Map<dynamic, dynamic>;
+    final envData = data[env.name] as Map<dynamic, dynamic>;
+    final platformData = envData[platform] as Map<dynamic, dynamic>;
 
     // データを解析してIDを取得
     _bannerId = platformData['bannerId'];
+
+    print('AdsUtil initialize done: bannerId = $_bannerId');
   }
 
   static BannerAd get banner {
