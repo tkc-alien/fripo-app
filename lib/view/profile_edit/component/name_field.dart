@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/data/app_data.dart';
+import 'package:fripo/define/app_const.dart';
 import 'package:fripo/view_model/profile_edit_view_model.dart';
 
 class NameField extends StatefulWidget {
@@ -21,6 +22,7 @@ class _NameFieldState extends State<NameField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      maxLength: AppConst.userNameMaxLength,
       controller: controller,
       decoration: InputDecoration(
         hintText: AppData.userInfo?.name,

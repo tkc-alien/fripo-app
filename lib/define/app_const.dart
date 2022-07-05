@@ -3,6 +3,8 @@ class AppConst {
 
   static const roomIdReg = r'^[0-9]+$';
 
+  static const userNameMaxLength = 16;
+
   static const iconExtensionList = [
     'png',
     'PNG',
