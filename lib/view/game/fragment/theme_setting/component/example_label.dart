@@ -16,10 +16,9 @@ class ExampleLabel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
           Text('例えば...'),
-          Text('・あああああ'),
-          Text('・いいいいい'),
-          Text('・ううううう'),
-          Text('・えええええ'),
+          Text('・○○なものといえば'),
+          Text('・○○っぽい名前'),
+          Text('・こんな○○はいやだ'),
         ],
       ),
     );

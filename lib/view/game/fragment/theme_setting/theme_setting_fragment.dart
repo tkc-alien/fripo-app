@@ -39,7 +39,15 @@ class ThemeSettingFragment extends StatelessWidget {
           padding: EdgeInsets.all(32),
           child: RoleLabel(),
         ),
-        const Text('お題を決めよう'),
+        const Align(
+          child: Text(
+            'お題を決めよう',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
         const Padding(
           padding: EdgeInsets.all(24),
           child: ThemeInputField(),
