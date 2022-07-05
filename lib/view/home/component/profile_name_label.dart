@@ -6,12 +6,15 @@ class ProfileNameLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      HomeViewModel.select(context, (vm) => vm.user?.name ?? ''),
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
-      style: const TextStyle(
-        fontSize: 20,
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Text(
+        HomeViewModel.select(context, (vm) => vm.user?.name ?? ''),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(
+          fontSize: 18,
+        ),
       ),
     );
   }
