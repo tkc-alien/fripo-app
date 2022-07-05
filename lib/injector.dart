@@ -5,6 +5,8 @@ import 'package:fripo/domain/interactor/notify_active_interactor.dart';
 import 'package:fripo/domain/interactor/notify_ready_for_next_turn_interactor.dart';
 import 'package:fripo/domain/interactor/register_disconnected_event_interactor.dart';
 import 'package:fripo/domain/interactor/update_default_life_interactor.dart';
+import 'package:fripo/domain/interactor/update_profile_interactor.dart';
+import 'package:fripo/domain/interactor/upload_image_interactor.dart';
 import 'package:fripo/domain/use_case/cancel_disconnected_event_use_case.dart';
 import 'package:fripo/domain/use_case/get_connection_stream_use_case.dart';
 import 'package:fripo/domain/use_case/notify_active_use_case.dart';
@@ -222,26 +224,26 @@ Result init([Env env = Env.develop]) {
   );
 
   register<PickImageUseCase>(
-    product: null,
-    develop: null,
+    product: PickImageInteractor(),
+    develop: PickImageInteractor(),
     mock: PickImageInteractor(),
   );
 
   register<CropImageUseCase>(
-    product: null,
-    develop: null,
+    product: CropImageInteractor(),
+    develop: CropImageInteractor(),
     mock: CropImageInteractor(),
   );
 
   register<UploadImageUseCase>(
-    product: null,
-    develop: null,
+    product: UploadImageInteractor(),
+    develop: UploadImageInteractor(),
     mock: MockUploadImageInteractor(),
   );
 
   register<UpdateProfileUseCase>(
-    product: null,
-    develop: null,
+    product: UpdateProfileInteractor(),
+    develop: UpdateProfileInteractor(),
     mock: MockUpdateProfileInteractor(),
   );
 

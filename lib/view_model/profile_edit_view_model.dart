@@ -21,14 +21,15 @@ class ProfileEditViewModel with ChangeNotifier {
   final UploadImageUseCase _uploadImageUseCase;
   final UpdateProfileUseCase _updateProfileUseCase;
 
-  String? _name;
   File? _iconFile;
+  String Function()? getName;
 
   Future<void> selectIconImage() async {
     final result = await _pickImageUseCase.call();
     result.fold(
       (failure) => print(failure),
       (data) async {
+        print('pick image succeed.');
         final result = await _cropImageUseCase.call(sourcePath: data.path);
         result.fold(
           (failure) => print(failure),
@@ -42,6 +43,7 @@ class ProfileEditViewModel with ChangeNotifier {
   }
 
   Future<void> updateProfile() async {
+    final name = getName?.call();
     String? iconUrl;
     if (_iconFile != null) {
       final result = await _uploadImageUseCase.call(image: _iconFile!);
@@ -50,7 +52,7 @@ class ProfileEditViewModel with ChangeNotifier {
         (data) => iconUrl = data,
       );
     }
-    await _updateProfileUseCase.call(name: _name, iconUrl: iconUrl);
+    await _updateProfileUseCase.call(name: name, iconUrl: iconUrl);
   }
 
   static ProfileEditViewModel read(BuildContext context) {
@@ -66,6 +68,5 @@ class ProfileEditViewModel with ChangeNotifier {
 }
 
 extension Getters on ProfileEditViewModel {
-  String? get name => _name;
   File? get iconFile => _iconFile;
 }

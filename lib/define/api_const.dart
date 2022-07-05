@@ -11,4 +11,5 @@ class ApiConst {
   static const setPoints = 'setPoints';
   static const endTurn = 'endTurn';
   static const readyForNextTurn = 'readyForNextTurn';
+  static const editUser = 'editUser';
 }

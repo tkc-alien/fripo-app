@@ -7,9 +7,12 @@ import 'package:fripo/domain/use_case/pick_image_use_case.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PickImageInteractor implements PickImageUseCase {
+  final _picker = ImagePicker();
+
   @override
   Response<File> call() async {
-    final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final picked = await _picker.pickImage(source: ImageSource.gallery);
+    print(picked);
     if (picked != null) {
       return Right(File(picked.path));
     } else {

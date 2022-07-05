@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fripo/data/app_data.dart';
 import 'package:fripo/domain/error/failure.dart';
 import 'package:fripo/domain/use_case/create_room_use_case.dart';
 import 'package:fripo/domain/use_case/get_user_data_use_case.dart';
@@ -32,6 +33,7 @@ class HomeViewModel with ChangeNotifier {
       (failure) => handleFailure,
       (data) {
         _user = data;
+        AppData.userInfo = data;
         notifyListeners();
       },
     );
