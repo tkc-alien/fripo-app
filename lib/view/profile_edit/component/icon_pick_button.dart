@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fripo/view_model/profile_edit_view_model.dart';
 
 class IconPickButton extends StatelessWidget {
   const IconPickButton({Key? key}) : super(key: key);
@@ -14,6 +13,25 @@ class IconPickButton extends StatelessWidget {
   }
 
   void onPressed(BuildContext context) {
-    ProfileEditViewModel.read(context).selectIconImage();
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('テストプレイ版ではプロフィール画像の変更ができません。'),
+              const Divider(height: 12),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    // ProfileEditViewModel.read(context).selectIconImage();
   }
 }
