@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fripo/view_model/home_view_model.dart';
 
-import '../../loading_indigator/loading_indicator_modal.dart';
+import '../../loading_indicator/loading_indicator_modal.dart';
 import '../../room_id_input/room_id_input_modal.dart';
 import '../../waiting_room/waiting_room_screen.dart';
 

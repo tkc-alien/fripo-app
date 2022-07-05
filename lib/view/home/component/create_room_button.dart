@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fripo/view/loading_indigator/loading_indicator_modal.dart';
+import 'package:fripo/view/loading_indicator/loading_indicator_modal.dart';
 import 'package:fripo/view_model/home_view_model.dart';
 
 import '../../waiting_room/waiting_room_screen.dart';
