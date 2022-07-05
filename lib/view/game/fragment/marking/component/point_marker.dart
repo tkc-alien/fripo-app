@@ -145,7 +145,11 @@ class _TileContainerState extends State<_TileContainer> {
       );
     }
 
-    return Stack(children: children);
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => setState(() => _focusedId = ''),
+      child: Stack(children: children),
+    );
   }
 
   void onDragStart(String userId) {
