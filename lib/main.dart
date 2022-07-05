@@ -53,5 +53,5 @@ Future<void> _setupFirebase() async {
 
 Future<void> _setupMobileAds() async {
   await MobileAds.instance.initialize();
-  await AdsUtil.initialize();
+  await AdsUtil.initialize(env: env);
 }
