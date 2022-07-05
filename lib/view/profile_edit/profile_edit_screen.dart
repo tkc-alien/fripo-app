@@ -26,9 +26,11 @@ class ProfileEditScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: const [
                   IconPreview(),
-                  IconPickButton(),
+                  Align(child: IconPickButton()),
+                  Divider(),
                   NameField(),
-                  UpdateProfileButton(),
+                  Divider(),
+                  Align(child: UpdateProfileButton()),
                 ],
               ),
             ),
