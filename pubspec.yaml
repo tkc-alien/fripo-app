@@ -49,6 +49,7 @@ dev_dependencies:
   json_serializable:
 
   flutter_native_splash:
+  flutter_launcher_icons:
 
 flutter:
 
@@ -78,6 +79,13 @@ flutter:
     - family: BlackHanSans
       fonts:
         - asset: assets/font/BlackHanSans-Regular.ttf
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: 'assets/image/icon.jpg'
+  adaptive_icon_foreground: 'assets/image/icon_foreground.png'
+  adaptive_icon_background: '#ff7d30'
 
 flutter_native_splash:
   color: '#ff7d30'
