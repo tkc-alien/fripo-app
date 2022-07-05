@@ -26,6 +26,7 @@ class MemberList extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             child: FittedBox(
               child: ProfileIconWithLife(
+                name: member.name,
                 url: member.iconUrl,
                 maxLife: maxLife,
                 life: member.life!,

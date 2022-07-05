@@ -9,7 +9,7 @@ class ProfileNameLabel extends StatelessWidget {
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: Text(
-        HomeViewModel.select(context, (vm) => vm.user?.name ?? ''),
+        HomeViewModel.select(context, (vm) => vm.user?.name ?? '...'),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: const TextStyle(

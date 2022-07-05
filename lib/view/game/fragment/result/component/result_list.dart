@@ -59,13 +59,22 @@ class _ResultTile extends StatelessWidget {
               children: [
                 const Divider(height: 8),
                 ProfileIcon(url: member.iconUrl),
-                Text(
-                  member.life?.toString() ?? '??',
-                  style: const TextStyle(
-                    fontFamily: 'BlackHanSans',
-                    fontSize: 20,
-                    color: AppColors.primary,
-                  ),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.favorite,
+                      color: AppColors.primary,
+                      size: 16,
+                    ),
+                    Text(
+                      member.life?.toString() ?? '??',
+                      style: const TextStyle(
+                        fontFamily: 'BlackHanSans',
+                        fontSize: 18,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ],
                 ),
                 const Divider(height: 8),
               ],
@@ -79,14 +88,21 @@ class _ResultTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: Text(
-                          member.name,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              member.name,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ),
+                      const VerticalDivider(width: 8),
                       Stack(
                         children: [
                           SizedBox(

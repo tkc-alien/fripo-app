@@ -47,6 +47,7 @@ class MarkingFragment extends StatelessWidget {
           height: topHeight,
           child: TargetAndThemeLabel(),
         ),
+        const PointMarker(),
         Positioned(
           bottom: 8,
           right: 0,
@@ -60,7 +61,6 @@ class MarkingFragment extends StatelessWidget {
             ],
           ),
         ),
-        const PointMarker(),
       ],
     );
   }

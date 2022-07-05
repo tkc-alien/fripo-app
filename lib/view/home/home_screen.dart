@@ -65,11 +65,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             (vm) => vm.user?.iconUrl ?? '',
                           ),
                         ),
-                        const VerticalDivider(
-                          color: Colors.transparent,
-                          width: 12,
+                        const VerticalDivider(width: 12),
+                        const Expanded(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: ProfileNameLabel(),
+                          ),
                         ),
-                        const Expanded(child: ProfileNameLabel()),
+                        const VerticalDivider(width: 6),
                         const OpenHelpButton(),
                       ],
                     ),
