@@ -2,7 +2,7 @@ name: fripo
 description: The Fripo App for mobile.
 
 publish_to: 'none'
-version: 0.1.7+1
+version: 0.2.0+1
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
