@@ -5,7 +5,7 @@ import 'package:fripo/data/app_data.dart';
 import 'package:fripo/domain/enum/room_state.dart';
 import 'package:fripo/domain/error/failure.dart';
 import 'package:fripo/domain/use_case/cancel_disconnected_event_use_case.dart';
-import 'package:fripo/domain/use_case/exit_room_use_case.dart';
+import 'package:fripo/domain/use_case/cancel_join_room_use_case.dart';
 import 'package:fripo/domain/use_case/get_connection_stream_use_case.dart';
 import 'package:fripo/domain/use_case/get_room_stream_use_case.dart';
 import 'package:fripo/domain/use_case/notify_active_use_case.dart';
@@ -27,7 +27,7 @@ class WaitingRoomViewModel with ChangeNotifier {
         _cancelDisconnectedEventUseCase = sl(),
         _notifyActiveUseCase = sl(),
         _updateDefaultLifeUseCase = sl(),
-        _exitRoomUseCase = sl(),
+        _cancelJoinRoomUseCase = sl(),
         _startRoomUseCase = sl() {
     _registerDisconnectedEventUseCase.call();
     _roomInfoSubscription =
@@ -43,7 +43,7 @@ class WaitingRoomViewModel with ChangeNotifier {
   final CancelDisconnectedEventUseCase _cancelDisconnectedEventUseCase;
   final NotifyActiveUseCase _notifyActiveUseCase;
   final UpdateDefaultLifeUseCase _updateDefaultLifeUseCase;
-  final ExitRoomUseCase _exitRoomUseCase;
+  final CancelJoinRoomUseCase _cancelJoinRoomUseCase;
   final StartRoomUseCase _startRoomUseCase;
 
   /// エラーメッセージ
@@ -91,7 +91,7 @@ class WaitingRoomViewModel with ChangeNotifier {
   Future<void> exitRoom() async {
     if (_isRequestingExitRoom) return;
     _isRequestingExitRoom = true;
-    final res = await _exitRoomUseCase.call();
+    final res = await _cancelJoinRoomUseCase.call();
     res.fold(
       (failure) => _handleFailure(failure),
       (_) => print('exitRoom succeed.'),

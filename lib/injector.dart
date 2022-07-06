@@ -1,4 +1,5 @@
 import 'package:fripo/domain/interactor/cancel_disconnected_event_interactor.dart';
+import 'package:fripo/domain/interactor/cancel_join_room_interactor.dart';
 import 'package:fripo/domain/interactor/get_connection_stream_interactor.dart';
 import 'package:fripo/domain/interactor/mock/mock_get_room_data_interactor.dart';
 import 'package:fripo/domain/interactor/notify_active_interactor.dart';
@@ -8,6 +9,7 @@ import 'package:fripo/domain/interactor/update_default_life_interactor.dart';
 import 'package:fripo/domain/interactor/update_profile_interactor.dart';
 import 'package:fripo/domain/interactor/upload_image_interactor.dart';
 import 'package:fripo/domain/use_case/cancel_disconnected_event_use_case.dart';
+import 'package:fripo/domain/use_case/cancel_join_room_use_case.dart';
 import 'package:fripo/domain/use_case/get_connection_stream_use_case.dart';
 import 'package:fripo/domain/use_case/notify_active_use_case.dart';
 import 'package:fripo/domain/use_case/notify_ready_for_next_turn_use_case.dart';
@@ -131,6 +133,12 @@ Result init([Env env = Env.develop]) {
     product: JoinRoomInteractor(),
     develop: JoinRoomInteractor(),
     mock: MockJoinRoomInteractor(),
+  );
+
+  register<CancelJoinRoomUseCase>(
+    product: CancelJoinRoomInteractor(),
+    develop: CancelJoinRoomInteractor(),
+    mock: null,
   );
 
   register<ExitRoomUseCase>(
