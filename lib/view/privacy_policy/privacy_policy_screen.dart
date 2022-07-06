@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fripo/define/app_const.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PrivacyPolicyScreen extends StatefulWidget {
@@ -26,8 +27,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         title: const Text("プライバシーポリシー"),
       ),
       body: const WebView(
-        initialUrl:
-            'https://fripo-app.notion.site/6c7bac49197b4b0e80a4217ecb676928',
+        initialUrl: AppConst.policyUrl,
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );

@@ -24,6 +24,10 @@ class AppConst {
     500,
   ];
 
+  static const termsUrl = 'https://fripo-212b7.web.app/terms/';
+
+  static const policyUrl = 'https://fripo-212b7.web.app/policy/';
+
   static const googleFormUrl =
       'https://docs.google.com/forms/d/e/1FAIpQLSchLo2ZGGn-uZSIZJnJnb0mpVvKqho4ixL3Z3jtcaIObgDdfA/viewform';
 

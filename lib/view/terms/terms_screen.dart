@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fripo/define/app_const.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class TermsScreen extends StatefulWidget {
@@ -26,8 +27,7 @@ class _TermsScreenState extends State<TermsScreen> {
         title: const Text("利用規約"),
       ),
       body: const WebView(
-        initialUrl:
-            'https://fripo-app.notion.site/efa7ac57a70a487a8a6dc8896719ad9a',
+        initialUrl: AppConst.termsUrl,
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );
