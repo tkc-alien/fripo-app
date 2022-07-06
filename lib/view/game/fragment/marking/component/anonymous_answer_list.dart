@@ -49,7 +49,19 @@ class _AnswerTile extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       child: Row(
         children: [
-          ProfileIcon(url: iconUrl ?? ""),
+          Stack(
+            children: [
+              ProfileIcon(url: iconUrl ?? ""),
+              Positioned.fill(
+                child: FittedBox(
+                  child: Icon(
+                    Icons.help_outline,
+                    color: iconUrl == null ? Colors.white : Colors.transparent,
+                  ),
+                ),
+              ),
+            ],
+          ),
           const VerticalDivider(width: 12),
           Flexible(
             child: Container(
