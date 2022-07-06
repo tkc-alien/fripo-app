@@ -129,13 +129,25 @@ class TurnLogTile extends StatelessWidget {
               ),
             ),
             const VerticalDivider(width: 12),
-            Text(
-              data.targetPoint.toString(),
-              style: const TextStyle(
-                fontFamily: 'BlackHanSans',
-                fontSize: 48,
-                color: AppColors.primary,
-              ),
+            Stack(
+              children: [
+                SizedBox(
+                  height: 52,
+                  child: Image.asset('assets/image/bubble.png'),
+                ),
+                Positioned.fill(
+                  child: Center(
+                    child: Text(
+                      data.targetPoint.toString(),
+                      style: const TextStyle(
+                        fontFamily: 'BlackHanSans',
+                        fontSize: 32,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
