@@ -53,6 +53,6 @@ ios/Runner/GoogleService-Info-Release.plist
 
 android/app/src/develop/google-services.json
 android/app/src/staging/google-services.json
-android/app/src/product/google-services.json
+android/app/src/production/google-services.json
 
 assets/protected

@@ -68,7 +68,7 @@ android {
             dimension "flavor-type"
             applicationIdSuffix ".stg"
         }
-        product {
+        production {
             dimension "flavor-type"
         }
     }

@@ -18,7 +18,10 @@ class AppIntroductionViewModel with ChangeNotifier {
     await FirebaseAuth.instance.signInAnonymously();
     final res = await _registerUserUseCase.call(name: name);
     return res.fold(
-      (failure) => failure.toString(),
+      (failure) {
+        FirebaseAuth.instance.signOut();
+        return failure.toString();
+      },
       (_) => null,
     );
   }
