@@ -53,6 +53,9 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
               final vm = WaitingRoomViewModel.read(context);
               vm.errorMessageController.stream.listen(showError);
               vm.startFlag.stream.listen((_) => pushToGame(context));
+              vm.forceExitFlag.stream.listen(
+                (_) => Navigator.popUntil(context, (route) => route.isFirst),
+              );
             },
             child: WillPopScope(
               onWillPop: () => onWillPop(context),

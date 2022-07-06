@@ -50,6 +50,7 @@ class WaitingRoomViewModel with ChangeNotifier {
   final errorMessageController = StreamController<String>();
   final defaultLifeController = StreamController<int>();
   final startFlag = StreamController<bool>();
+  final forceExitFlag = StreamController<bool>();
 
   /// 参加中のMemberリスト
   List<MemberInfo> _members = [];
@@ -71,6 +72,9 @@ class WaitingRoomViewModel with ChangeNotifier {
     defaultLifeController.sink.add(info.defaultLife ?? 100);
     if (info.state == RoomState.onGame) {
       startFlag.sink.add(true);
+    } else if (info.state.errorMessage != null) {
+      forceExitFlag.sink.add(true);
+      errorMessageController.sink.add(info.state.errorMessage!);
     }
     notifyListeners();
   }
