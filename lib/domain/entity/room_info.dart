@@ -13,7 +13,6 @@ class RoomInfo {
   });
 
   factory RoomInfo.fromMap(Map<dynamic, dynamic> map) {
-    print(map['turns']);
     return RoomInfo(
       state: RoomStateExt.fromInt(map['state']),
       members: (map['members'] as Map<dynamic, dynamic>).map(
