@@ -157,7 +157,11 @@ class _GameScreenState extends State<GameScreen> {
       // 異常終了
       await showDialog(
         context: context,
-        builder: (_) => ErrorNotificationModal(message: error),
+        builder: (_) => ErrorNotificationModal(
+          title: 'エラーが発生しました',
+          message: error,
+          buttonLabel: 'ゲームを終了する',
+        ),
         barrierDismissible: false,
       );
       if (!mounted) return;

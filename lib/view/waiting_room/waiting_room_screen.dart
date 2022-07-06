@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fripo/view/waiting_room/component/waiting_room_life_cycle_observer.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../util/ads/ads_util.dart';
 import '../../view_model/waiting_room_view_model.dart';
 import '../app_common/provider_initializer.dart';
+import '../error_notification/error_notification_modal.dart';
 import '../game/game_screen.dart';
 import 'component/default_life_selector.dart';
 import 'component/exit_button.dart';
@@ -110,6 +110,9 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
   }
 
   void showError(String error) {
-    Fluttertoast.showToast(msg: error);
+    showDialog(
+      context: context,
+      builder: (_) => ErrorNotificationModal(message: error),
+    );
   }
 }

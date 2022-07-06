@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fripo/view/app_common/profile_icon.dart';
 import 'package:fripo/view/app_common/provider_initializer.dart';
+import 'package:fripo/view/error_notification/error_notification_modal.dart';
 import 'package:fripo/view/home/component/go_to_profile_edit_button.dart';
 import 'package:fripo/view/home/component/logo_widget.dart';
 import 'package:fripo/view/home/component/open_help_button.dart';
@@ -105,6 +105,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void showError(String error) {
-    Fluttertoast.showToast(msg: error);
+    showDialog(
+      context: context,
+      builder: (_) => ErrorNotificationModal(message: error),
+    );
   }
 }
