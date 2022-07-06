@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fripo/data/app_data.dart';
 import 'package:fripo/data/mock/mock_room.dart';
 import 'package:fripo/util/ads/ads_util.dart';
@@ -15,6 +16,11 @@ bool _shouldShowIntroduction = true;
 void main() async {
   // ensureInitialized
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 画面の向きを固定
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 
   // DI注入
   final diResult = injector.init(env);
