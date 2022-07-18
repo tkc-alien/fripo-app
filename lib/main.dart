@@ -10,12 +10,19 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'injector.dart' as injector;
 
-const env = injector.Env.product;
+const env = injector.Env.develop;
 bool _shouldShowIntroduction = true;
 
 void main() async {
   // ensureInitialized
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.light, // for iOS
+      statusBarIconBrightness: Brightness.dark, // for Android
+    ),
+  );
 
   // 画面の向きを固定
   await SystemChrome.setPreferredOrientations([
