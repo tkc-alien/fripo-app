@@ -11,7 +11,7 @@ class NameField extends StatefulWidget {
 }
 
 class _NameFieldState extends State<NameField> {
-  final controller = TextEditingController();
+  final controller = TextEditingController(text: AppData.userInfo?.name ?? '');
 
   @override
   void didChangeDependencies() {
@@ -21,11 +21,11 @@ class _NameFieldState extends State<NameField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       maxLength: AppConst.userNameMaxLength,
       controller: controller,
       decoration: InputDecoration(
-        hintText: AppData.userInfo?.name,
+        hintText: AppData.userInfo?.name ?? '',
       ),
     );
   }

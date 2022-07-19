@@ -34,8 +34,11 @@ class TargetPointLabel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           const Text(
-            '目指すマッチ度',
-            style: TextStyle(fontSize: 18),
+            '目標点数',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            ),
           ),
           const VerticalDivider(width: 16),
           Center(

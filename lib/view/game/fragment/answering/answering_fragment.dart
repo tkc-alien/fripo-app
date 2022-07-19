@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fripo/view/game/fragment/common/guide_label.dart';
 import 'package:fripo/view/game/fragment/common/target_and_theme_label.dart';
 import 'package:fripo/view_model/answering_view_model.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +41,7 @@ class AnsweringFragment extends StatelessWidget {
         ),
         Divider(height: 32),
         Expanded(
-          child: Center(child: Text('子の回答待ち...')),
+          child: Center(child: GuideLabel('子の回答待ち...')),
         ),
       ],
     );
@@ -59,6 +59,10 @@ class AnsweringFragment extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
           child: Align(child: AnswerSendButton()),
+        ),
+        SizedBox(
+          height: 100,
+          child: MemberStatusList(),
         ),
       ],
     );

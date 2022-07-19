@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fripo/view/game/fragment/common/guide_label.dart';
 import 'package:fripo/view/game/fragment/theme_setting/component/example_label.dart';
 import 'package:fripo/view/game/fragment/theme_setting/component/parent_label.dart';
 import 'package:fripo/view/game/fragment/theme_setting/component/role_label.dart';
@@ -74,7 +75,7 @@ class ThemeSettingFragment extends StatelessWidget {
           child: RoleLabel(),
         ),
         ParentLabel(),
-        Expanded(child: Center(child: Text('親のお題待ち...'))),
+        Expanded(child: Center(child: GuideLabel('親のお題待ち...'))),
       ],
     );
   }
