@@ -23,7 +23,12 @@ class CopyRoomIdButton extends StatelessWidget {
   }
 
   void onPressed(BuildContext context) async {
+    final name = AppData.userInfo?.name;
     final roomId = AppData.roomId;
-    await Clipboard.setData(ClipboardData(text: roomId));
+    final text = StringBuffer('Fripo!\n');
+    if (name != null) text.write('$nameさんが');
+    text.write('ルームを作っています。参加して対戦しよう！\n');
+    text.write('ルームID：$roomId');
+    await Clipboard.setData(ClipboardData(text: text.toString()));
   }
 }
