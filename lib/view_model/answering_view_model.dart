@@ -20,10 +20,8 @@ class AnsweringViewModel with ChangeNotifier {
   Future<void> sendAnswer() async {
     final answer = getText?.call();
     if (answer == null) {
-      print('No Input Answer.');
       return;
     } else if (!canSend) {
-      print('Cannot send Answer.');
       return;
     }
 
@@ -33,9 +31,8 @@ class AnsweringViewModel with ChangeNotifier {
     final res = await _sendAnswerUseCase.call(answer: answer);
     _sendingAnswer = false;
     res.fold(
-      (failure) => print(failure),
+      (failure) {},
       (_) {
-        print('SendAnswer succeed.');
         _done = true;
       },
     );

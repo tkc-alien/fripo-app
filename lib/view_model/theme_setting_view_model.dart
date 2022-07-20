@@ -18,21 +18,18 @@ class ThemeSettingViewModel with ChangeNotifier {
 
   Future<void> sendTheme() async {
     final theme = getText?.call();
-    if (theme == null) {
-      print('No Input Theme.');
-      return;
-    }
+    if (theme == null) return;
     final res = await _sendThemeUseCase.call(theme: theme);
     res.fold(
-      (failure) => print(failure),
-      (_) => print('SendTheme succeed.'),
+      (failure) {},
+      (_) {},
     );
   }
 
   Future<void> generateRandomTheme() async {
     final res = await _getRandomThemeUseCase.call();
     res.fold(
-      (failure) => print(failure),
+      (failure) {},
       (data) => setText?.call(data),
     );
   }

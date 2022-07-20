@@ -29,7 +29,6 @@ class _GameLifeCycleObserverState extends State<GameLifeCycleObserver>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('LifeCycle did changed: $state');
     switch (state) {
       case AppLifecycleState.resumed:
         GameViewModel.read(context).notifyActive(true);

@@ -22,8 +22,8 @@ class MarkingViewModel with ChangeNotifier {
     _isSendingPoints = true;
     final res = await _sendPointsUseCase.call(points: _points);
     res.fold(
-      (failure) => print(failure),
-      (_) => print('SendPoints succeed.'),
+      (failure) {},
+      (_) {},
     );
     _isSendingPoints = false;
   }

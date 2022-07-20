@@ -29,7 +29,7 @@ class ProfileEditViewModel with ChangeNotifier {
     if (_iconImage != null) {
       final result = await _uploadImageUseCase.call(image: _iconImage!);
       result.fold(
-        (failure) => print(failure),
+        (failure) {},
         (data) => iconUrl = data,
       );
     }

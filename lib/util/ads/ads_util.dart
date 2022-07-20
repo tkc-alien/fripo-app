@@ -35,7 +35,7 @@ class AdsUtil {
     // データを解析してIDを取得
     _bannerId = platformData['bannerId'];
 
-    print('AdsUtil initialize done: bannerId = $_bannerId');
+    // print('AdsUtil initialize done: bannerId = $_bannerId');
   }
 
   static BannerAd get banner {

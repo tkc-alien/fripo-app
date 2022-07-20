@@ -66,7 +66,6 @@ class WaitingRoomViewModel with ChangeNotifier {
 
   /// RoomInfoを解決
   void _resolveRoomInfo(RoomInfo info) {
-    print('WaitingRoomVM listened roomInfo update.');
     _members = info.members.values.toList();
     _isUserHost = info.hostUserId == AppData.userId;
     defaultLifeController.sink.add(info.defaultLife ?? 100);
@@ -98,7 +97,7 @@ class WaitingRoomViewModel with ChangeNotifier {
     final res = await _cancelJoinRoomUseCase.call();
     res.fold(
       (failure) => _handleFailure(failure),
-      (_) => print('exitRoom succeed.'),
+      (_) {},
     );
     _isRequestingExitRoom = false;
   }
@@ -109,7 +108,7 @@ class WaitingRoomViewModel with ChangeNotifier {
     final res = await _startRoomUseCase.call(defaultLife: _defaultLife);
     res.fold(
       (failure) => _handleFailure(failure),
-      (_) => print('startRoom succeed.'),
+      (_) {},
     );
     _isRequestingStartRoom = false;
   }
@@ -119,7 +118,6 @@ class WaitingRoomViewModel with ChangeNotifier {
   }
 
   void _handleFailure(Failure failure) {
-    print(failure);
     errorMessageController.sink.add(failure.message);
   }
 

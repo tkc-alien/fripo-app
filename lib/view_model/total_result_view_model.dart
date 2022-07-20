@@ -19,7 +19,7 @@ class TotalResultViewModel with ChangeNotifier {
   Future<void> fetch() async {
     final res = await _getRoomDataUseCase.call();
     res.fold(
-      (failure) => print(failure),
+      (failure) {},
       (room) {
         // メンバーデータを詰め替え
         final members = room.members.entries;
@@ -45,8 +45,6 @@ class TotalResultViewModel with ChangeNotifier {
               turn.theme == null ||
               turn.answers == null ||
               turn.answers!.values.any((e) => e.point == null)) continue;
-
-          print('turnId $turnId passed null check.');
 
           // 回答データを結合して詰め替え
           final answers = <AnswerData>[];

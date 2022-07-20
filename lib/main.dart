@@ -17,6 +17,7 @@ void main() async {
   // ensureInitialized
   WidgetsFlutterBinding.ensureInitialized();
 
+  // システムのUIを上書き
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light, // for iOS
@@ -30,9 +31,7 @@ void main() async {
   ]);
 
   // DI注入
-  final diResult = injector.init(env);
-  print(
-      'DI injection for ${diResult.env.name} component: ${diResult.notRegisteredUseCaseList}');
+  injector.init(env);
 
   // 各種初期化処理
   await Future.wait([

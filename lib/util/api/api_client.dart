@@ -21,10 +21,8 @@ class ApiClient {
       final res = await _functions.httpsCallable(endPoint).call(parameters);
       return Right(res.data);
     } on FirebaseFunctionsException catch (e) {
-      print('FirebaseFunctionsException: ${e.message}, ${e.code}');
       return Left(Failure(e.message ?? 'No Content'));
     } catch (e) {
-      print('Exception(${e.runtimeType}): ${e.toString()}');
       return const Left(Failure('Unexpected Error'));
     }
   }

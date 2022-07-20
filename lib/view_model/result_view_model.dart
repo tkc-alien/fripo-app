@@ -17,7 +17,7 @@ class ResultViewModel with ChangeNotifier {
     _isRequestingNotifyReady = true;
     final res = await _notifyReadyForNextTurnUseCase.call();
     res.fold(
-      (failure) => print(failure),
+      (failure) {},
       (_) {
         _hasNotified = true;
         notifyListeners();

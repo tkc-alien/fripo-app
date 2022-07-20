@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fripo/define/app_colors.dart';
 import 'package:fripo/define/app_styles.dart';

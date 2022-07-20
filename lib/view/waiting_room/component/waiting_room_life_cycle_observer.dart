@@ -30,7 +30,6 @@ class _WaitingRoomLifeCycleObserverState
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('WaitingRoomLifeCycleObserver: state= $state}');
     switch (state) {
       case AppLifecycleState.resumed:
         WaitingRoomViewModel.read(context).notifyActive(true);
