@@ -10,7 +10,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'injector.dart' as injector;
 
-const env = injector.Env.develop;
+const env = injector.Env.product;
 bool _shouldShowIntroduction = true;
 
 void main() async {
