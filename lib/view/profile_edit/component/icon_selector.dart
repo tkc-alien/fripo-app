@@ -8,23 +8,25 @@ class IconPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final file = ProfileEditViewModel.select(context, (vm) => vm.iconFile);
+    final currentUrl = AppData.userInfo?.iconUrl;
+    final image = ProfileEditViewModel.select(context, (vm) => vm.iconImage);
 
-    final ImageProvider<Object> provider;
-    if (file != null) {
-      provider = FileImage(file);
+    final Widget child;
+    if (image != null) {
+      child = Image.memory(image);
+    } else if (currentUrl?.isNotEmpty == true) {
+      child = CachedNetworkImage(
+        imageUrl: currentUrl!,
+        placeholder: (context, url) => Ink(color: Colors.grey),
+      );
     } else {
-      provider = CachedNetworkImageProvider(AppData.userInfo?.iconUrl ?? '');
+      child = Container(color: Colors.grey);
     }
 
     return SizedBox.square(
       dimension: 80,
       child: FittedBox(
-        child: ClipOval(
-          child: Image(
-            image: provider,
-          ),
-        ),
+        child: ClipOval(child: child),
       ),
     );
   }

@@ -61,7 +61,7 @@ class AnsweringFragment extends StatelessWidget {
           child: Align(child: AnswerSendButton()),
         ),
         SizedBox(
-          height: 100,
+          height: 72,
           child: MemberStatusList(),
         ),
       ],

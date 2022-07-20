@@ -1,4 +1,6 @@
 PODS:
+  - app_review (1.0.1):
+    - Flutter
   - cloud_functions (3.3.1):
     - Firebase/Functions (= 9.2.0)
     - firebase_core
@@ -133,19 +135,19 @@ PODS:
   - GoogleUtilities/Reachability (7.7.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (2.0.0)
-  - image_cropper (0.0.4):
-    - Flutter
-    - TOCropViewController (~> 2.6.1)
-  - image_picker_ios (0.0.1):
-    - Flutter
   - leveldb-library (1.22.1)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - package_info (0.0.1):
+    - Flutter
   - path_provider_ios (0.0.1):
     - Flutter
+  - photo_manager (2.0.0):
+    - Flutter
+    - FlutterMacOS
   - PromisesObjC (2.1.1)
   - shared_preferences_ios (0.0.1):
     - Flutter
@@ -153,13 +155,13 @@ PODS:
     - Flutter
     - FMDB (>= 2.7.5)
   - Toast (4.0.0)
-  - TOCropViewController (2.6.1)
   - url_launcher_ios (0.0.1):
     - Flutter
   - webview_flutter_wkwebview (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - app_review (from `.symlinks/plugins/app_review/ios`)
   - cloud_functions (from `.symlinks/plugins/cloud_functions/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -169,9 +171,9 @@ DEPENDENCIES:
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
-  - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
-  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
@@ -204,9 +206,10 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - Toast
-    - TOCropViewController
 
 EXTERNAL SOURCES:
+  app_review:
+    :path: ".symlinks/plugins/app_review/ios"
   cloud_functions:
     :path: ".symlinks/plugins/cloud_functions/ios"
   firebase_auth:
@@ -225,12 +228,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluttertoast/ios"
   google_mobile_ads:
     :path: ".symlinks/plugins/google_mobile_ads/ios"
-  image_cropper:
-    :path: ".symlinks/plugins/image_cropper/ios"
-  image_picker_ios:
-    :path: ".symlinks/plugins/image_picker_ios/ios"
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
   path_provider_ios:
     :path: ".symlinks/plugins/path_provider_ios/ios"
+  photo_manager:
+    :path: ".symlinks/plugins/photo_manager/ios"
   shared_preferences_ios:
     :path: ".symlinks/plugins/shared_preferences_ios/ios"
   sqflite:
@@ -241,6 +244,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
+  app_review: 6f51001269c59a2f4a5b5ae68b7d106401152764
   cloud_functions: 9b4ffae577de4855d60d9e61cd7ec0896d27b919
   Firebase: 4ba896cb8e5105d4b9e247e1c1b6222b548df55a
   firebase_auth: 1093e604044edc89df1e9119daeb82a5b0ef5fac
@@ -271,16 +275,15 @@ SPEC CHECKSUMS:
   GoogleUserMessagingPlatform: ab890ce5f6620f293a21b6bdd82e416a2c73aeca
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   GTMSessionFetcher: 681175626052e03fdde7952f7e9c7a9785719506
-  image_cropper: 60c2789d1f1a78c873235d4319ca0c34a69f2d98
-  image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
 

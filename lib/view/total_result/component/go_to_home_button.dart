@@ -1,5 +1,5 @@
+import 'package:app_review/app_review.dart';
 import 'package:flutter/material.dart';
-import 'package:fripo/view/review_request/review_request_modal.dart';
 
 class GoToHomeButton extends StatefulWidget {
   const GoToHomeButton({Key? key}) : super(key: key);
@@ -18,10 +18,7 @@ class _GoToHomeButtonState extends State<GoToHomeButton> {
   }
 
   void onPressed(BuildContext context) async {
-    await showDialog(
-      context: context,
-      builder: (_) => const ReviewRequestModal(),
-    );
+    await AppReview.requestReview;
     if (!mounted) return;
     Navigator.popUntil(context, (route) => route.isFirst);
   }

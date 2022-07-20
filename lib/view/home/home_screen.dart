@@ -80,7 +80,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       alignment: Alignment.topLeft,
                       child: GoToProfileEditButton(),
                     ),
-                    const Expanded(flex: 2, child: LogoWidget()),
+                    const Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 48),
+                        child: LogoWidget(),
+                      ),
+                    ),
                     const AnyLabel(),
                     const Divider(height: 16),
                     const Align(child: OpenHowToPlayButton()),

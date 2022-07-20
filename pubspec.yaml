@@ -19,8 +19,8 @@ dependencies:
 
   # Repository
   shared_preferences:
-  image_picker:
-  image_cropper: 
+  photo_manager:
+  crop_your_image: 
 
   # Firebase
   firebase_core:
@@ -36,6 +36,7 @@ dependencies:
   url_launcher:
   webview_flutter:
   loading_animation_widget:
+  app_review:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
@@ -58,6 +59,7 @@ flutter:
   assets:
     - assets/image/fripo_touch.png
     - assets/image/bubble.png
+    - assets/image/
     - assets/json/theme_list.json
     - assets/protected/admob.json
 

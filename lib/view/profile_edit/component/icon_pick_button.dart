@@ -1,8 +1,18 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
-class IconPickButton extends StatelessWidget {
+import '../../../view_model/profile_edit_view_model.dart';
+import '../../image_pick/image_pick_modal.dart';
+
+class IconPickButton extends StatefulWidget {
   const IconPickButton({Key? key}) : super(key: key);
 
+  @override
+  State<IconPickButton> createState() => _IconPickButtonState();
+}
+
+class _IconPickButtonState extends State<IconPickButton> {
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
@@ -12,26 +22,17 @@ class IconPickButton extends StatelessWidget {
     );
   }
 
-  void onPressed(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text('テストプレイ版ではプロフィール画像の変更ができません。'),
-              const Divider(height: 12),
-              ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      },
+  void onPressed(BuildContext context) async {
+    final picked = await Navigator.push<Uint8List>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const ImageCropModal(),
+        fullscreenDialog: true,
+      ),
     );
 
-    // ProfileEditViewModel.read(context).selectIconImage();
+    if (picked == null || !mounted) return;
+
+    ProfileEditViewModel.read(context).setIconImage(picked);
   }
 }

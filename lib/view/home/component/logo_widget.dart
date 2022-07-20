@@ -5,15 +5,8 @@ class LogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Fripo',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 80,
-          color: Colors.grey,
-        ),
-      ),
+    return Center(
+      child: Image.asset('assets/image/logo.png'),
     );
   }
 }

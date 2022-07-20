@@ -18,7 +18,6 @@ import 'package:fripo/domain/use_case/update_default_life_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 import 'domain/interactor/create_room_interactor.dart';
-import 'domain/interactor/crop_image_interactor.dart';
 import 'domain/interactor/end_turn_interactor.dart';
 import 'domain/interactor/exit_room_interactor.dart';
 import 'domain/interactor/get_random_theme_interactor.dart';
@@ -40,14 +39,12 @@ import 'domain/interactor/mock/mock_send_theme_interactor.dart';
 import 'domain/interactor/mock/mock_start_room_interactor.dart';
 import 'domain/interactor/mock/mock_update_profile_interactor.dart';
 import 'domain/interactor/mock/mock_upload_image_interactor.dart';
-import 'domain/interactor/pick_image_interactor.dart';
 import 'domain/interactor/register_user_interactor.dart';
 import 'domain/interactor/send_answer_interactor.dart';
 import 'domain/interactor/send_points_interactor.dart';
 import 'domain/interactor/send_theme_interactor.dart';
 import 'domain/interactor/start_room_interactor.dart';
 import 'domain/use_case/create_room_use_case.dart';
-import 'domain/use_case/crop_image_use_case.dart';
 import 'domain/use_case/end_turn_use_case.dart';
 import 'domain/use_case/exit_room_use_case.dart';
 import 'domain/use_case/get_random_theme_use_case.dart';
@@ -55,7 +52,6 @@ import 'domain/use_case/get_room_data_use_case.dart';
 import 'domain/use_case/get_room_stream_use_case.dart';
 import 'domain/use_case/get_user_data_use_case.dart';
 import 'domain/use_case/join_room_use_case.dart';
-import 'domain/use_case/pick_image_use_case.dart';
 import 'domain/use_case/register_user_use_case.dart';
 import 'domain/use_case/send_answer_use_case.dart';
 import 'domain/use_case/send_points_use_case.dart';
@@ -229,18 +225,6 @@ Result init([Env env = Env.develop]) {
     product: NotifyReadyForNextTurnInteractor(),
     develop: NotifyReadyForNextTurnInteractor(),
     mock: null,
-  );
-
-  register<PickImageUseCase>(
-    product: PickImageInteractor(),
-    develop: PickImageInteractor(),
-    mock: PickImageInteractor(),
-  );
-
-  register<CropImageUseCase>(
-    product: CropImageInteractor(),
-    develop: CropImageInteractor(),
-    mock: CropImageInteractor(),
   );
 
   register<UploadImageUseCase>(

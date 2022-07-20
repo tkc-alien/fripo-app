@@ -33,12 +33,24 @@ class TargetPointLabel extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          const Text(
-            '目標点数',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-            ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              Text(
+                '親にはナイショの',
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                '目標点数',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+            ],
           ),
           const VerticalDivider(width: 16),
           Center(
