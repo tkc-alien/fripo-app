@@ -15,10 +15,8 @@ dependencies:
   dartz:
   get_it:
   provider:
-  freezed_annotation:
 
   # Repository
-  shared_preferences:
   photo_manager:
   crop_your_image: 
 
@@ -32,8 +30,6 @@ dependencies:
   # View
   cached_network_image:
   google_mobile_ads:
-  fluttertoast:
-  url_launcher:
   webview_flutter:
   loading_animation_widget:
   app_review:
@@ -45,10 +41,6 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
-  build_runner:
-  freezed:
-  json_serializable:
-
   flutter_native_splash:
   flutter_launcher_icons:
 
@@ -59,6 +51,7 @@ flutter:
   assets:
     - assets/image/fripo_touch.png
     - assets/image/bubble.png
+    - assets/image/logo.png
     - assets/image/
     - assets/json/theme_list.json
     - assets/protected/admob.json

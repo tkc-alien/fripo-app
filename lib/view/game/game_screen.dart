@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fripo/domain/enum/room_state.dart';
 import 'package:fripo/util/ads/ads_util.dart';
 import 'package:fripo/view/app_common/provider_initializer.dart';
@@ -136,7 +135,10 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void showError(String error) {
-    Fluttertoast.showToast(msg: error);
+    showDialog(
+      context: context,
+      builder: (_) => ErrorNotificationModal(message: error),
+    );
   }
 
   void pushToTotalResult(BuildContext context, RoomState state) async {
